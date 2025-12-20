@@ -1,0 +1,51 @@
+:root{
+  --bg:#0b0b0b;
+  --gold:#d6b36a;
+  --muted:#b9a56a;
+  --soft:#1a1a1a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--gold);
+  font-family: "Georgia", serif;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:28px 56px;
+  font-size:12px;
+  letter-spacing:.12em;
+}
+
+header a{
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:28px;
+}
+
+main{
+  min-height:calc(100vh - 160px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.card{
+  background:transparent;
+  border:1px solid var(--muted);
+  padding:48px 56px;
+  max-width:520px;
+}
+
+h1{
+  margin:0 0 10px 0;
+  font-size:34px;
+  l
