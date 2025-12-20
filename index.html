@@ -1,34 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Stevanović Jewelry Atelier · Partner Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
 <header>
-  <div>ZLATARA STEVANOVIĆ</div>
+  <div class="brand">
+    STEVANOVIĆ<br>
+    <span>JEWELRY ATELIER</span>
+  </div>
+
   <nav>
-    <a href="#">O NAMA</a>
-    <a href="#">ZANAT</a>
-    <a href="#">KONTAKT</a>
+    <a href="#">Company</a>
+    <a href="#">Craftsmanship</a>
+    <a href="#">B2B</a>
+    <a href="#">Contact</a>
   </nav>
 </header>
 
-<main>
+<main class="layout">
 
-  <div class="form">
-    <input type="text" placeholder="Korisničko ime" disabled />
-    <input type="password" placeholder="Lozinka" disabled />
-    <button disabled>Prijava</button>
-  </div>
+  <!-- LEFT: BUSINESS MESSAGE -->
+  <section class="content">
+    <h1>Private B2B Access</h1>
 
-  <h1>ZLATARA STEVANOVIĆ</h1>
+    <p>
+      Stevanović Jewelry Atelier is a family-owned manufacturer of fine
+      jewelry, operating since 1994.
+      <br><br>
+      Access to catalogs, pricing structures, and production capabilities
+      is reserved exclusively for approved business partners.
+    </p>
 
-  <p>
-    Porodična zlatara sa tradicijom ručne izrade.
-    Pristup kolekcijama namenjen je isključivo
-    odabranim klijentima.
-  </p>
+    <ul>
+      <li>Wholesale & Distribution</li>
+      <li>Private Label Production</li>
+      <li>Bespoke Manufacturing</li>
+      <li>Long-term Partnerships</li>
+    </ul>
 
-  <a class="request" href="request.html">
-    ZAHTEV ZA PRIVATNI PRISTUP
-  </a>
+    <a class="request" href="request.html">
+      Request Partner Access
+    </a>
+  </section>
+
+  <!-- RIGHT: LOGIN -->
+  <aside class="access">
+    <h2>Partner Login</h2>
+
+    <div class="form">
+      <input type="text" placeholder="Partner ID" disabled />
+      <input type="password" placeholder="Access Key" disabled />
+      <button disabled>Enter</button>
+    </div>
+
+    <p class="note">
+      Access credentials are issued individually.
+    </p>
+  </aside>
 
 </main>
 
 <footer>
-  Ručna izrada · Diskrecija · Od 1994.
+  Stevanović Jewelry Atelier · Handcrafted Fine Jewelry · Since 1994
 </footer>
+
+</body>
+</html>
