@@ -1,8 +1,8 @@
 :root{
-  --bg:#0b0b0b;
-  --gold:#d6b36a;
-  --muted:#b9a56a;
-  --soft:#1a1a1a;
+  --bg:#0a0a0a;
+  --gold:#cbb57a;
+  --gold-soft:#9f8f61;
+  --line:rgba(203,181,122,0.35);
 }
 
 *{box-sizing:border-box}
@@ -10,42 +10,118 @@ html,body{height:100%}
 
 body{
   margin:0;
-  background:var(--bg);
+  background:radial-gradient(1200px 600px at 50% -200px, #141414 0%, #0a0a0a 60%);
   color:var(--gold);
   font-family: "Georgia", serif;
 }
+
+/* HEADER */
 
 header{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:28px 56px;
-  font-size:12px;
-  letter-spacing:.12em;
+  padding:34px 64px;
+  font-size:11px;
+  letter-spacing:.22em;
+}
+
+header div{
+  font-weight:400;
 }
 
 header a{
-  color:var(--muted);
+  color:var(--gold-soft);
   text-decoration:none;
-  margin-left:28px;
+  margin-left:40px;
 }
+
+/* MAIN LAYOUT */
 
 main{
   min-height:calc(100vh - 160px);
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
+  padding-top:110px;
   text-align:center;
 }
 
+/* CARD – VERY SUBTLE */
+
 .card{
-  background:transparent;
-  border:1px solid var(--muted);
-  padding:48px 56px;
-  max-width:520px;
+  border-top:1px solid var(--line);
+  padding-top:48px;
+  max-width:420px;
 }
 
+/* TYPOGRAPHY */
+
 h1{
-  margin:0 0 10px 0;
-  font-size:34px;
-  l
+  margin:0 0 14px 0;
+  font-size:28px;
+  letter-spacing:.14em;
+  font-weight:400;
+}
+
+p{
+  margin:0 0 42px 0;
+  font-size:12px;
+  line-height:1.8;
+  color:var(--gold-soft);
+}
+
+/* LOGIN – SMALL, DISCREET */
+
+.form{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:36px;
+}
+
+input{
+  width:140px;
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--line);
+  padding:8px 4px;
+  color:var(--gold);
+  font-size:11px;
+}
+
+input::placeholder{
+  color:rgba(203,181,122,0.5);
+}
+
+button{
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--line);
+  padding:8px 10px;
+  font-size:11px;
+  color:var(--gold-soft);
+  cursor:default;
+}
+
+/* REQUEST LINK */
+
+a.request{
+  display:inline-block;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--gold);
+  text-decoration:none;
+  padding-bottom:4px;
+  border-bottom:1px solid var(--line);
+}
+
+/* FOOTER */
+
+footer{
+  text-align:center;
+  padding:32px 0 40px;
+  font-size:10px;
+  letter-spacing:.16em;
+  color:rgba(203,181,122,0.55);
+}
