@@ -875,6 +875,369 @@
     .mobile-buy strong{font-size:12px;white-space:nowrap}
     .mobile-buy .btn{flex:1}
 
+
+    /* NAPREDNI VODIČ ZA VELIČINE */
+    .size-guide{
+      position:fixed;
+      z-index:110;
+      inset:0;
+      background:rgba(8,5,5,.74);
+      backdrop-filter:blur(12px);
+      display:none;
+      place-items:center;
+      padding:24px;
+    }
+    .size-guide.open{display:grid}
+    .size-guide-shell{
+      width:min(1180px,100%);
+      max-height:92vh;
+      overflow:auto;
+      background:var(--paper);
+      box-shadow:0 55px 170px rgba(0,0,0,.42);
+      position:relative;
+    }
+    .size-guide-top{
+      background:linear-gradient(135deg,#090706,#26090f);
+      color:white;
+      padding:44px 52px 34px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:30px;
+      align-items:start;
+    }
+    .size-guide-top h2{
+      font-family:var(--serif);
+      font-size:clamp(44px,5vw,72px);
+      font-weight:400;
+      line-height:.95;
+      margin:0 0 14px;
+    }
+    .size-guide-top p{
+      max-width:700px;
+      color:#cfc5ba;
+      line-height:1.75;
+      margin:0;
+      font-size:13px;
+    }
+    .size-guide-close{
+      width:42px;height:42px;
+      border:1px solid rgba(255,255,255,.28);
+      background:transparent;color:white;
+      border-radius:50%;
+      font-size:21px;
+    }
+    .size-tabs{
+      display:flex;
+      gap:0;
+      border-bottom:1px solid var(--line);
+      background:var(--ivory);
+      position:sticky;
+      top:0;
+      z-index:3;
+    }
+    .size-tab{
+      flex:1;
+      min-height:58px;
+      border:0;
+      border-right:1px solid var(--line);
+      background:transparent;
+      font-size:10px;
+      letter-spacing:.15em;
+      font-weight:700;
+      color:#6f655c;
+    }
+    .size-tab:last-child{border-right:0}
+    .size-tab.active{background:var(--oxblood);color:white}
+    .size-panel{display:none;padding:46px 52px 54px}
+    .size-panel.active{display:block}
+    .guide-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:44px;
+      align-items:start;
+    }
+    .guide-card{
+      border:1px solid var(--line);
+      background:white;
+      padding:28px;
+    }
+    .guide-card.dark{
+      background:linear-gradient(145deg,#0a0706,#22090d);
+      color:white;
+      border-color:rgba(197,166,106,.22);
+    }
+    .guide-card h3{
+      font-family:var(--serif);
+      font-size:31px;
+      font-weight:400;
+      margin:0 0 12px;
+    }
+    .guide-card p{
+      color:var(--muted);
+      line-height:1.7;
+      font-size:12px;
+      margin:0 0 22px;
+    }
+    .guide-card.dark p{color:#c6bbb0}
+    .measure-choice{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-bottom:20px;
+    }
+    .measure-choice button{
+      border:1px solid #d8d0c4;
+      background:var(--paper);
+      padding:13px 10px;
+      font-size:10px;
+      letter-spacing:.08em;
+    }
+    .measure-choice button.active{
+      background:var(--oxblood);
+      color:white;
+      border-color:var(--oxblood);
+    }
+    .measure-input{
+      display:grid;
+      grid-template-columns:1fr 92px;
+      gap:10px;
+      align-items:end;
+    }
+    .measure-input label{
+      display:grid;
+      gap:7px;
+      font-size:10px;
+      letter-spacing:.08em;
+      color:#6c625a;
+    }
+    .measure-input input{
+      width:100%;
+      border:1px solid #d7d0c5;
+      background:white;
+      min-height:48px;
+      padding:0 14px;
+      font-size:18px;
+      font-family:var(--serif);
+      outline:none;
+    }
+    .measure-input input:focus{border-color:var(--wine)}
+    .unit-box{
+      min-height:48px;
+      border:1px solid #d7d0c5;
+      display:grid;
+      place-items:center;
+      font-size:11px;
+      color:#766b61;
+      background:var(--ivory);
+    }
+    .size-result{
+      margin-top:24px;
+      padding:24px;
+      background:linear-gradient(135deg,#180609,#340d14);
+      color:white;
+      position:relative;
+      overflow:hidden;
+    }
+    .size-result:after{
+      content:"";
+      position:absolute;
+      width:180px;height:180px;
+      border:1px solid rgba(197,166,106,.24);
+      border-radius:50%;
+      right:-50px;top:-72px;
+    }
+    .size-result .result-label{
+      font-size:9px;
+      letter-spacing:.18em;
+      color:var(--champ-soft);
+      margin-bottom:8px;
+    }
+    .size-result .result-main{
+      font-family:var(--serif);
+      font-size:48px;
+      line-height:1;
+      margin-bottom:8px;
+    }
+    .size-result .result-sub{
+      color:#cfc5ba;
+      font-size:11px;
+      line-height:1.6;
+      max-width:560px;
+    }
+    .micro-steps{
+      display:grid;
+      gap:14px;
+      counter-reset:steps;
+    }
+    .micro-step{
+      display:grid;
+      grid-template-columns:34px 1fr;
+      gap:12px;
+      align-items:start;
+    }
+    .micro-step:before{
+      counter-increment:steps;
+      content:counter(steps);
+      width:30px;height:30px;
+      border:1px solid var(--champ);
+      color:var(--champ);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:10px;
+    }
+    .micro-step strong{display:block;font-size:11px;margin-bottom:4px}
+    .micro-step span{font-size:11px;color:var(--muted);line-height:1.55}
+    .guide-card.dark .micro-step span{color:#beb3aa}
+    .ring-visual{
+      height:250px;
+      display:grid;
+      place-items:center;
+      position:relative;
+      margin-top:10px;
+    }
+    .ring-circle{
+      width:150px;height:150px;
+      border:2px solid var(--champ);
+      border-radius:50%;
+      box-shadow:0 0 50px rgba(197,166,106,.14),inset 0 0 34px rgba(197,166,106,.05);
+      transition:transform .4s ease;
+    }
+    .ring-measure-line{
+      position:absolute;
+      width:150px;
+      height:1px;
+      background:rgba(255,255,255,.72);
+      top:50%;
+    }
+    .ring-measure-line:before,.ring-measure-line:after{
+      content:"";
+      position:absolute;
+      width:1px;height:9px;
+      background:rgba(255,255,255,.72);
+      top:-4px;
+    }
+    .ring-measure-line:before{left:0}
+    .ring-measure-line:after{right:0}
+    .ring-caption{
+      position:absolute;
+      bottom:22px;
+      font-size:9px;
+      letter-spacing:.13em;
+      color:#c7bdb2;
+    }
+    .size-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:20px;
+      font-size:11px;
+    }
+    .size-table th,.size-table td{
+      text-align:left;
+      padding:10px 8px;
+      border-bottom:1px solid var(--line);
+    }
+    .size-table th{
+      font-size:9px;
+      letter-spacing:.12em;
+      color:#807368;
+      font-weight:700;
+    }
+    .necklace-stage{
+      min-height:370px;
+      position:relative;
+      display:grid;
+      place-items:start center;
+      padding-top:30px;
+      overflow:hidden;
+    }
+    .neck-shape{
+      width:210px;
+      height:285px;
+      border-left:1px solid rgba(197,166,106,.42);
+      border-right:1px solid rgba(197,166,106,.42);
+      border-bottom:1px solid rgba(197,166,106,.16);
+      border-radius:42% 42% 48% 48%;
+      position:relative;
+    }
+    .necklace-line{
+      position:absolute;
+      left:50%;
+      top:72px;
+      transform:translateX(-50%);
+      width:145px;
+      height:80px;
+      border-left:2px solid var(--champ);
+      border-right:2px solid var(--champ);
+      border-bottom:2px solid var(--champ);
+      border-radius:0 0 55% 55%;
+      transition:height .35s ease,width .35s ease;
+    }
+    .necklace-line:after{
+      content:"";
+      position:absolute;
+      width:8px;height:8px;
+      border-radius:50%;
+      background:var(--champ);
+      left:50%;bottom:-5px;
+      transform:translateX(-50%);
+      box-shadow:0 0 16px rgba(197,166,106,.45);
+    }
+    .length-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:18px 0 20px;
+    }
+    .length-buttons button,.fit-buttons button{
+      border:1px solid #d8d0c4;
+      background:white;
+      padding:10px 13px;
+      font-size:10px;
+    }
+    .length-buttons button.active,.fit-buttons button.active{
+      background:var(--oxblood);
+      color:white;
+      border-color:var(--oxblood);
+    }
+    .fit-buttons{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin:16px 0;
+    }
+    .saved-size{
+      margin-top:16px;
+      padding:12px 14px;
+      border-left:2px solid var(--champ);
+      background:#f6f1e8;
+      font-size:11px;
+      color:#685e55;
+      display:none;
+    }
+    .saved-size.show{display:block}
+    .guide-help{
+      margin-top:28px;
+      padding-top:22px;
+      border-top:1px solid var(--line);
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .guide-help p{margin:0;color:var(--muted);font-size:11px;line-height:1.6;max-width:650px}
+    .footer-link{
+      border:0;
+      padding:0;
+      background:transparent;
+      color:#c6c0b8;
+      font-size:12px;
+      text-align:left;
+      width:max-content;
+    }
+    .footer-link:hover{color:white}
+
     /* CHECKOUT */
     .checkout{
       position:fixed;z-index:100;inset:0;
@@ -994,6 +1357,16 @@
       .mobile-buy.show{display:flex}
       .checkout-form,.checkout-summary{padding:70px 20px}
       .two{grid-template-columns:1fr}
+      .size-guide{padding:0}
+      .size-guide-shell{width:100%;height:100vh;max-height:none}
+      .size-guide-top{padding:34px 20px 24px}
+      .size-guide-top h2{font-size:42px}
+      .size-tabs{overflow:auto}
+      .size-tab{min-width:125px}
+      .size-panel{padding:28px 18px 40px}
+      .guide-grid{grid-template-columns:1fr;gap:16px}
+      .measure-input{grid-template-columns:1fr 70px}
+      .guide-help{align-items:flex-start}
       .cursor-glow{display:none}
     }
   </style>
@@ -1173,10 +1546,10 @@
 
     <div class="campaign-copy reveal">
       <div class="eyebrow light">NAKIT KOJI OSTAJE</div>
-      <div class="mask-line"><span><h2>Nakit koji postaje<br>deo vaše priče.</h2></span></div>
+      <div class="mask-line"><span><h2>Nakit koji ostaje<br>u porodici.</h2></span></div>
       <p>
-        Odabran sa pažnjom. Nošen godinama. Čuvan generacijama.
-        Komadi koji prate vaše najvažnije trenutke i ostaju deo porodične priče.
+        Birano sa pažnjom. Čuvano sa razlogom. Prenošeno kroz generacije.
+        Komadi koji prate najvažnije porodične trenutke i vremenom postaju deo porodičnog nasleđa.
       </p>
       <a class="btn btn-light magnetic" href="#shop">POGLEDAJTE IZBOR</a>
       <div class="campaign-step">ZLATARA STEVANOVIĆ · OD 1994.</div>
@@ -1275,7 +1648,7 @@
     <div>
       <h4>POMOĆ PRI KUPOVINI</h4>
       <span>Dostava i povraćaj</span>
-      <span>Vodič za veličine</span>
+      <button class="footer-link" onclick="openSizeGuide('ring')">Vodič za veličine</button>
       <span>Uslovi kupovine</span>
       <span>Politika privatnosti</span>
     </div>
@@ -1329,6 +1702,10 @@
         <span>✓ Fizička zlatara u Nišu</span>
         <span>✓ Tradicija od 1994.</span>
       </div>
+
+      <button class="text-link" style="margin-top:18px;background:none;border-top:0;border-left:0;border-right:0" onclick="openSizeGuideForProduct()">
+        NISTE SIGURNI U VELIČINU? OTVORITE VODIČ →
+      </button>
     </div>
   </div>
 </div>
@@ -1336,6 +1713,213 @@
 <div class="mobile-buy" id="mobileBuy">
   <strong id="mobileBuyPrice"></strong>
   <button class="btn btn-gold" id="mobileBuyButton">DODAJ U KORPU</button>
+</div>
+
+
+<div class="size-guide" id="sizeGuide">
+  <div class="size-guide-shell">
+    <div class="size-guide-top">
+      <div>
+        <div class="eyebrow light">VODIČ ZA VELIČINE</div>
+        <h2>Prava mera, bez nagađanja.</h2>
+        <p>
+          Izaberite vrstu nakita i unesite jednu jednostavnu meru.
+          Vodič daje orijentacionu preporuku, a za konačnu proveru možete nam poslati meru ili fotografiju na WhatsApp.
+        </p>
+      </div>
+      <button class="size-guide-close" onclick="closeSizeGuide()" aria-label="Zatvori">×</button>
+    </div>
+
+    <div class="size-tabs">
+      <button class="size-tab active" data-size-tab="ring" onclick="showSizeTab('ring')">PRSTENJE</button>
+      <button class="size-tab" data-size-tab="necklace" onclick="showSizeTab('necklace')">OGRLICE</button>
+      <button class="size-tab" data-size-tab="bracelet" onclick="showSizeTab('bracelet')">NARUKVICE</button>
+    </div>
+
+    <div class="size-panel active" data-size-panel="ring">
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="eyebrow">NAJPRECIZNIJE KOD KUĆE</div>
+          <h3>Pronađite veličinu prstena</h3>
+          <p>Najbolji rezultat dobijate ako izmerite prsten koji već savršeno odgovara istom prstu.</p>
+
+          <div class="measure-choice">
+            <button id="diameterChoice" class="active" onclick="setRingMethod('diameter')">Imam prsten</button>
+            <button id="circChoice" onclick="setRingMethod('circumference')">Merim prst</button>
+          </div>
+
+          <div class="measure-input">
+            <label>
+              <span id="ringInputLabel">Unutrašnji prečnik prstena</span>
+              <input id="ringMeasure" type="number" min="13" max="24" step="0.1" placeholder="npr. 17.2" oninput="calculateRingSize()">
+            </label>
+            <div class="unit-box" id="ringUnit">mm</div>
+          </div>
+
+          <div class="size-result" id="ringResult">
+            <div class="result-label">ORIJENTACIONA VELIČINA</div>
+            <div class="result-main">—</div>
+            <div class="result-sub">Unesite meru iznad. EU veličina prstena približno odgovara unutrašnjem obimu u milimetrima.</div>
+          </div>
+
+          <div class="saved-size" id="savedRingSize"></div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+            <button class="btn btn-burgundy" onclick="saveRingSize()">SAČUVAJ MOJU VELIČINU</button>
+            <button class="btn" style="border-color:var(--line);background:white" onclick="resetRingSize()">OBRIŠI</button>
+          </div>
+        </div>
+
+        <div class="guide-card dark">
+          <div class="eyebrow light">KAKO MERITI</div>
+          <h3>Dve pouzdane metode</h3>
+
+          <div class="micro-steps">
+            <div class="micro-step">
+              <div>
+                <strong>Ako već imate prsten</strong>
+                <span>Izmerite unutrašnji prečnik od jedne do druge unutrašnje ivice, kroz sam centar prstena.</span>
+              </div>
+            </div>
+            <div class="micro-step">
+              <div>
+                <strong>Ako merite prst</strong>
+                <span>Obavijte tanku traku papira oko dela prsta gde će stajati prsten, bez stezanja. Izmerite dužinu trake u milimetrima.</span>
+              </div>
+            </div>
+            <div class="micro-step">
+              <div>
+                <strong>Merite u pravo vreme</strong>
+                <span>Prsti mogu biti uži kada je hladno i širi na toploti. Merite pri normalnoj sobnoj temperaturi, najbolje pred kraj dana.</span>
+              </div>
+            </div>
+            <div class="micro-step">
+              <div>
+                <strong>Šira alka traži malo više prostora</strong>
+                <span>Kod veoma širokih modela može prijati nešto komotnija veličina. Ako ste između dve mere, javite nam se pre porudžbine.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ring-visual">
+            <div class="ring-circle" id="ringCircle"></div>
+            <div class="ring-measure-line"></div>
+            <div class="ring-caption" id="ringCaption">UNUTRAŠNJI PREČNIK</div>
+          </div>
+        </div>
+      </div>
+
+      <table class="size-table">
+        <thead>
+          <tr><th>Unutrašnji prečnik</th><th>Približan obim</th><th>EU veličina</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>15.3 mm</td><td>48 mm</td><td>48</td></tr>
+          <tr><td>15.9 mm</td><td>50 mm</td><td>50</td></tr>
+          <tr><td>16.6 mm</td><td>52 mm</td><td>52</td></tr>
+          <tr><td>17.2 mm</td><td>54 mm</td><td>54</td></tr>
+          <tr><td>17.8 mm</td><td>56 mm</td><td>56</td></tr>
+          <tr><td>18.5 mm</td><td>58 mm</td><td>58</td></tr>
+          <tr><td>19.1 mm</td><td>60 mm</td><td>60</td></tr>
+          <tr><td>19.7 mm</td><td>62 mm</td><td>62</td></tr>
+        </tbody>
+      </table>
+
+      <div class="guide-help">
+        <p>Ne želite da rizikujete? Pošaljite nam fotografiju prstena uz lenjir ili meru unutrašnjeg prečnika. Proverićemo je pre porudžbine.</p>
+        <a class="btn btn-gold" href="https://wa.me/381692131555?text=Zdravo%2C%20treba%20mi%20pomo%C4%87%20oko%20veli%C4%8Dine%20prstena." target="_blank" rel="noreferrer">POŠALJITE MERU NA WHATSAPP</a>
+      </div>
+    </div>
+
+    <div class="size-panel" data-size-panel="necklace">
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="eyebrow">DUŽINA OGRLICE</div>
+          <h3>Gde želite da ogrlica pada?</h3>
+          <p>Izaberite dužinu i odmah pogledajte približan položaj. Položaj zavisi od građe vrata, visine i samog modela ogrlice.</p>
+
+          <div class="length-buttons" id="lengthButtons">
+            <button onclick="setNecklaceLength(38)">38 cm</button>
+            <button onclick="setNecklaceLength(40)">40 cm</button>
+            <button onclick="setNecklaceLength(42)">42 cm</button>
+            <button class="active" onclick="setNecklaceLength(45)">45 cm</button>
+            <button onclick="setNecklaceLength(50)">50 cm</button>
+            <button onclick="setNecklaceLength(55)">55 cm</button>
+            <button onclick="setNecklaceLength(60)">60 cm</button>
+          </div>
+
+          <div class="size-result">
+            <div class="result-label">IZABRANA DUŽINA</div>
+            <div class="result-main" id="necklaceResultMain">45 cm</div>
+            <div class="result-sub" id="necklaceResultText">Klasična dužina koja najčešće pada oko gornjeg dela dekoltea i lako se kombinuje.</div>
+          </div>
+        </div>
+
+        <div class="guide-card dark">
+          <div class="eyebrow light">VIZUELNI VODIČ</div>
+          <h3>Položaj na vratu</h3>
+          <div class="necklace-stage">
+            <div class="neck-shape">
+              <div class="necklace-line" id="necklaceLine"></div>
+            </div>
+          </div>
+          <p>Prikaz je stilizovan i služi kao orijentacija. Tačan položaj zavisi od proporcija tela i konstrukcije konkretnog modela.</p>
+        </div>
+      </div>
+
+      <div class="guide-help">
+        <p>Ako kupujete poklon i niste sigurni, 42–45 cm je čest izbor za kraće klasične ogrlice. Kod modela sa specifičnom konstrukcijom pratite mere na stranici proizvoda.</p>
+        <a class="btn btn-gold" href="https://wa.me/381692131555?text=Zdravo%2C%20treba%20mi%20pomo%C4%87%20oko%20du%C5%BEine%20ogrlice." target="_blank" rel="noreferrer">PITAJTE NAS</a>
+      </div>
+    </div>
+
+    <div class="size-panel" data-size-panel="bracelet">
+      <div class="guide-grid">
+        <div class="guide-card">
+          <div class="eyebrow">VELIČINA NARUKVICE</div>
+          <h3>Od zgloba do preporuke</h3>
+          <p>Izmerite obim zgloba krojačkim metrom, bez stezanja, a zatim izaberite kako volite da narukvica stoji.</p>
+
+          <div class="measure-input">
+            <label>
+              Obim zgloba
+              <input id="wristMeasure" type="number" min="12" max="25" step="0.1" placeholder="npr. 16.0" oninput="calculateBracelet()">
+            </label>
+            <div class="unit-box">cm</div>
+          </div>
+
+          <div class="fit-buttons">
+            <button data-fit="close" onclick="setBraceletFit('close')">Uz zglob</button>
+            <button class="active" data-fit="classic" onclick="setBraceletFit('classic')">Klasično</button>
+            <button data-fit="relaxed" onclick="setBraceletFit('relaxed')">Opuštenije</button>
+          </div>
+
+          <div class="size-result">
+            <div class="result-label">POČETNA PREPORUKA</div>
+            <div class="result-main" id="braceletResultMain">—</div>
+            <div class="result-sub" id="braceletResultText">Unesite obim zgloba i izaberite željeni osećaj pri nošenju.</div>
+          </div>
+        </div>
+
+        <div class="guide-card dark">
+          <div class="eyebrow light">KAKO MERITI</div>
+          <h3>Za manje od jednog minuta</h3>
+
+          <div class="micro-steps">
+            <div class="micro-step"><div><strong>Postavite metar</strong><span>Obavijte ga oko zgloba tamo gde narukvica prirodno stoji.</span></div></div>
+            <div class="micro-step"><div><strong>Bez stezanja</strong><span>Metar treba da naleže na kožu, ali ne da je useca.</span></div></div>
+            <div class="micro-step"><div><strong>Izaberite osećaj</strong><span>Uz zglob daje uredniji izgled, klasično ostavlja malo prostora, a opuštenije više pokreta.</span></div></div>
+            <div class="micro-step"><div><strong>Proverite tip modela</strong><span>Krute narukvice i specifične kopče mogu imati drugačiji sistem veličina od lančanih narukvica.</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guide-help">
+        <p>Za krute narukvice ili modele kod kojih je važan otvor šake, pošaljite nam fotografiju proizvoda koji birate i svoju meru zgloba.</p>
+        <a class="btn btn-gold" href="https://wa.me/381692131555?text=Zdravo%2C%20treba%20mi%20pomo%C4%87%20oko%20veli%C4%8Dine%20narukvice." target="_blank" rel="noreferrer">PROVERITE SA NAMA</a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="checkout" id="checkout">
@@ -1640,6 +2224,191 @@
   function closeCheckout(){
     document.getElementById("checkout").classList.remove("open");
     document.body.classList.remove("no-scroll");
+  }
+
+
+  let ringMethod="diameter";
+  let braceletFit="classic";
+  let necklaceLength=45;
+
+  function openSizeGuide(tab="ring"){
+    closeProduct();
+    document.getElementById("sizeGuide").classList.add("open");
+    document.body.classList.add("no-scroll");
+    showSizeTab(tab);
+
+    const saved=localStorage.getItem("stevanovic-ring-size");
+    if(saved){
+      const box=document.getElementById("savedRingSize");
+      box.textContent="Sačuvana veličina prstena na ovom uređaju: "+saved;
+      box.classList.add("show");
+    }
+  }
+
+  function closeSizeGuide(){
+    document.getElementById("sizeGuide").classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
+
+  function openSizeGuideForProduct(){
+    const p=products.find(x=>x.id===activeProductId);
+    if(!p)return openSizeGuide("ring");
+    if(p.cat==="Ogrlice")return openSizeGuide("necklace");
+    if(p.cat==="Narukvice")return openSizeGuide("bracelet");
+    openSizeGuide("ring");
+  }
+
+  function showSizeTab(tab){
+    document.querySelectorAll("[data-size-tab]").forEach(btn=>{
+      btn.classList.toggle("active",btn.dataset.sizeTab===tab);
+    });
+    document.querySelectorAll("[data-size-panel]").forEach(panel=>{
+      panel.classList.toggle("active",panel.dataset.sizePanel===tab);
+    });
+  }
+
+  function setRingMethod(method){
+    ringMethod=method;
+    document.getElementById("diameterChoice").classList.toggle("active",method==="diameter");
+    document.getElementById("circChoice").classList.toggle("active",method==="circumference");
+
+    const input=document.getElementById("ringMeasure");
+    const label=document.getElementById("ringInputLabel");
+    const caption=document.getElementById("ringCaption");
+
+    if(method==="diameter"){
+      label.textContent="Unutrašnji prečnik prstena";
+      input.min="13"; input.max="24"; input.step="0.1";
+      input.placeholder="npr. 17.2";
+      caption.textContent="UNUTRAŠNJI PREČNIK";
+    }else{
+      label.textContent="Obim prsta";
+      input.min="41"; input.max="76"; input.step="0.5";
+      input.placeholder="npr. 54";
+      caption.textContent="OBIM PRSTA";
+    }
+
+    input.value="";
+    calculateRingSize();
+  }
+
+  function calculateRingSize(){
+    const input=document.getElementById("ringMeasure");
+    const value=parseFloat(input.value);
+    const result=document.getElementById("ringResult");
+    const main=result.querySelector(".result-main");
+    const sub=result.querySelector(".result-sub");
+    const circle=document.getElementById("ringCircle");
+
+    if(!Number.isFinite(value)){
+      main.textContent="—";
+      sub.textContent="Unesite meru iznad. EU veličina prstena približno odgovara unutrašnjem obimu u milimetrima.";
+      circle.style.transform="scale(1)";
+      return;
+    }
+
+    const circumference=ringMethod==="diameter" ? Math.PI*value : value;
+    const diameter=ringMethod==="diameter" ? value : value/Math.PI;
+    const eu=Math.round(circumference);
+
+    if(eu<41 || eu>76){
+      main.textContent="Proverite meru";
+      sub.textContent="Uneta vrednost je van uobičajenog raspona ovog vodiča. Izmerite ponovo ili nam pošaljite meru.";
+      return;
+    }
+
+    main.textContent="EU "+eu;
+    sub.textContent="Približan unutrašnji prečnik: "+diameter.toFixed(1)+" mm · obim: "+circumference.toFixed(1)+" mm. Ako ste između dve mere ili birate veoma široku alku, proverite sa nama pre porudžbine.";
+
+    const scale=Math.max(.82,Math.min(1.22,diameter/17.2));
+    circle.style.transform="scale("+scale+")";
+  }
+
+  function saveRingSize(){
+    const value=parseFloat(document.getElementById("ringMeasure").value);
+    if(!Number.isFinite(value))return;
+
+    const circumference=ringMethod==="diameter" ? Math.PI*value : value;
+    const eu=Math.round(circumference);
+    if(eu<41 || eu>76)return;
+
+    localStorage.setItem("stevanovic-ring-size","EU "+eu);
+    const box=document.getElementById("savedRingSize");
+    box.textContent="Sačuvana veličina prstena na ovom uređaju: EU "+eu;
+    box.classList.add("show");
+  }
+
+  function resetRingSize(){
+    document.getElementById("ringMeasure").value="";
+    localStorage.removeItem("stevanovic-ring-size");
+    document.getElementById("savedRingSize").classList.remove("show");
+    calculateRingSize();
+  }
+
+  function setNecklaceLength(length){
+    necklaceLength=length;
+
+    document.querySelectorAll("#lengthButtons button").forEach(btn=>{
+      btn.classList.toggle("active",btn.textContent.trim()===length+" cm");
+    });
+
+    const line=document.getElementById("necklaceLine");
+    const main=document.getElementById("necklaceResultMain");
+    const text=document.getElementById("necklaceResultText");
+
+    const settings={
+      38:{h:52,w:124,t:"Vrlo kratka dužina, blizu baze vrata. Najbolje funkcioniše kao diskretan prvi sloj."},
+      40:{h:62,w:132,t:"Kratka i uredna dužina koja najčešće ostaje visoko na vratu."},
+      42:{h:72,w:139,t:"Elegantna kraća dužina, dobra za otvoren vrat i slojevito kombinovanje."},
+      45:{h:84,w:148,t:"Klasična dužina koja najčešće pada oko gornjeg dela dekoltea i lako se kombinuje."},
+      50:{h:105,w:158,t:"Nešto duža linija koja daje više prostora privesku i vizuelno izdužuje vrat."},
+      55:{h:128,w:166,t:"Duža ogrlica koja pada niže na dekolte i daje izraženiji, elegantan efekat."},
+      60:{h:151,w:174,t:"Dugačka silueta za naglašeniji stil ili slojevito nošenje sa kraćim ogrlicama."}
+    };
+
+    const s=settings[length] || settings[45];
+    line.style.height=s.h+"px";
+    line.style.width=s.w+"px";
+    main.textContent=length+" cm";
+    text.textContent=s.t;
+  }
+
+  function setBraceletFit(fit){
+    braceletFit=fit;
+    document.querySelectorAll("[data-fit]").forEach(btn=>{
+      btn.classList.toggle("active",btn.dataset.fit===fit);
+    });
+    calculateBracelet();
+  }
+
+  function calculateBracelet(){
+    const wrist=parseFloat(document.getElementById("wristMeasure").value);
+    const main=document.getElementById("braceletResultMain");
+    const text=document.getElementById("braceletResultText");
+
+    if(!Number.isFinite(wrist)){
+      main.textContent="—";
+      text.textContent="Unesite obim zgloba i izaberite željeni osećaj pri nošenju.";
+      return;
+    }
+
+    if(wrist<12 || wrist>25){
+      main.textContent="Proverite meru";
+      text.textContent="Uneta mera je van uobičajenog raspona ovog vodiča. Izmerite zglob ponovo ili proverite sa nama.";
+      return;
+    }
+
+    const addition={close:.5,classic:1.0,relaxed:1.5}[braceletFit] || 1.0;
+    const recommended=(wrist+addition).toFixed(1);
+
+    const fitText={
+      close:"urednije uz zglob",
+      classic:"klasičan balans između udobnosti i urednog pada",
+      relaxed:"više prostora i pokreta"
+    }[braceletFit];
+
+    main.textContent=recommended+" cm";
+    text.textContent="Početna preporuka za "+fitText+". Konačna mera zavisi od konstrukcije i kopče konkretnog modela.";
   }
 
   function submitOrder(e){
