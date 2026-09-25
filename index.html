@@ -61,9 +61,10 @@
     }
     .section h2,.section-head h2{
       font-family:var(--serif);
-      font-size:clamp(42px,5vw,76px);
+      font-size:clamp(38px,4.2vw,64px);
       font-weight:400;
-      line-height:.95;
+      line-height:1;
+      letter-spacing:-.02em;
       margin:0;
     }
     .center{text-align:center}
@@ -211,6 +212,100 @@
     .mobile-menu-btn{display:none}
     .mobile-menu{display:none}
 
+
+    /* HERO FOTOGRAFIJA / HOUSE MARK */
+    .hero-image{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 42%;
+      z-index:-2.8;
+      filter:saturate(.86) contrast(1.03) brightness(.76);
+      opacity:1;
+    }
+    .hero-image.is-missing{display:none}
+
+    .hero-center{
+      position:absolute;
+      inset:0;
+      z-index:3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:110px 24px 72px;
+    }
+    .house-signature{
+      width:min(680px,90vw);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-shadow:0 10px 34px rgba(0,0,0,.32);
+    }
+    .house-seal{
+      width:104px;
+      height:130px;
+      border:1px solid rgba(216,193,140,.66);
+      border-radius:50% 50% 46% 46% / 44% 44% 56% 56%;
+      display:grid;
+      place-items:center;
+      position:relative;
+      margin-bottom:21px;
+      backdrop-filter:blur(2px);
+      background:rgba(20,6,9,.10);
+    }
+    .house-seal:before,
+    .house-seal:after{
+      content:"";
+      position:absolute;
+      left:50%;
+      width:34px;
+      height:1px;
+      background:rgba(216,193,140,.62);
+      transform:translateX(-50%);
+    }
+    .house-seal:before{top:25px}
+    .house-seal:after{bottom:25px}
+    .house-seal-main{
+      font-family:var(--serif);
+      font-size:29px;
+      font-style:italic;
+      letter-spacing:-.08em;
+      color:var(--ivory);
+      transform:translateX(-2px);
+    }
+    .house-script{
+      font-family:"Baskerville","Iowan Old Style",Georgia,serif;
+      font-style:italic;
+      font-weight:400;
+      font-size:clamp(48px,6.2vw,92px);
+      line-height:.92;
+      letter-spacing:-.035em;
+      color:#fffaf1;
+      margin:0;
+    }
+    .house-est{
+      margin-top:13px;
+      font-size:9px;
+      letter-spacing:.34em;
+      color:var(--champ-soft);
+      font-weight:700;
+    }
+    .house-tagline{
+      font-family:var(--serif);
+      font-size:clamp(17px,1.55vw,23px);
+      color:#eee5d8;
+      margin:24px 0 28px;
+    }
+    .house-actions{
+      display:flex;
+      gap:11px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
     /* HERO VIDEO */
     .hero{
       position:relative;
@@ -270,8 +365,8 @@
     .hero-overlay{
       position:absolute;inset:0;z-index:-2;
       background:
-        linear-gradient(90deg,rgba(7,5,5,.96) 0%,rgba(24,6,9,.86) 30%,rgba(24,6,9,.44) 51%,rgba(10,7,6,.10) 76%,rgba(8,6,5,.24) 100%),
-        linear-gradient(to top,rgba(6,5,4,.62),transparent 56%);
+        linear-gradient(to bottom,rgba(7,5,5,.30),rgba(13,6,7,.10) 38%,rgba(7,5,5,.58) 100%),
+        linear-gradient(90deg,rgba(24,6,9,.18),transparent 42%,rgba(9,7,6,.16));
     }
     .hero-vignette{
       position:absolute;inset:0;z-index:-1;
@@ -286,35 +381,9 @@
       max-width:760px;
       z-index:2;
     }
-    .hero h1{
-      font-family:var(--serif);
-      font-size:clamp(62px,8.2vw,132px);
-      font-weight:400;
-      line-height:.84;
-      letter-spacing:.028em;
-      margin:0;
-      text-shadow:0 12px 40px rgba(0,0,0,.28);
-    }
-    .hero p{
-      font-family:var(--serif);
-      font-size:clamp(19px,2vw,29px);
-      color:#eee6da;
-      max-width:700px;
-      margin:24px 0 34px;
-    }
+    .hero h1{margin:0}
+    .hero p{margin:0}
     .hero-actions{display:flex;gap:11px;flex-wrap:wrap}
-    .film-note{
-      position:absolute;
-      right:30px;
-      bottom:26px;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-size:9px;
-      letter-spacing:.20em;
-      color:rgba(255,255,255,.78);
-    }
-    .film-note:before{content:"";width:58px;height:1px;background:rgba(255,255,255,.5)}
 
     /* TRUST */
     .trust{
@@ -404,7 +473,7 @@
     }
     .card:hover .quick{transform:none}
     .meta{display:flex;justify-content:space-between;gap:10px;padding:14px 2px}
-    .meta h3{font-family:var(--serif);font-size:21px;font-weight:400;margin:0}
+    .meta h3{font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:-.01em;margin:0}
     .meta small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
     .meta strong{font-size:12px;white-space:nowrap}
 
@@ -439,9 +508,8 @@
     .cat-media:before{
       content:"";
       position:absolute;
-      inset:16% 18%;
-      border:1px solid rgba(221,191,126,.36);
-      border-radius:50%;
+      inset:0;
+      background:linear-gradient(145deg,rgba(255,255,255,.025),transparent 42%);
     }
     .cat-shade{
       position:absolute;inset:0;
@@ -567,24 +635,10 @@
     .campaign-visual:before{
       content:"";
       position:absolute;
-      left:50%;
-      top:20%;
-      width:36%;
-      height:49%;
-      transform:translateX(-50%);
-      border:1px solid rgba(213,180,111,.52);
-      border-radius:50%;
-      box-shadow:0 0 50px rgba(213,180,111,.08);
+      inset:0;
+      background:linear-gradient(to top,rgba(9,7,6,.20),transparent 55%);
     }
-    .campaign-visual:after{
-      content:"◆";
-      position:absolute;
-      left:50%;
-      top:64%;
-      transform:translate(-50%,-50%);
-      color:var(--champ);
-      font-size:44px;
-    }
+    .campaign-visual:after{content:none}
     .campaign-copy h2{
       font-family:var(--serif);
       font-size:clamp(56px,7vw,112px);
@@ -1314,6 +1368,12 @@
       .actions{right:7px}
       .hero{min-height:690px}
       .hero-content{left:22px;right:22px;bottom:90px;width:auto;max-width:none}
+      .hero-center{padding:92px 18px 54px}
+      .house-seal{width:82px;height:102px;margin-bottom:17px}
+      .house-seal-main{font-size:23px}
+      .house-script{font-size:49px}
+      .house-est{font-size:8px;letter-spacing:.26em}
+      .house-tagline{font-size:17px;margin:20px 0 24px}
       .hero-video.portrait{
         inset:0;
         width:100%;
@@ -1419,6 +1479,18 @@
   <div class="hero-fallback"></div>
 
   <!--
+    NASLOVNA FOTOGRAFIJA:
+    Kada izaberemo fotografiju, uploadujemo je kao hero-cover.jpg.
+    Ako fajl ne postoji, sajt automatski nastavlja da koristi postojeći video.
+  -->
+  <img
+    class="hero-image"
+    src="hero-cover.jpg"
+    alt="Zlatara Stevanović"
+    onerror="this.classList.add('is-missing')"
+  >
+
+  <!--
     HERO FILMS:
     Možeš da ubaciš 1, 2 ili 3 videa sa Pexels-a.
     U isti GitHub folder gde je index.html uploaduj MP4 fajlove i nazovi ih:
@@ -1441,17 +1513,20 @@
   <div class="hero-overlay"></div>
   <div class="hero-vignette"></div>
 
-  <div class="hero-content reveal">
-    <div class="eyebrow light">PORODIČNA ZLATARA · NIŠ · OD 1994.</div>
-    <h1>STEVANOVIĆ</h1>
-    <p>Nakit za trenutke koji ostaju.</p>
-    <div class="hero-actions">
-      <a class="btn btn-light magnetic" href="#shop">POGLEDAJTE KOLEKCIJU</a>
-      <a class="btn btn-ghost magnetic" href="#heritage">NAŠA PRIČA</a>
+  <div class="hero-center">
+    <div class="house-signature reveal">
+      <div class="house-seal" aria-hidden="true">
+        <div class="house-seal-main">ZS</div>
+      </div>
+      <h1 class="house-script">Stevanović</h1>
+      <div class="house-est">ZLATARA · NIŠ · OD 1994.</div>
+      <div class="house-tagline">Nakit za trenutke koji ostaju.</div>
+      <div class="house-actions">
+        <a class="btn btn-light magnetic" href="#shop">POGLEDAJTE KOLEKCIJU</a>
+        <a class="btn btn-ghost magnetic" href="#heritage">NAŠA PRIČA</a>
+      </div>
     </div>
   </div>
-
-  <div class="film-note">NIŠ · OD 1994.</div>
 </section>
 
 <section class="trust">
@@ -1464,8 +1539,8 @@
 <section class="section reveal">
   <div class="section-head">
     <div>
-      <div class="eyebrow">IZBOR NAŠIH KUPACA</div>
-      <div class="mask-line"><span><h2>Najtraženiji komadi</h2></span></div>
+      <div class="eyebrow">ODABRANI KOMADI</div>
+      <div class="mask-line"><span><h2>Izbor kuće Stevanović</h2></span></div>
     </div>
     <a class="text-link" href="#shop">POGLEDAJTE SVE →</a>
   </div>
