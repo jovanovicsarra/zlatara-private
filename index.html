@@ -238,7 +238,11 @@
       object-fit:cover;
       z-index:-3;
       filter:saturate(.82) contrast(1.05) brightness(.72);
+      opacity:0;
+      transition:opacity 1.35s ease;
+      pointer-events:none;
     }
+    .hero-video.active{opacity:1}
     .hero-video.is-missing{display:none}
     .hero-overlay{
       position:absolute;inset:0;z-index:-2;
@@ -631,16 +635,48 @@
     .visit{background:var(--ivory)}
     .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
     .visit p{color:var(--muted);line-height:1.7;max-width:470px}
-    .map{
-      height:430px;
-      background:
-        linear-gradient(rgba(244,239,230,.14),rgba(244,239,230,.14)),
-        linear-gradient(135deg,#e7dfd2,#cfc1aa);
-      display:grid;place-items:center;text-align:center;
-      border:1px solid rgba(60,42,33,.08);
+    .contact-list{
+      display:grid;
+      gap:0;
+      margin:30px 0 24px;
+      border-top:1px solid var(--line);
     }
-    .map b{font-family:var(--serif);font-size:34px}
-    .map small{display:block;margin-top:8px}
+    .contact-item{
+      padding:18px 0;
+      border-bottom:1px solid var(--line);
+      display:grid;
+      gap:5px;
+    }
+    .contact-kicker{
+      font-size:9px;
+      letter-spacing:.18em;
+      color:#8a7a65;
+      font-weight:700;
+    }
+    .contact-value{
+      font-family:var(--serif);
+      font-size:clamp(25px,2.5vw,34px);
+      line-height:1.05;
+      width:max-content;
+    }
+    .contact-item small{
+      color:var(--muted);
+      font-size:10px;
+      margin-bottom:5px;
+    }
+    .map{
+      height:500px;
+      overflow:hidden;
+      border:1px solid rgba(60,42,33,.08);
+      background:#e7dfd2;
+      box-shadow:0 24px 70px rgba(41,18,18,.08);
+    }
+    .map iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      filter:saturate(.72) sepia(.05) contrast(.97);
+    }
 
     /* FOOTER */
     footer{
@@ -989,23 +1025,23 @@
   <div class="hero-fallback"></div>
 
   <!--
-    HERO VIDEO:
-    1) ubaci svoj fajl u isti GitHub folder gde je index.html
-    2) nazovi ga hero.mp4
-    3) ništa drugo ne moraš da menjaš
-    Idealno: 8–12 sekundi, 1920x1080 ili vertikalno kropovan snimak, bez zvuka, ispod ~12 MB.
+    HERO FILMS:
+    Možeš da ubaciš 1, 2 ili 3 videa sa Pexels-a.
+    U isti GitHub folder gde je index.html uploaduj MP4 fajlove i nazovi ih:
+    hero-1.mp4
+    hero-2.mp4
+    hero-3.mp4
+    Sajt ih automatski menja elegantnim crossfade efektom.
+    Ako ubaciš samo jedan, ostala dva će biti ignorisana.
   -->
-  <video
-    id="heroVideo"
-    class="hero-video"
-    autoplay
-    muted
-    loop
-    playsinline
-    preload="metadata"
-    poster=""
-  >
-    <source src="hero.mp4" type="video/mp4" />
+  <video class="hero-video active" autoplay muted loop playsinline preload="metadata">
+    <source src="hero-1.mp4" type="video/mp4" />
+  </video>
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+    <source src="hero-2.mp4" type="video/mp4" />
+  </video>
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+    <source src="hero-3.mp4" type="video/mp4" />
   </video>
 
   <div class="hero-overlay"></div>
@@ -1076,13 +1112,22 @@
   <div class="heritage-photo"></div>
 
   <div class="heritage-copy reveal">
-    <div class="eyebrow light">THE HOUSE</div>
+    <div class="eyebrow light">THREE GENERATIONS · ONE TRADITION</div>
     <div class="year">1994</div>
-    <div class="mask-line"><span><h2>Porodična kuća nakita iz Niša.</h2></span></div>
+    <div class="mask-line"><span><h2>Tri generacije. Jedna tradicija.</h2></span></div>
     <p>
-      Više od tri decenije gradimo poverenje kroz nakit koji se bira za važne trenutke —
-      poklone, godišnjice, proslave i uspomene koje ostaju.
+      Od 1994. godine Zlatara Stevanović je deo Niša i deo vaših najlepših trenutaka.
+      Tri generacije naše porodice gradile su isti odnos prema zlatu — kvalitet, poverenje,
+      tradiciju i pažnju prema svakom detalju.
     </p>
+    <p>
+      Godinama smo sa vama birali nakit za ljubavi, rođenja, krštenja, venčanja,
+      godišnjice i velike životne prekretnice. Ulepšavali smo vaše posebne dane komadima
+      koji nisu samo nakit, već uspomene koje ostaju i prenose se kroz generacije.
+    </p>
+    <div style="font-size:9px;letter-spacing:.18em;color:var(--champ-soft);margin:2px 0 28px">
+      NIŠ · OD 1994. · TRI GENERACIJE
+    </div>
     <a class="btn btn-ghost magnetic" href="#shop">ISTRAŽI KOLEKCIJU</a>
   </div>
 </section>
@@ -1142,24 +1187,45 @@
   <div class="product-grid" id="shopGrid"></div>
 </section>
 
-<section class="section visit reveal">
+<section class="section visit reveal" id="contact">
   <div class="visit-grid">
     <div>
-      <div class="eyebrow">VISIT US</div>
+      <div class="eyebrow">VISIT & CONTACT</div>
       <div class="mask-line"><span><h2>Stevanović, Niš</h2></span></div>
       <p>Lamela D, TPC Kalča, Obrenovićeva bb, Lokal 93/B, Niš</p>
 
-      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:28px">
-        <a class="btn btn-burgundy magnetic" href="tel:+381600000000">POZOVITE NAS</a>
-        <a class="text-link" href="https://www.instagram.com/zlatarastevanovic/" target="_blank">INSTAGRAM →</a>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-kicker">ONLINE PORUDŽBINE</span>
+          <a class="contact-value" href="tel:+381692131555">069 213 1555</a>
+          <small>Telefon · Viber · WhatsApp</small>
+          <a class="text-link" href="https://wa.me/381692131555" target="_blank" rel="noreferrer">POŠALJITE PORUKU →</a>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-kicker">RADNJA · NIŠ</span>
+          <a class="contact-value" href="tel:+38118522641">018 522 641</a>
+          <small>Za informacije i poziv prodavnici</small>
+          <a class="text-link" href="tel:+38118522641">POZOVITE RADNJU →</a>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-kicker">INSTAGRAM</span>
+          <a class="contact-value" href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">@zlatarastevanovic</a>
+          <small>Noviteti · kolekcije · inspiracija</small>
+          <a class="text-link" href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">OTVORI INSTAGRAM →</a>
+        </div>
       </div>
     </div>
 
     <div class="map">
-      <div>
-        <b>TPC KALČA · NIŠ</b>
-        <small>Ovde kasnije ubacujemo Google mapu.</small>
-      </div>
+      <iframe
+        title="Zlatara Stevanović — lokacija"
+        src="https://www.google.com/maps?q=Zlatara+Stevanovic+Nis&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
     </div>
   </div>
 </section>
@@ -1182,8 +1248,9 @@
     <div>
       <h4>STEVANOVIĆ</h4>
       <a href="#heritage">Naša priča</a>
-      <a href="https://www.instagram.com/zlatarastevanovic/" target="_blank">Instagram</a>
-      <a href="tel:+381600000000">Pozovite nas</a>
+      <a href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">Instagram</a>
+      <a href="tel:+381692131555">Online porudžbine · 069 213 1555</a>
+      <a href="tel:+38118522641">Radnja · 018 522 641</a>
     </div>
 
     <div>
@@ -1305,7 +1372,7 @@
     =========================
     WhatsApp broj: samo cifre, bez + i razmaka.
   */
-  const WHATSAPP_NUMBER = "381600000000";
+  const WHATSAPP_NUMBER = "381692131555";
 
   /*
     =========================
@@ -1610,11 +1677,39 @@ Napomena: ${document.getElementById("cNote").value || "-"}`;
     siteHeader.classList.toggle("scrolled",window.scrollY>35);
   });
 
-  /* HERO VIDEO FALLBACK */
-  const heroVideo=document.getElementById("heroVideo");
-  heroVideo.addEventListener("error",()=>heroVideo.classList.add("is-missing"));
-  const source=heroVideo.querySelector("source");
-  source.addEventListener("error",()=>heroVideo.classList.add("is-missing"));
+  /* HERO VIDEO CROSSFADE + FALLBACK */
+  const heroVideos=[...document.querySelectorAll(".hero-video")];
+
+  function ensureHeroVideo(){
+    const available=heroVideos.filter(v=>!v.classList.contains("is-missing"));
+    if(!available.length)return;
+    if(!available.some(v=>v.classList.contains("active"))){
+      available[0].classList.add("active");
+    }
+  }
+
+  heroVideos.forEach(video=>{
+    const markMissing=()=>{
+      video.classList.add("is-missing");
+      video.classList.remove("active");
+      ensureHeroVideo();
+    };
+
+    video.addEventListener("error",markMissing);
+    const source=video.querySelector("source");
+    if(source)source.addEventListener("error",markMissing);
+    video.play().catch(()=>{});
+  });
+
+  let heroCycleIndex=0;
+  setInterval(()=>{
+    const available=heroVideos.filter(v=>!v.classList.contains("is-missing"));
+    if(available.length<2)return;
+
+    available.forEach(v=>v.classList.remove("active"));
+    heroCycleIndex=(heroCycleIndex+1)%available.length;
+    available[heroCycleIndex].classList.add("active");
+  },6500);
 
   /* REVEAL */
   const io=new IntersectionObserver(entries=>{
