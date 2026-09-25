@@ -1,10 +1,1066 @@
-from pathlib import Path
-import re
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#180609" />
+  <title>Zlatara Stevanović — Fine Jewellery Since 1994</title>
+  <meta name="description" content="Zlatara Stevanović, Niš. Fine jewellery since 1994. Ogrlice, prstenje, minđuše, narukvice i setovi." />
 
-src = Path("/mnt/data/Pasted text(2).txt")
-text = src.read_text(encoding="utf-8")
+  <style>
+    :root{
+      --black:#090706;
+      --oxblood:#180609;
+      --oxblood-2:#26090f;
+      --wine:#431018;
+      --wine-soft:#5b1822;
+      --ivory:#f4efe6;
+      --paper:#fbfaf7;
+      --champ:#c5a66a;
+      --champ-soft:#d8c18c;
+      --ink:#0c0a09;
+      --muted:#77716a;
+      --line:rgba(25,18,15,.14);
+      --serif:Georgia,"Times New Roman",serif;
+      --sans:Arial,Helvetica,sans-serif;
+      --shadow:0 30px 80px rgba(18,8,8,.16);
+    }
 
-old_html = '''  <!--
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper)}
+    body{
+      margin:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:var(--sans);
+      overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    body.no-scroll{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    img{display:block;max-width:100%}
+    ::selection{background:var(--champ);color:var(--ink)}
+
+    .eyebrow{
+      font-size:10px;
+      letter-spacing:.24em;
+      font-weight:700;
+      color:#796d59;
+      margin-bottom:16px;
+    }
+    .eyebrow.light{color:var(--champ-soft)}
+    .section{padding:108px 5vw}
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:20px;
+      margin-bottom:38px;
+    }
+    .section h2,.section-head h2{
+      font-family:var(--serif);
+      font-size:clamp(42px,5vw,76px);
+      font-weight:400;
+      line-height:.95;
+      margin:0;
+    }
+    .center{text-align:center}
+
+    .btn{
+      min-height:50px;
+      padding:0 25px;
+      border:1px solid transparent;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      font-size:10px;
+      font-weight:700;
+      letter-spacing:.16em;
+      transition:transform .3s ease,background .3s ease,color .3s ease,border-color .3s ease;
+      position:relative;
+      overflow:hidden;
+      will-change:transform;
+    }
+    .btn:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(255,255,255,.12);
+      transform:translateX(-110%);
+      transition:transform .45s ease;
+    }
+    .btn:hover:before{transform:translateX(0)}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-light{background:var(--ivory);color:var(--ink)}
+    .btn-dark{background:var(--ink);color:white}
+    .btn-gold{background:var(--champ);color:var(--ink)}
+    .btn-burgundy{background:var(--oxblood);color:white}
+    .btn-ghost{border-color:rgba(255,255,255,.48);color:white;background:rgba(255,255,255,.02)}
+    .full{width:100%}
+    .text-link{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      border-bottom:1px solid currentColor;
+      padding-bottom:4px;
+      font-size:10px;
+      letter-spacing:.12em;
+      font-weight:700;
+    }
+
+    /* SPLASH */
+    #splash{
+      position:fixed;z-index:9999;inset:0;
+      background:linear-gradient(135deg,var(--black),var(--oxblood));
+      color:white;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      transition:opacity .6s ease,visibility .6s ease;
+    }
+    #splash.hide{opacity:0;visibility:hidden}
+    .splash-word{
+      font-family:var(--serif);
+      font-size:clamp(40px,8vw,110px);
+      letter-spacing:.14em;
+      animation:brandIn 1s ease both;
+    }
+    .splash-sub{
+      margin-top:18px;
+      color:var(--champ);
+      font-size:9px;
+      letter-spacing:.36em;
+    }
+    @keyframes brandIn{
+      from{opacity:0;letter-spacing:.34em;filter:blur(8px)}
+      to{opacity:1;letter-spacing:.14em;filter:blur(0)}
+    }
+
+    /* CURSOR GLOW */
+    .cursor-glow{
+      position:fixed;
+      z-index:14;
+      pointer-events:none;
+      width:340px;height:340px;
+      margin:-170px 0 0 -170px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(197,166,106,.075),transparent 68%);
+      transform:translate3d(-500px,-500px,0);
+      transition:transform .08s linear;
+      mix-blend-mode:screen;
+    }
+
+    /* HEADER */
+    header{
+      position:fixed;
+      z-index:80;
+      top:0;left:0;right:0;
+      height:78px;
+      display:grid;
+      grid-template-columns:1fr auto 1fr;
+      align-items:center;
+      padding:0 28px;
+      color:white;
+      border-bottom:1px solid rgba(255,255,255,.11);
+      background:linear-gradient(to bottom,rgba(9,7,6,.72),rgba(9,7,6,.05));
+      backdrop-filter:blur(8px);
+      transition:height .35s ease,background .35s ease,box-shadow .35s ease;
+    }
+    header.scrolled{
+      height:64px;
+      background:rgba(24,6,9,.94);
+      box-shadow:0 10px 40px rgba(0,0,0,.18);
+      backdrop-filter:blur(18px);
+    }
+    .nav{display:flex;gap:18px}
+    .nav a{
+      font-size:10px;
+      letter-spacing:.12em;
+      opacity:.9;
+      transition:.25s ease;
+    }
+    .nav a:hover{color:var(--champ)}
+    .nav.right{justify-content:flex-end;padding-right:84px}
+    .wordmark{
+      font-family:var(--serif);
+      font-size:18px;
+      letter-spacing:.25em;
+      transition:font-size .35s ease,letter-spacing .35s ease;
+    }
+    header.scrolled .wordmark{font-size:15px;letter-spacing:.22em}
+    .actions{position:absolute;right:22px;display:flex;gap:4px}
+    .icon-btn{
+      width:40px;height:40px;
+      border:0;border-radius:50%;
+      background:transparent;color:inherit;
+      display:grid;place-items:center;
+      transition:.25s;
+    }
+    .icon-btn:hover{background:rgba(255,255,255,.08)}
+    .bag{position:relative}
+    .count{
+      position:absolute;top:0;right:0;
+      width:17px;height:17px;border-radius:50%;
+      display:grid;place-items:center;
+      background:var(--champ);color:var(--ink);
+      font-size:9px;font-weight:700;
+    }
+    .mobile-menu-btn{display:none}
+    .mobile-menu{display:none}
+
+    /* HERO VIDEO */
+    .hero{
+      position:relative;
+      height:100svh;
+      min-height:720px;
+      background:var(--oxblood);
+      color:white;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    .hero-fallback{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 72% 30%,rgba(197,166,106,.18),transparent 20%),
+        radial-gradient(circle at 68% 55%,rgba(105,28,39,.48),transparent 32%),
+        linear-gradient(125deg,#070605 0,#130608 35%,#2b0a10 72%,#0a0706 100%);
+      transform:scale(1.03);
+      animation:heroPulse 15s ease-in-out infinite alternate;
+      z-index:-4;
+    }
+    @keyframes heroPulse{to{transform:scale(1.085)}}
+    .hero-video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 42%;
+      z-index:-3;
+      filter:saturate(.90) contrast(1.04) brightness(.76);
+      opacity:0;
+      transition:opacity 1.35s ease;
+      pointer-events:none;
+      background:transparent;
+    }
+    .hero-video.active{opacity:1}
+    .hero-video.is-missing{display:none}
+
+    /* Ako je Pexels video vertikalan, na desktopu ga ne razvlačimo i ne kropujemo brutalno.
+       Stoji kao cinematic panel desno, a levo ostaje oxblood prostor za brend i CTA. */
+    .hero-video.portrait{
+      inset:0 0 0 auto;
+      width:54vw;
+      height:100%;
+      object-fit:contain;
+      object-position:center center;
+      filter:saturate(.92) contrast(1.05) brightness(.80);
+    }
+
+    .hero-video.landscape{
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center 42%;
+    }
+    .hero-overlay{
+      position:absolute;inset:0;z-index:-2;
+      background:
+        linear-gradient(90deg,rgba(7,5,5,.96) 0%,rgba(24,6,9,.86) 30%,rgba(24,6,9,.44) 51%,rgba(10,7,6,.10) 76%,rgba(8,6,5,.24) 100%),
+        linear-gradient(to top,rgba(6,5,4,.62),transparent 56%);
+    }
+    .hero-vignette{
+      position:absolute;inset:0;z-index:-1;
+      box-shadow:inset 0 0 190px rgba(0,0,0,.68);
+      pointer-events:none;
+    }
+    .hero-content{
+      position:absolute;
+      left:7vw;
+      bottom:13vh;
+      width:min(760px,52vw);
+      max-width:760px;
+      z-index:2;
+    }
+    .hero h1{
+      font-family:var(--serif);
+      font-size:clamp(62px,8.2vw,132px);
+      font-weight:400;
+      line-height:.84;
+      letter-spacing:.028em;
+      margin:0;
+      text-shadow:0 12px 40px rgba(0,0,0,.28);
+    }
+    .hero p{
+      font-family:var(--serif);
+      font-size:clamp(19px,2vw,29px);
+      color:#eee6da;
+      max-width:700px;
+      margin:24px 0 34px;
+    }
+    .hero-actions{display:flex;gap:11px;flex-wrap:wrap}
+    .film-note{
+      position:absolute;
+      right:30px;
+      bottom:26px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:9px;
+      letter-spacing:.20em;
+      color:rgba(255,255,255,.78);
+    }
+    .film-note:before{content:"";width:58px;height:1px;background:rgba(255,255,255,.5)}
+    .hero-monogram{
+      position:absolute;
+      right:5vw;
+      top:18vh;
+      width:120px;height:120px;
+      border:1px solid rgba(197,166,106,.32);
+      border-radius:50%;
+      display:grid;place-items:center;
+      font-family:var(--serif);
+      font-size:30px;
+      letter-spacing:.08em;
+      color:rgba(240,228,203,.82);
+      backdrop-filter:blur(3px);
+    }
+
+    /* TRUST */
+    .trust{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      background:var(--ivory);
+      border-bottom:1px solid var(--line);
+    }
+    .trust div{
+      min-height:66px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      border-right:1px solid var(--line);
+      font-size:10px;
+      letter-spacing:.085em;
+    }
+    .trust div:last-child{border-right:0}
+
+    /* PRODUCTS */
+    .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .card{min-width:0}
+    .pic{
+      position:relative;
+      aspect-ratio:4/5;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 65% 28%,rgba(207,174,104,.35),transparent 22%),
+        linear-gradient(135deg,#170b0e,#5b1822);
+    }
+    .pic .product-photo,
+    .pic .product-photo-hover{
+      position:absolute;inset:0;
+      width:100%;height:100%;
+      object-fit:cover;
+      transition:opacity .55s ease,transform .9s cubic-bezier(.22,.61,.36,1);
+    }
+    .pic .product-photo-hover{opacity:0}
+    .pic.has-image:before,.pic.has-image:after{display:none}
+    .card:hover .product-photo{opacity:0;transform:scale(1.025)}
+    .card:hover .product-photo-hover{opacity:1;transform:scale(1.045)}
+    .pic:not(.has-image):before{
+      content:"";
+      position:absolute;
+      left:22%;right:22%;top:28%;height:38%;
+      border:1px solid rgba(217,189,126,.56);
+      border-radius:50%;
+      transform:rotate(-5deg);
+      box-shadow:0 0 50px rgba(217,189,126,.08);
+    }
+    .pic:not(.has-image):after{
+      content:"◆";
+      position:absolute;
+      left:50%;top:58%;
+      transform:translate(-50%,-50%);
+      color:#d3b773;
+      font-size:38px;
+    }
+    .badge{
+      position:absolute;left:12px;top:12px;
+      background:rgba(250,248,243,.92);
+      padding:7px 9px;
+      font-size:9px;
+      letter-spacing:.1em;
+      z-index:3;
+    }
+    .heart{
+      position:absolute;right:10px;top:10px;
+      width:36px;height:36px;
+      border:0;border-radius:50%;
+      background:rgba(255,255,255,.84);
+      z-index:3;
+    }
+    .quick{
+      position:absolute;
+      left:12px;right:12px;bottom:12px;
+      min-height:44px;
+      border:0;
+      background:rgba(24,6,9,.94);
+      color:white;
+      font-size:9px;
+      letter-spacing:.14em;
+      transform:translateY(64px);
+      transition:.32s ease;
+      z-index:3;
+    }
+    .card:hover .quick{transform:none}
+    .meta{display:flex;justify-content:space-between;gap:10px;padding:14px 2px}
+    .meta h3{font-family:var(--serif);font-size:21px;font-weight:400;margin:0}
+    .meta small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+    .meta strong{font-size:12px;white-space:nowrap}
+
+    /* ASYMMETRIC CATEGORIES */
+    .category-editorial{
+      display:grid;
+      grid-template-columns:1.45fr .8fr .8fr;
+      grid-template-rows:1fr 1fr;
+      gap:10px;
+      min-height:760px;
+    }
+    .cat{
+      position:relative;
+      overflow:hidden;
+      color:white;
+      background:linear-gradient(145deg,#16070a,#4a1119);
+      min-height:0;
+    }
+    .cat.large{grid-row:1/3}
+    .cat.wide{grid-column:2/4}
+    .cat-media{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(circle at 62% 28%,rgba(197,166,106,.18),transparent 20%),
+        linear-gradient(145deg,#100708,#4a1119);
+      transition:transform 1.1s ease,filter .7s ease;
+    }
+    .cat:nth-child(2) .cat-media{background:linear-gradient(145deg,#161312,#443832)}
+    .cat:nth-child(3) .cat-media{background:linear-gradient(145deg,#0f0d0d,#3a3037)}
+    .cat:nth-child(4) .cat-media{background:linear-gradient(145deg,#13080a,#5f1822)}
+    .cat:hover .cat-media{transform:scale(1.045);filter:brightness(1.08)}
+    .cat-media:before{
+      content:"";
+      position:absolute;
+      inset:16% 18%;
+      border:1px solid rgba(221,191,126,.36);
+      border-radius:50%;
+    }
+    .cat-shade{
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,.70),transparent 62%);
+    }
+    .cat-label{
+      position:absolute;
+      left:24px;bottom:22px;
+      font-family:var(--serif);
+      font-size:clamp(28px,3vw,44px);
+    }
+    .cat-label span{
+      display:block;
+      font-family:var(--sans);
+      font-size:9px;
+      letter-spacing:.16em;
+      margin-top:8px;
+    }
+
+    /* HERITAGE */
+    .heritage{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      min-height:800px;
+      background:var(--black);
+      color:white;
+    }
+    .heritage-photo{
+      min-height:800px;
+      background:
+        linear-gradient(rgba(0,0,0,.18),rgba(0,0,0,.34)),
+        url("heritage.jpg") center/cover no-repeat,
+        linear-gradient(145deg,#191411,#514236);
+      position:relative;
+      overflow:hidden;
+      filter:saturate(.72);
+    }
+    .heritage-photo:before{
+      content:"1994";
+      position:absolute;
+      left:50%;top:50%;
+      transform:translate(-50%,-50%);
+      font-family:var(--serif);
+      font-size:clamp(110px,15vw,250px);
+      color:rgba(255,255,255,.08);
+    }
+    .heritage-photo:after{
+      content:"ARCHIVE · NIŠ";
+      position:absolute;
+      left:28px;bottom:28px;
+      font-size:9px;
+      letter-spacing:.22em;
+      color:rgba(255,255,255,.66);
+    }
+    .heritage-copy{
+      padding:9vw 7vw;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:linear-gradient(135deg,#080706,#180609);
+    }
+    .year{
+      font-family:var(--serif);
+      font-size:clamp(84px,11vw,174px);
+      color:var(--champ);
+      line-height:.8;
+      margin-bottom:38px;
+    }
+    .heritage-copy h2{
+      font-family:var(--serif);
+      font-size:clamp(40px,4vw,62px);
+      font-weight:400;
+      margin:0 0 20px;
+    }
+    .heritage-copy p{
+      color:#c6bfb6;
+      line-height:1.85;
+      max-width:500px;
+      font-size:14px;
+      margin-bottom:28px;
+    }
+
+    /* OCCASIONS */
+    .pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .pill{
+      border:1px solid #cec6b9;
+      border-radius:999px;
+      padding:13px 19px;
+      font-size:11px;
+      transition:.25s;
+    }
+    .pill:hover{background:var(--oxblood);color:white;border-color:var(--oxblood)}
+
+    /* CAMPAIGN / SHOP THE LOOK */
+    .campaign{
+      min-height:145vh;
+      position:relative;
+      background:linear-gradient(135deg,#080706,#180609 52%,#3d0f16);
+      color:white;
+      overflow:hidden;
+    }
+    .campaign-sticky{
+      position:sticky;
+      top:0;
+      height:100vh;
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      align-items:center;
+      gap:5vw;
+      padding:7vw;
+    }
+    .campaign-visual{
+      height:76vh;
+      max-height:840px;
+      position:relative;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:
+        linear-gradient(rgba(24,6,9,.12),rgba(24,6,9,.28)),
+        url("campaign.jpg") center/cover no-repeat,
+        radial-gradient(circle at 55% 34%,#6b2730 0,#2b0a10 35%,#100708 75%);
+    }
+    .campaign-visual:before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:20%;
+      width:36%;
+      height:49%;
+      transform:translateX(-50%);
+      border:1px solid rgba(213,180,111,.52);
+      border-radius:50%;
+      box-shadow:0 0 50px rgba(213,180,111,.08);
+    }
+    .campaign-visual:after{
+      content:"◆";
+      position:absolute;
+      left:50%;
+      top:64%;
+      transform:translate(-50%,-50%);
+      color:var(--champ);
+      font-size:44px;
+    }
+    .campaign-copy h2{
+      font-family:var(--serif);
+      font-size:clamp(56px,7vw,112px);
+      font-weight:400;
+      line-height:.88;
+      margin:0 0 30px;
+    }
+    .campaign-copy p{
+      color:#cfc4b8;
+      max-width:520px;
+      line-height:1.8;
+      margin-bottom:28px;
+    }
+    .campaign-step{
+      display:flex;
+      align-items:center;
+      gap:13px;
+      margin-top:32px;
+      font-size:9px;
+      letter-spacing:.18em;
+      color:var(--champ-soft);
+    }
+    .campaign-step:before{content:"";width:72px;height:1px;background:var(--champ)}
+
+    /* SHOP */
+    #shop{scroll-margin-top:72px;background:var(--paper)}
+    .shop-intro{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:end;
+      margin-bottom:14px;
+    }
+    .shop-tools{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      padding:14px 0;
+      margin:32px 0 14px;
+    }
+    .search{display:flex;align-items:center;gap:8px}
+    .search input{border:0;outline:0;background:transparent;min-width:280px}
+    .shop-tools select{border:0;background:transparent;outline:0;color:#5c554c}
+    .tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 20px}
+    .tab{
+      border:1px solid #d5cec2;
+      background:transparent;
+      border-radius:999px;
+      padding:9px 15px;
+      white-space:nowrap;
+      font-size:10px;
+    }
+    .tab.active{background:var(--oxblood);color:white;border-color:var(--oxblood)}
+
+    /* VISIT */
+    .visit{background:var(--ivory)}
+    .visit-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+    .visit p{color:var(--muted);line-height:1.7;max-width:470px}
+    .contact-list{
+      display:grid;
+      gap:0;
+      margin:30px 0 24px;
+      border-top:1px solid var(--line);
+    }
+    .contact-item{
+      padding:18px 0;
+      border-bottom:1px solid var(--line);
+      display:grid;
+      gap:5px;
+    }
+    .contact-kicker{
+      font-size:9px;
+      letter-spacing:.18em;
+      color:#8a7a65;
+      font-weight:700;
+    }
+    .contact-value{
+      font-family:var(--serif);
+      font-size:clamp(25px,2.5vw,34px);
+      line-height:1.05;
+      width:max-content;
+    }
+    .contact-item small{
+      color:var(--muted);
+      font-size:10px;
+      margin-bottom:5px;
+    }
+    .map{
+      height:500px;
+      overflow:hidden;
+      border:1px solid rgba(60,42,33,.08);
+      background:#e7dfd2;
+      box-shadow:0 24px 70px rgba(41,18,18,.08);
+    }
+    .map iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      filter:saturate(.72) sepia(.05) contrast(.97);
+    }
+
+    /* FOOTER */
+    footer{
+      background:linear-gradient(135deg,#070605,#180609);
+      color:white;
+      padding:74px 5vw 24px;
+    }
+    .footer-logo{
+      font-family:var(--serif);
+      font-size:clamp(42px,8vw,112px);
+      letter-spacing:.1em;
+      border-bottom:1px solid rgba(255,255,255,.13);
+      padding-bottom:30px;
+    }
+    .footer-logo small{
+      display:block;
+      font-family:var(--sans);
+      font-size:10px;
+      color:#aaa39a;
+      letter-spacing:.14em;
+      margin-top:14px;
+    }
+    .footer-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;padding:36px 0 46px}
+    .footer-cols div{display:flex;flex-direction:column;gap:11px}
+    .footer-cols h4{font-size:9px;letter-spacing:.18em;color:var(--champ)}
+    .footer-cols a,.footer-cols span{font-size:12px;color:#c6c0b8}
+    .foot-bottom{
+      border-top:1px solid rgba(255,255,255,.13);
+      padding-top:18px;
+      display:flex;justify-content:space-between;gap:20px;
+      color:#8e877e;font-size:10px;
+    }
+
+    /* CART */
+    .backdrop{
+      position:fixed;z-index:88;inset:0;
+      background:rgba(8,5,5,.48);
+      backdrop-filter:blur(7px);
+      opacity:0;pointer-events:none;
+      transition:.3s;
+    }
+    .backdrop.show{opacity:1;pointer-events:auto}
+    .drawer{
+      position:fixed;z-index:90;
+      right:0;top:0;bottom:0;
+      width:min(470px,100%);
+      background:var(--paper);
+      transform:translateX(102%);
+      transition:.42s cubic-bezier(.22,.61,.36,1);
+      display:flex;flex-direction:column;
+      box-shadow:-30px 0 100px rgba(0,0,0,.16);
+    }
+    .drawer.open{transform:none}
+    .drawer-head{
+      padding:27px;
+      display:flex;
+      justify-content:space-between;
+      border-bottom:1px solid var(--line);
+    }
+    .drawer-head h2{
+      font-family:var(--serif);
+      font-weight:400;
+      font-size:31px;
+      margin:0;
+    }
+    .drawer-items{flex:1;overflow:auto;padding:6px 26px}
+    .cart-item{
+      display:grid;
+      grid-template-columns:86px 1fr;
+      gap:13px;
+      padding:16px 0;
+      border-bottom:1px solid var(--line);
+    }
+    .cart-thumb{
+      height:105px;
+      background:linear-gradient(135deg,#180609,#5b1822);
+      position:relative;
+      overflow:hidden;
+    }
+    .cart-thumb img{width:100%;height:100%;object-fit:cover}
+    .cart-thumb:after{
+      content:"◆";
+      position:absolute;inset:0;
+      display:grid;place-items:center;
+      color:var(--champ);
+    }
+    .cart-thumb.has-image:after{display:none}
+    .cart-item h4{font-family:var(--serif);font-weight:400;font-size:19px;margin:0 0 4px}
+    .cart-item small{color:var(--muted);font-size:10px}
+    .qty{display:flex;align-items:center;gap:8px;margin-top:9px}
+    .qty button{width:27px;height:27px;border:1px solid var(--line);background:white}
+    .remove{margin-left:auto!important;color:#8b8175}
+    .drawer-foot{border-top:1px solid var(--line);padding:22px 26px 28px}
+    .total{display:flex;justify-content:space-between;font-family:var(--serif);font-size:24px;margin-bottom:14px}
+    .drawer-foot p{font-size:10px;color:var(--muted)}
+
+    /* PRODUCT MODAL */
+    .modal{
+      position:fixed;z-index:95;inset:0;
+      background:rgba(8,5,5,.74);
+      backdrop-filter:blur(10px);
+      display:none;
+      place-items:center;
+      padding:24px;
+    }
+    .modal.open{display:grid}
+    .modal-box{
+      width:min(1120px,100%);
+      max-height:92vh;
+      overflow:auto;
+      background:var(--paper);
+      display:grid;
+      grid-template-columns:1.12fr .88fr;
+      position:relative;
+      box-shadow:0 50px 160px rgba(0,0,0,.38);
+    }
+    .modal-image{
+      min-height:690px;
+      background:
+        radial-gradient(circle at 70% 28%,rgba(208,178,110,.22),transparent 20%),
+        linear-gradient(135deg,#180609,#5b1822);
+      position:relative;
+      overflow:hidden;
+    }
+    .modal-image img{
+      position:absolute;inset:0;
+      width:100%;height:100%;
+      object-fit:cover;
+    }
+    .modal-image:after{
+      content:"◆";
+      position:absolute;inset:0;
+      display:grid;place-items:center;
+      font-size:80px;color:var(--champ);
+    }
+    .modal-image.has-image:after{display:none}
+    .modal-copy{padding:62px 55px}
+    .modal-copy h2{
+      font-family:var(--serif);
+      font-size:50px;
+      font-weight:400;
+      margin:0 0 10px;
+    }
+    .modal-price{font-size:17px;margin-bottom:20px}
+    .modal-copy p{color:var(--muted);line-height:1.7}
+    .specs{margin:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .specs div{
+      display:flex;justify-content:space-between;
+      padding:11px 0;
+      font-size:11px;
+      border-bottom:1px solid rgba(0,0,0,.07);
+    }
+    .specs div:last-child{border:0}
+    .product-trust{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      display:grid;
+      gap:8px;
+      color:var(--muted);
+      font-size:10px;
+    }
+    .close-modal{
+      position:absolute;
+      top:14px;right:14px;
+      z-index:3;
+      width:40px;height:40px;
+      border:0;border-radius:50%;
+      background:white;
+      font-size:20px;
+    }
+
+    /* MOBILE STICKY BUY BAR */
+    .mobile-buy{
+      display:none;
+      position:fixed;
+      z-index:98;
+      left:0;right:0;bottom:0;
+      background:rgba(251,250,247,.97);
+      border-top:1px solid var(--line);
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      box-shadow:0 -18px 45px rgba(0,0,0,.12);
+      align-items:center;
+      gap:12px;
+    }
+    .mobile-buy strong{font-size:12px;white-space:nowrap}
+    .mobile-buy .btn{flex:1}
+
+    /* CHECKOUT */
+    .checkout{
+      position:fixed;z-index:100;inset:0;
+      background:white;
+      display:none;overflow:auto;
+    }
+    .checkout.open{display:block}
+    .checkout-wrap{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr}
+    .checkout-form{padding:70px 8vw}
+    .checkout-summary{background:var(--ivory);padding:100px 7vw}
+    .checkout-brand{font-family:var(--serif);letter-spacing:.2em;font-size:22px;margin-bottom:50px}
+    .checkout h2{font-family:var(--serif);font-size:46px;font-weight:400;margin:0 0 26px}
+    .form{display:flex;flex-direction:column;gap:13px}
+    .form label{display:flex;flex-direction:column;gap:6px;font-size:10px;letter-spacing:.06em}
+    .form input,.form select,.form textarea{
+      padding:13px;border:1px solid #d5cfc5;background:white;outline:0;
+    }
+    .form input:focus,.form select:focus,.form textarea:focus{border-color:var(--wine)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .checkout-close{
+      position:fixed;right:20px;top:20px;z-index:102;
+      width:42px;height:42px;border:1px solid #ddd;background:white;border-radius:50%;
+    }
+    .summary-line{
+      display:flex;justify-content:space-between;
+      border-bottom:1px solid var(--line);
+      padding:12px 0;
+      font-size:12px;
+    }
+    .summary-total{
+      display:flex;justify-content:space-between;
+      font-family:var(--serif);
+      font-size:25px;
+      padding:22px 0;
+    }
+    .notice{font-size:10px;color:var(--muted);line-height:1.5}
+
+    /* REVEAL */
+    .reveal{
+      opacity:0;
+      transform:translateY(34px);
+      filter:blur(4px);
+      transition:opacity .9s ease,transform .9s ease,filter .9s ease;
+    }
+    .reveal.in{opacity:1;transform:none;filter:blur(0)}
+    .mask-line{overflow:hidden}
+    .mask-line > span{
+      display:block;
+      transform:translateY(105%);
+      transition:transform .9s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.in .mask-line > span{transform:none}
+
+    @media(max-width:1100px){
+      .nav{display:none}
+      .mobile-menu-btn{display:grid}
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+      .category-editorial{grid-template-columns:1fr 1fr;grid-template-rows:520px 360px}
+      .cat.large{grid-row:auto;grid-column:1/2}
+      .cat.wide{grid-column:1/3}
+      .heritage{grid-template-columns:1fr}
+      .heritage-photo{min-height:560px}
+      .campaign-sticky{grid-template-columns:1fr;gap:30px;height:auto;min-height:100vh;padding:90px 6vw}
+      .campaign-visual{height:58vh}
+      .visit-grid{grid-template-columns:1fr}
+      .modal-box{grid-template-columns:1fr}
+      .modal-image{min-height:440px}
+      .checkout-wrap{grid-template-columns:1fr}
+    }
+
+    @media(max-width:700px){
+      header{height:64px;padding:0 12px}
+      .wordmark{font-size:15px}
+      .actions{right:7px}
+      .hero{min-height:690px}
+      .hero-content{left:22px;right:22px;bottom:90px;width:auto;max-width:none}
+      .hero-video.portrait{
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        object-position:center center;
+      }
+      .hero-overlay{
+        background:
+          linear-gradient(to top,rgba(7,5,5,.90) 0%,rgba(24,6,9,.50) 48%,rgba(8,6,5,.12) 78%),
+          linear-gradient(90deg,rgba(10,6,7,.34),rgba(10,6,7,.12));
+      }
+      .hero h1{font-size:54px}
+      .hero p{font-size:19px;line-height:1.35}
+      .hero-monogram{width:84px;height:84px;right:20px;top:110px;font-size:22px}
+      .film-note{display:none}
+      .trust{grid-template-columns:1fr 1fr}
+      .trust div{min-height:58px;font-size:9px}
+      .section{padding:74px 17px}
+      .section-head{align-items:start}
+      .product-grid{gap:8px}
+      .meta{display:block}
+      .meta h3{font-size:16px}
+      .meta strong{display:block;margin-top:7px}
+      .quick{transform:none;left:8px;right:8px;bottom:8px;background:rgba(24,6,9,.92)}
+      .category-editorial{display:grid;grid-template-columns:1fr;grid-template-rows:560px 300px 300px 360px}
+      .cat.large,.cat.wide{grid-column:auto;grid-row:auto}
+      .cat-label{font-size:28px;left:16px;bottom:16px}
+      .heritage-copy{padding:74px 22px}
+      .campaign{min-height:auto}
+      .campaign-sticky{position:relative;padding:78px 18px}
+      .campaign-visual{height:62vh}
+      .campaign-copy h2{font-size:54px}
+      .shop-tools{flex-direction:column}
+      .search input{min-width:0;width:100%}
+      .footer-cols{grid-template-columns:1fr 1fr}
+      .foot-bottom{flex-direction:column}
+      .modal{padding:0}
+      .modal-box{height:100vh;max-height:none}
+      .modal-copy{padding:40px 20px 92px}
+      .modal-image{min-height:360px}
+      .mobile-buy.show{display:flex}
+      .checkout-form,.checkout-summary{padding:70px 20px}
+      .two{grid-template-columns:1fr}
+      .cursor-glow{display:none}
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="splash">
+  <div class="splash-word">STEVANOVIĆ</div>
+  <div class="splash-sub">FINE JEWELLERY · SINCE 1994 · NIŠ</div>
+</div>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<header id="siteHeader">
+  <button class="icon-btn mobile-menu-btn" onclick="toggleMobile()" aria-label="Otvori meni">☰</button>
+
+  <nav class="nav">
+    <a href="#shop">NOVO</a>
+    <a href="#shop">NAKIT</a>
+    <a href="#shop" data-cat="Prstenje">PRSTENJE</a>
+    <a href="#shop" data-cat="Ogrlice">OGRLICE</a>
+  </nav>
+
+  <a href="#top" class="wordmark">STEVANOVIĆ</a>
+
+  <nav class="nav right">
+    <a href="#shop" data-cat="Minđuše">MINĐUŠE</a>
+    <a href="#shop" data-cat="Narukvice">NARUKVICE</a>
+    <a href="#shop" data-cat="Setovi">SETOVI</a>
+    <a href="#heritage">O NAMA</a>
+  </nav>
+
+  <div class="actions">
+    <button class="icon-btn" onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})" aria-label="Pretraga">⌕</button>
+    <button class="icon-btn bag" onclick="openCart()" aria-label="Korpa">🛍<span class="count" id="count">0</span></button>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="toggleMobile()" style="align-self:flex-end;background:none;border:0;color:white;font-size:28px">×</button>
+  <a href="#shop" onclick="toggleMobile()">NAKIT</a>
+  <a href="#shop" onclick="setCat('Ogrlice');toggleMobile()">OGRLICE</a>
+  <a href="#shop" onclick="setCat('Prstenje');toggleMobile()">PRSTENJE</a>
+  <a href="#shop" onclick="setCat('Minđuše');toggleMobile()">MINĐUŠE</a>
+  <a href="#heritage" onclick="toggleMobile()">SINCE 1994</a>
+</div>
+
+<section class="hero" id="top">
+  <div class="hero-fallback"></div>
+
+  <!--
     HERO FILMS:
     Možeš da ubaciš 1, 2 ili 3 videa sa Pexels-a.
     U isti GitHub folder gde je index.html uploaduj MP4 fajlove i nazovi ih:
@@ -22,54 +1078,642 @@ old_html = '''  <!--
   </video>
   <video class="hero-video" autoplay muted loop playsinline preload="metadata">
     <source src="hero-3.mp4" type="video/mp4" />
-  </video>'''
+  </video>
 
-new_html = '''  <!--
-    HERO VIDEOS:
-    VIDEO FAJLOVE VIŠE NE MORAŠ DA UPLOADUJEŠ NA GITHUB.
-    Njihove direktne MP4/CDN linkove samo nalepi u HERO_VIDEO_URLS
-    pri dnu ovog fajla.
+  <div class="hero-overlay"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-monogram">S</div>
 
-    Možeš koristiti 1, 2 ili 3 videa.
-    Ako je neko polje prazno, sajt ga automatski preskače.
-  -->
-  <video class="hero-video" muted playsinline preload="metadata"></video>
-  <video class="hero-video" muted playsinline preload="metadata"></video>
-  <video class="hero-video" muted playsinline preload="metadata"></video>'''
+  <div class="hero-content reveal">
+    <div class="eyebrow light">FINE JEWELLERY · NIŠ</div>
+    <h1>STEVANOVIĆ</h1>
+    <p>Chosen today. Worn for generations.</p>
+    <div class="hero-actions">
+      <a class="btn btn-light magnetic" href="#shop">SHOP JEWELLERY</a>
+      <a class="btn btn-ghost magnetic" href="#heritage">DISCOVER THE HOUSE</a>
+    </div>
+  </div>
 
-if old_html not in text:
-    raise RuntimeError("Hero HTML block not found")
-text = text.replace(old_html, new_html)
+  <div class="film-note">EST. 1994 · NIŠ</div>
+</section>
 
-old_const = '  const WHATSAPP_NUMBER = "381692131555";'
-new_const = '''  const WHATSAPP_NUMBER = "381692131555";
+<section class="trust">
+  <div>✦ Fino zlato</div>
+  <div>✓ Sigurna kupovina</div>
+  <div>⌂ Zlatara u Nišu od 1994.</div>
+  <div>→ Dostava širom Srbije</div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">NAJTRAŽENIJI KOMADI</div>
+      <div class="mask-line"><span><h2>Bestsellers</h2></span></div>
+    </div>
+    <a class="text-link" href="#shop">POGLEDAJ SVE →</a>
+  </div>
+  <div class="product-grid" id="bestGrid"></div>
+</section>
+
+<section class="section reveal">
+  <div class="center" style="margin-bottom:45px">
+    <div class="eyebrow">SHOP BY CATEGORY</div>
+    <div class="mask-line"><span><h2>Pronađite svoj komad</h2></span></div>
+  </div>
+
+  <div class="category-editorial">
+    <a class="cat large" href="#shop" onclick="setCat('Ogrlice')">
+      <div class="cat-media"></div><div class="cat-shade"></div>
+      <div class="cat-label">Ogrlice<span>SHOP NECKLACES</span></div>
+    </a>
+
+    <a class="cat" href="#shop" onclick="setCat('Prstenje')">
+      <div class="cat-media"></div><div class="cat-shade"></div>
+      <div class="cat-label">Prstenje<span>SHOP RINGS</span></div>
+    </a>
+
+    <a class="cat" href="#shop" onclick="setCat('Minđuše')">
+      <div class="cat-media"></div><div class="cat-shade"></div>
+      <div class="cat-label">Minđuše<span>SHOP EARRINGS</span></div>
+    </a>
+
+    <a class="cat wide" href="#shop" onclick="setCat('Setovi')">
+      <div class="cat-media"></div><div class="cat-shade"></div>
+      <div class="cat-label">Setovi<span>SHOP SETS</span></div>
+    </a>
+  </div>
+</section>
+
+<section class="heritage" id="heritage">
+  <div class="heritage-photo"></div>
+
+  <div class="heritage-copy reveal">
+    <div class="eyebrow light">THREE GENERATIONS · ONE TRADITION</div>
+    <div class="year">1994</div>
+    <div class="mask-line"><span><h2>Tri generacije. Jedna tradicija.</h2></span></div>
+    <p>
+      Od 1994. godine Zlatara Stevanović je deo Niša i deo vaših najlepših trenutaka.
+      Tri generacije naše porodice gradile su isti odnos prema zlatu — kvalitet, poverenje,
+      tradiciju i pažnju prema svakom detalju.
+    </p>
+    <p>
+      Godinama smo sa vama birali nakit za ljubavi, rođenja, krštenja, venčanja,
+      godišnjice i velike životne prekretnice. Ulepšavali smo vaše posebne dane komadima
+      koji nisu samo nakit, već uspomene koje ostaju i prenose se kroz generacije.
+    </p>
+    <div style="font-size:9px;letter-spacing:.18em;color:var(--champ-soft);margin:2px 0 28px">
+      NIŠ · OD 1994. · TRI GENERACIJE
+    </div>
+    <a class="btn btn-ghost magnetic" href="#shop">ISTRAŽI KOLEKCIJU</a>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="center">
+    <div class="eyebrow">POKLON KOJI OSTAJE</div>
+    <div class="mask-line"><span><h2 style="margin-bottom:42px">Izaberite po prilici</h2></span></div>
+  </div>
+
+  <div class="pills">
+    <a class="pill" href="#shop">Za nju</a>
+    <a class="pill" href="#shop">Rođendan</a>
+    <a class="pill" href="#shop">Godišnjica</a>
+    <a class="pill" href="#shop">Venčanje</a>
+    <a class="pill" href="#shop">Do 30.000 RSD</a>
+    <a class="pill" href="#shop">Posebne prilike</a>
+  </div>
+</section>
+
+<section class="campaign">
+  <div class="campaign-sticky">
+    <div class="campaign-visual"></div>
+
+    <div class="campaign-copy reveal">
+      <div class="eyebrow light">THE STEVANOVIĆ EDIT</div>
+      <div class="mask-line"><span><h2>Chosen today.<br>Worn for generations.</h2></span></div>
+      <p>
+        Editorial trenutak između brenda i prodavnice. Ovde ubacite jednu brutalnu fotografiju
+        modela sa nakitom ili campaign kadar u bordo / crnoj rasveti.
+      </p>
+      <a class="btn btn-light magnetic" href="#shop">SHOP THE EDIT</a>
+      <div class="campaign-step">STEVANOVIĆ · SINCE 1994</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="shop">
+  <div class="shop-intro">
+    <div>
+      <div class="eyebrow">ONLINE BOUTIQUE</div>
+      <h2>Nakit</h2>
+    </div>
+    <span id="productCount" style="font-size:10px;color:var(--muted)"></span>
+  </div>
+
+  <div class="shop-tools">
+    <div class="search">⌕ <input id="searchInput" placeholder="Pretražite nakit..." oninput="renderShop()"></div>
+    <select id="sortSelect" onchange="renderShop()">
+      <option value="featured">Preporučeno</option>
+      <option value="low">Cena: niža prvo</option>
+      <option value="high">Cena: viša prvo</option>
+    </select>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div class="product-grid" id="shopGrid"></div>
+</section>
+
+<section class="section visit reveal" id="contact">
+  <div class="visit-grid">
+    <div>
+      <div class="eyebrow">VISIT & CONTACT</div>
+      <div class="mask-line"><span><h2>Stevanović, Niš</h2></span></div>
+      <p>Lamela D, TPC Kalča, Obrenovićeva bb, Lokal 93/B, Niš</p>
+
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="contact-kicker">ONLINE PORUDŽBINE</span>
+          <a class="contact-value" href="tel:+381692131555">069 213 1555</a>
+          <small>Telefon · Viber · WhatsApp</small>
+          <a class="text-link" href="https://wa.me/381692131555" target="_blank" rel="noreferrer">POŠALJITE PORUKU →</a>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-kicker">RADNJA · NIŠ</span>
+          <a class="contact-value" href="tel:+38118522641">018 522 641</a>
+          <small>Za informacije i poziv prodavnici</small>
+          <a class="text-link" href="tel:+38118522641">POZOVITE RADNJU →</a>
+        </div>
+
+        <div class="contact-item">
+          <span class="contact-kicker">INSTAGRAM</span>
+          <a class="contact-value" href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">@zlatarastevanovic</a>
+          <small>Noviteti · kolekcije · inspiracija</small>
+          <a class="text-link" href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">OTVORI INSTAGRAM →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="map">
+      <iframe
+        title="Zlatara Stevanović — lokacija"
+        src="https://www.google.com/maps?q=Zlatara+Stevanovic+Nis&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">
+    STEVANOVIĆ
+    <small>FINE JEWELLERY SINCE 1994 · NIŠ</small>
+  </div>
+
+  <div class="footer-cols">
+    <div>
+      <h4>SHOP</h4>
+      <a href="#shop">Sav nakit</a>
+      <a href="#shop" onclick="setCat('Ogrlice')">Ogrlice</a>
+      <a href="#shop" onclick="setCat('Prstenje')">Prstenje</a>
+      <a href="#shop" onclick="setCat('Minđuše')">Minđuše</a>
+    </div>
+
+    <div>
+      <h4>STEVANOVIĆ</h4>
+      <a href="#heritage">Naša priča</a>
+      <a href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">Instagram</a>
+      <a href="tel:+381692131555">Online porudžbine · 069 213 1555</a>
+      <a href="tel:+38118522641">Radnja · 018 522 641</a>
+    </div>
+
+    <div>
+      <h4>POMOĆ</h4>
+      <span>Dostava i povraćaj</span>
+      <span>Vodič za veličine</span>
+      <span>Uslovi kupovine</span>
+      <span>Privatnost</span>
+    </div>
+  </div>
+
+  <div class="foot-bottom">
+    <span>© 2026 Zlatara Stevanović</span>
+    <span>Lamela D, TPC Kalča, Obrenovićeva bb, Lokal 93/B, Niš</span>
+  </div>
+</footer>
+
+<div class="backdrop" id="backdrop" onclick="closeCart()"></div>
+
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div>
+      <div class="eyebrow">VAŠA KORPA</div>
+      <h2 id="cartTitle">Korpa je prazna</h2>
+    </div>
+    <button class="icon-btn" onclick="closeCart()">✕</button>
+  </div>
+
+  <div class="drawer-items" id="cartItems"></div>
+
+  <div class="drawer-foot" id="drawerFoot" style="display:none">
+    <div class="total"><span>Ukupno</span><strong id="cartTotal"></strong></div>
+    <p>Porodična zlatara od 1994. · Niš</p>
+    <button class="btn btn-gold full magnetic" onclick="openCheckout()">NASTAVI NA PLAĆANJE</button>
+  </div>
+</aside>
+
+<div class="modal" id="productModal">
+  <div class="modal-box">
+    <button class="close-modal" onclick="closeProduct()">×</button>
+
+    <div class="modal-image" id="modalImage"></div>
+
+    <div class="modal-copy">
+      <div class="eyebrow" id="mCat"></div>
+      <h2 id="mName"></h2>
+      <div class="modal-price" id="mPrice"></div>
+      <p id="mDesc"></p>
+
+      <div class="specs" id="mSpecs"></div>
+
+      <button class="btn btn-gold full magnetic" id="mAdd">DODAJ U KORPU</button>
+      <button class="btn full magnetic" style="border-color:var(--ink);margin-top:8px;background:transparent" id="mBuy">KUPI ODMAH</button>
+
+      <div class="product-trust">
+        <span>✓ Finoća i težina jasno navedene</span>
+        <span>✓ Fizička zlatara u Nišu</span>
+        <span>✓ Tradicija od 1994.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mobile-buy" id="mobileBuy">
+  <strong id="mobileBuyPrice"></strong>
+  <button class="btn btn-gold" id="mobileBuyButton">DODAJ U KORPU</button>
+</div>
+
+<div class="checkout" id="checkout">
+  <button class="checkout-close" onclick="closeCheckout()">×</button>
+
+  <div class="checkout-wrap">
+    <div class="checkout-form">
+      <div class="checkout-brand">STEVANOVIĆ</div>
+      <div class="eyebrow">SIGURAN CHECKOUT</div>
+      <h2>Podaci za porudžbinu</h2>
+
+      <form class="form" onsubmit="submitOrder(event)">
+        <label>Ime i prezime<input id="cName" required></label>
+        <label>Telefon<input id="cPhone" required></label>
+        <label>Email<input id="cEmail" type="email"></label>
+        <label>Adresa<input id="cAddress" required></label>
+
+        <div class="two">
+          <label>Grad<input id="cCity" required></label>
+          <label>Poštanski broj<input id="cZip"></label>
+        </div>
+
+        <label>Način plaćanja
+          <select id="cPayment">
+            <option>Pouzećem</option>
+            <option>Bankarska uplata</option>
+          </select>
+        </label>
+
+        <label>Napomena<textarea id="cNote" rows="3" placeholder="Poklon pakovanje, poruka, drugo..."></textarea></label>
+
+        <button class="btn btn-gold full" type="submit">POTVRDI PORUDŽBINU</button>
+
+        <p class="notice">
+          Ova verzija priprema porudžbinu i otvara WhatsApp. Za kartično plaćanje kasnije povezujemo payment gateway banke/provajdera.
+        </p>
+      </form>
+    </div>
+
+    <div class="checkout-summary">
+      <div class="eyebrow">VAŠA PORUDŽBINA</div>
+      <div id="checkoutLines"></div>
+      <div class="summary-total"><span>Ukupno</span><strong id="checkoutTotal"></strong></div>
+      <p class="notice">Fine Jewellery Since 1994 · Niš</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  /*
+    =========================
+    1) MENJAJ OVO PRVO
+    =========================
+    WhatsApp broj: samo cifre, bez + i razmaka.
+  */
+  const WHATSAPP_NUMBER = "381692131555";
 
   /*
-    ============================================================
-    HERO VIDEO LINKOVI — OVO JE JEDINO MESTO KOJE MENJAŠ ZA VIDEO
-    ============================================================
+    =========================
+    2) PROIZVODI
+    =========================
+    Za prave slike:
+    image:"product-1.jpg",
+    hover:"product-1-model.jpg"
 
-    Nalepi DIREKTAN link do video fajla između navodnika.
-    Link treba da vodi do samog videa (MP4 / video CDN), a NE do
-    Pexels stranice na kojoj se video nalazi.
-
-    Primer:
-    "https://res.cloudinary.com/tvoj-cloud/video/upload/v123/hero1.mp4"
-
-    Možeš staviti 1, 2 ili 3 videa.
-    Za video koji ne želiš ostavi prazan string: ""
+    Ako slike još ne postoje, ostavi image:"" i hover:"" — prikazaće se elegantni placeholder.
   */
-  const HERO_VIDEO_URLS = [
-    "", // VIDEO 1 — nalepi link između navodnika
-    "", // VIDEO 2 — nalepi link između navodnika
-    ""  // VIDEO 3 — nalepi link između navodnika
-  ];'''
+  const products = [
+    {id:1,name:"Ogrlica Aurelia",cat:"Ogrlice",price:32900,badge:"Bestseller",material:"Žuto zlato",fine:"585 / 14K",weight:"3.8 g",size:"42–45 cm",desc:"Elegantna ogrlica čistih linija, zamišljena kao svakodnevni potpis.",image:"",hover:""},
+    {id:2,name:"Prsten Siena",cat:"Prstenje",price:28900,badge:"Novo",material:"Žuto zlato",fine:"585 / 14K",weight:"3.2 g",size:"Veličina po izboru",desc:"Sveden prsten sa svetlucavim detaljem za diskretnu luksuznu završnicu.",image:"",hover:""},
+    {id:3,name:"Minđuše Luna",cat:"Minđuše",price:24900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"2.9 g",size:"18 mm",desc:"Lagane minđuše koje se lako kombinuju od dnevnog do večernjeg izgleda.",image:"",hover:""},
+    {id:4,name:"Narukvica Venezia",cat:"Narukvice",price:36900,badge:"Bestseller",material:"Žuto zlato",fine:"585 / 14K",weight:"4.4 g",size:"17–19 cm",desc:"Klasična zlatna narukvica sa modernim proporcijama i finim sjajem.",image:"",hover:""},
+    {id:5,name:"Set Celeste",cat:"Setovi",price:64900,badge:"Poklon izbor",material:"Belo zlato",fine:"585 / 14K",weight:"7.3 g",size:"Ogrlica + minđuše",desc:"Usklađen set ogrlice i minđuša za poklon koji ostavlja utisak.",image:"",hover:""},
+    {id:6,name:"Ogrlica Noir",cat:"Ogrlice",price:41900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"4.9 g",size:"45 cm",desc:"Statement ogrlica sa elegantnim volumenom i večernjim karakterom.",image:"",hover:""},
+    {id:7,name:"Prsten Heritage",cat:"Prstenje",price:38900,badge:"Since 1994",material:"Žuto zlato",fine:"585 / 14K",weight:"4.1 g",size:"Veličina po izboru",desc:"Klasičan komad inspirisan porodičnom tradicijom kuće Stevanović.",image:"",hover:""},
+    {id:8,name:"Minđuše Riviera",cat:"Minđuše",price:31900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"3.7 g",size:"24 mm",desc:"Izdužena silueta i suptilno kretanje za sofisticiran večernji izgled.",image:"",hover:""}
+  ];
 
-if old_const not in text:
-    raise RuntimeError("WhatsApp const not found")
-text = text.replace(old_const, new_const)
+  let currentCat = "Sve";
+  let cart = JSON.parse(localStorage.getItem("stevanovic-cart") || "[]");
+  let activeProductId = null;
 
-old_js = '''  /* HERO VIDEO CROSSFADE + FALLBACK */
+  function money(v){
+    return new Intl.NumberFormat("sr-RS",{
+      style:"currency",
+      currency:"RSD",
+      maximumFractionDigits:0
+    }).format(v);
+  }
+
+  function safeImageHTML(src, cls, alt){
+    if(!src) return "";
+    return `<img src="${src}" class="${cls}" alt="${alt}" onerror="this.remove()">`;
+  }
+
+  function productMedia(p){
+    const has = !!p.image;
+    const hover = p.hover || p.image;
+    return `
+      <div class="pic ${has ? "has-image" : ""}" onclick="openProduct(${p.id})">
+        ${has ? safeImageHTML(p.image,"product-photo",p.name) : ""}
+        ${has ? safeImageHTML(hover,"product-photo-hover",p.name+" na modelu") : ""}
+        ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
+        <button class="heart" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'" aria-label="Wishlist">♡</button>
+        <button class="quick" onclick="event.stopPropagation();addToCart(${p.id})">＋ DODAJ U KORPU</button>
+      </div>
+    `;
+  }
+
+  function card(p){
+    return `
+      <article class="card">
+        ${productMedia(p)}
+        <div class="meta">
+          <div>
+            <h3><a href="javascript:void(0)" onclick="openProduct(${p.id})">${p.name}</a></h3>
+            <small>${p.fine} · ${p.material}</small>
+          </div>
+          <strong>${money(p.price)}</strong>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderBest(){
+    document.getElementById("bestGrid").innerHTML = products.slice(0,4).map(card).join("");
+  }
+
+  function renderTabs(){
+    const cats=["Sve","Ogrlice","Prstenje","Minđuše","Narukvice","Setovi"];
+    document.getElementById("tabs").innerHTML =
+      cats.map(c=>`<button class="tab ${c===currentCat?"active":""}" onclick="setCat('${c}')">${c}</button>`).join("");
+  }
+
+  function renderShop(){
+    let list=[...products];
+    const q=document.getElementById("searchInput").value.trim().toLowerCase();
+    const sort=document.getElementById("sortSelect").value;
+
+    if(currentCat!=="Sve") list=list.filter(p=>p.cat===currentCat);
+    if(q) list=list.filter(p=>(p.name+" "+p.cat+" "+p.material).toLowerCase().includes(q));
+    if(sort==="low") list.sort((a,b)=>a.price-b.price);
+    if(sort==="high") list.sort((a,b)=>b.price-a.price);
+
+    document.getElementById("shopGrid").innerHTML=list.map(card).join("");
+    document.getElementById("productCount").textContent=list.length+" proizvoda";
+    renderTabs();
+  }
+
+  function setCat(c){
+    currentCat=c;
+    setTimeout(renderShop,0);
+    document.querySelector("#shop").scrollIntoView({behavior:"smooth"});
+  }
+
+  function saveCart(){
+    localStorage.setItem("stevanovic-cart",JSON.stringify(cart));
+    renderCart();
+  }
+
+  function addToCart(id){
+    const found=cart.find(x=>x.id===id);
+    found ? found.qty++ : cart.push({id,qty:1});
+    saveCart();
+    openCart();
+  }
+
+  function changeQty(id,d){
+    const x=cart.find(i=>i.id===id);
+    if(!x)return;
+    x.qty=Math.max(1,x.qty+d);
+    saveCart();
+  }
+
+  function removeItem(id){
+    cart=cart.filter(i=>i.id!==id);
+    saveCart();
+  }
+
+  function cartTotal(){
+    return cart.reduce((s,x)=>{
+      const p=products.find(p=>p.id===x.id);
+      return s+(p?p.price*x.qty:0);
+    },0);
+  }
+
+  function renderCart(){
+    document.getElementById("count").textContent=cart.reduce((s,x)=>s+x.qty,0);
+    const items=document.getElementById("cartItems");
+
+    if(!cart.length){
+      document.getElementById("cartTitle").textContent="Korpa je prazna";
+      items.innerHTML="";
+      document.getElementById("drawerFoot").style.display="none";
+      return;
+    }
+
+    document.getElementById("cartTitle").textContent="Odabrani komadi";
+
+    items.innerHTML=cart.map(x=>{
+      const p=products.find(p=>p.id===x.id);
+      const has=!!p.image;
+      return `
+        <div class="cart-item">
+          <div class="cart-thumb ${has?"has-image":""}">
+            ${has?safeImageHTML(p.image,"",""):""}
+          </div>
+
+          <div>
+            <h4>${p.name}</h4>
+            <small>${p.fine} · ${p.material}</small>
+            <div style="font-size:12px;margin-top:5px">${money(p.price)}</div>
+
+            <div class="qty">
+              <button onclick="changeQty(${p.id},-1)">−</button>
+              <span>${x.qty}</span>
+              <button onclick="changeQty(${p.id},1)">＋</button>
+              <button class="remove" onclick="removeItem(${p.id})">✕</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    document.getElementById("cartTotal").textContent=money(cartTotal());
+    document.getElementById("drawerFoot").style.display="block";
+  }
+
+  function openCart(){
+    document.getElementById("drawer").classList.add("open");
+    document.getElementById("backdrop").classList.add("show");
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeCart(){
+    document.getElementById("drawer").classList.remove("open");
+    document.getElementById("backdrop").classList.remove("show");
+    document.body.classList.remove("no-scroll");
+  }
+
+  function openProduct(id){
+    const p=products.find(p=>p.id===id);
+    if(!p)return;
+
+    activeProductId=id;
+
+    document.getElementById("mCat").textContent=p.cat.toUpperCase();
+    document.getElementById("mName").textContent=p.name;
+    document.getElementById("mPrice").textContent=money(p.price);
+    document.getElementById("mDesc").textContent=p.desc;
+
+    document.getElementById("mSpecs").innerHTML=`
+      <div><span>Materijal</span><strong>${p.material}</strong></div>
+      <div><span>Finoća</span><strong>${p.fine}</strong></div>
+      <div><span>Težina</span><strong>${p.weight}</strong></div>
+      <div><span>Dimenzije</span><strong>${p.size}</strong></div>
+    `;
+
+    const modalImage=document.getElementById("modalImage");
+    modalImage.classList.toggle("has-image",!!p.image);
+    modalImage.innerHTML = p.image ? safeImageHTML(p.image,"",p.name) : "";
+
+    document.getElementById("mAdd").onclick=()=>{
+      addToCart(p.id);
+      closeProduct();
+    };
+
+    document.getElementById("mBuy").onclick=()=>{
+      addToCart(p.id);
+      closeProduct();
+      openCheckout();
+    };
+
+    document.getElementById("mobileBuyPrice").textContent=money(p.price);
+    document.getElementById("mobileBuyButton").onclick=()=>addToCart(p.id);
+
+    document.getElementById("productModal").classList.add("open");
+    document.getElementById("mobileBuy").classList.add("show");
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeProduct(){
+    document.getElementById("productModal").classList.remove("open");
+    document.getElementById("mobileBuy").classList.remove("show");
+    document.body.classList.remove("no-scroll");
+  }
+
+  function openCheckout(){
+    if(!cart.length)return;
+    closeCart();
+
+    document.getElementById("checkoutLines").innerHTML=cart.map(x=>{
+      const p=products.find(p=>p.id===x.id);
+      return `<div class="summary-line"><span>${x.qty} × ${p.name}</span><strong>${money(p.price*x.qty)}</strong></div>`;
+    }).join("");
+
+    document.getElementById("checkoutTotal").textContent=money(cartTotal());
+    document.getElementById("checkout").classList.add("open");
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeCheckout(){
+    document.getElementById("checkout").classList.remove("open");
+    document.body.classList.remove("no-scroll");
+  }
+
+  function submitOrder(e){
+    e.preventDefault();
+
+    const lines=cart.map(x=>{
+      const p=products.find(p=>p.id===x.id);
+      return `${x.qty}x ${p.name} — ${money(p.price*x.qty)}`;
+    }).join("\n");
+
+    const msg=`Nova porudžbina — Zlatara Stevanović
+
+Ime: ${document.getElementById("cName").value}
+Telefon: ${document.getElementById("cPhone").value}
+Email: ${document.getElementById("cEmail").value || "-"}
+Adresa: ${document.getElementById("cAddress").value}, ${document.getElementById("cCity").value}
+Poštanski broj: ${document.getElementById("cZip").value || "-"}
+Plaćanje: ${document.getElementById("cPayment").value}
+
+${lines}
+
+UKUPNO: ${money(cartTotal())}
+
+Napomena: ${document.getElementById("cNote").value || "-"}`;
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`,"_blank");
+  }
+
+  function toggleMobile(){
+    const m=document.getElementById("mobileMenu");
+
+    if(m.style.display==="flex"){
+      m.style.display="none";
+      document.body.classList.remove("no-scroll");
+    }else{
+      m.style.display="flex";
+      m.style.position="fixed";
+      m.style.zIndex="200";
+      m.style.inset="0";
+      m.style.background="linear-gradient(145deg,#090706,#180609)";
+      m.style.color="white";
+      m.style.padding="70px 24px 30px";
+      m.style.flexDirection="column";
+      m.style.gap="20px";
+      m.style.fontFamily="Georgia,serif";
+      m.style.fontSize="34px";
+      document.body.classList.add("no-scroll");
+    }
+  }
+
+  /* HEADER ON SCROLL */
+  const siteHeader=document.getElementById("siteHeader");
+  window.addEventListener("scroll",()=>{
+    siteHeader.classList.toggle("scrolled",window.scrollY>35);
+  });
+
+  /* HERO VIDEO CROSSFADE + FALLBACK */
   const heroVideos=[...document.querySelectorAll(".hero-video")];
 
   function ensureHeroVideo(){
@@ -87,9 +1731,19 @@ old_js = '''  /* HERO VIDEO CROSSFADE + FALLBACK */
       ensureHeroVideo();
     };
 
+    const detectFormat=()=>{
+      if(!video.videoWidth || !video.videoHeight)return;
+      const ratio=video.videoWidth/video.videoHeight;
+      video.classList.toggle("portrait",ratio<1);
+      video.classList.toggle("landscape",ratio>=1);
+    };
+
+    video.addEventListener("loadedmetadata",detectFormat);
     video.addEventListener("error",markMissing);
+
     const source=video.querySelector("source");
     if(source)source.addEventListener("error",markMissing);
+
     video.play().catch(()=>{});
   });
 
@@ -101,108 +1755,50 @@ old_js = '''  /* HERO VIDEO CROSSFADE + FALLBACK */
     available.forEach(v=>v.classList.remove("active"));
     heroCycleIndex=(heroCycleIndex+1)%available.length;
     available[heroCycleIndex].classList.add("active");
-  },6500);'''
+  },6500);
 
-new_js = '''  /* HERO VIDEO LOADER + CROSSFADE
-     Radi sa spoljnim/CDN video linkovima, zato veliki video fajlovi
-     više ne moraju da prolaze kroz GitHub upload limit.
-  */
-  const heroVideoElements=[...document.querySelectorAll(".hero-video")];
-  const readyHeroVideos=[];
-  let heroCycleIndex=0;
-  let heroCycleTimer=null;
-
-  function normalizeVideoUrl(value){
-    return String(value || "").trim();
-  }
-
-  function startHeroRotation(){
-    if(!readyHeroVideos.length)return;
-
-    readyHeroVideos.forEach(v=>{
-      v.classList.remove("active");
-      v.pause();
+  /* REVEAL */
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting)e.target.classList.add("in");
     });
+  },{threshold:.12});
 
-    heroCycleIndex=0;
-    const first=readyHeroVideos[0];
-    first.currentTime=0;
-    first.classList.add("active");
-    first.play().catch(()=>{});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
 
-    if(readyHeroVideos.length<2)return;
-
-    clearInterval(heroCycleTimer);
-    heroCycleTimer=setInterval(()=>{
-      const previous=readyHeroVideos[heroCycleIndex];
-      heroCycleIndex=(heroCycleIndex+1)%readyHeroVideos.length;
-      const next=readyHeroVideos[heroCycleIndex];
-
-      next.currentTime=0;
-      next.play().catch(()=>{});
-      next.classList.add("active");
-      previous.classList.remove("active");
-
-      // Sačekaj da se crossfade završi pa pauziraj skriveni video.
-      setTimeout(()=>{
-        if(!previous.classList.contains("active")){
-          previous.pause();
-        }
-      },1500);
-    },7000);
-  }
-
-  let pendingHeroVideos=0;
-
-  HERO_VIDEO_URLS.slice(0,3).forEach((rawUrl,index)=>{
-    const url=normalizeVideoUrl(rawUrl);
-    const video=heroVideoElements[index];
-
-    if(!video || !url){
-      if(video)video.classList.add("is-missing");
-      return;
-    }
-
-    pendingHeroVideos++;
-
-    video.src=url;
-    video.loop=true;
-    video.muted=true;
-    video.playsInline=true;
-
-    const markReady=()=>{
-      if(!readyHeroVideos.includes(video)){
-        readyHeroVideos.push(video);
-      }
-      pendingHeroVideos=Math.max(0,pendingHeroVideos-1);
-      if(pendingHeroVideos===0){
-        startHeroRotation();
-      }
-    };
-
-    const markFailed=()=>{
-      video.classList.add("is-missing");
-      pendingHeroVideos=Math.max(0,pendingHeroVideos-1);
-      if(pendingHeroVideos===0){
-        startHeroRotation();
-      }
-    };
-
-    video.addEventListener("canplay",markReady,{once:true});
-    video.addEventListener("error",markFailed,{once:true});
-    video.load();
+  /* CURSOR GLOW */
+  const glow=document.getElementById("cursorGlow");
+  window.addEventListener("mousemove",e=>{
+    glow.style.transform=`translate3d(${e.clientX}px,${e.clientY}px,0)`;
   });
 
-  // Ako nema nijedan URL, ostaje postojeći elegantni burgundy fallback.
-  if(!HERO_VIDEO_URLS.some(url=>normalizeVideoUrl(url))){
-    heroVideoElements.forEach(v=>v.classList.add("is-missing"));
-  }'''
+  /* MAGNETIC BUTTONS - desktop only */
+  if(window.matchMedia("(pointer:fine)").matches){
+    document.querySelectorAll(".magnetic").forEach(btn=>{
+      btn.addEventListener("mousemove",e=>{
+        const r=btn.getBoundingClientRect();
+        const x=e.clientX-r.left-r.width/2;
+        const y=e.clientY-r.top-r.height/2;
+        btn.style.transform=`translate(${x*.08}px,${y*.12}px)`;
+      });
+      btn.addEventListener("mouseleave",()=>{
+        btn.style.transform="";
+      });
+    });
+  }
 
-if old_js not in text:
-    raise RuntimeError("Hero JS block not found")
-text = text.replace(old_js, new_js)
+  document.querySelectorAll("[data-cat]").forEach(a=>{
+    a.addEventListener("click",()=>setCat(a.dataset.cat));
+  });
 
-out = Path("/mnt/data/index.html")
-out.write_text(text, encoding="utf-8")
-print(f"Napravljen kompletan novi index.html: {out}")
-print(f"Veličina: {out.stat().st_size/1024:.1f} KB")
+  renderBest();
+  renderShop();
+  renderCart();
+
+  window.addEventListener("load",()=>{
+    setTimeout(()=>document.getElementById("splash").classList.add("hide"),1050);
+  });
+</script>
+
+</body>
+</html>
