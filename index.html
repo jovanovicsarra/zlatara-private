@@ -4,8 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="theme-color" content="#180609" />
-  <title>Zlatara Stevanović — Fine Jewellery Since 1994</title>
-  <meta name="description" content="Zlatara Stevanović, Niš. Fine jewellery since 1994. Ogrlice, prstenje, minđuše, narukvice i setovi." />
+  <title>Zlatara Stevanović — Porodična zlatara u Nišu od 1994.</title>
+  <meta name="description" content="Zlatara Stevanović u Nišu od 1994. Ogrlice, prstenje, minđuše, narukvice i setovi. Online porudžbine i dostava širom Srbije." />
 
   <style>
     :root{
@@ -200,7 +200,7 @@
       transition:.25s;
     }
     .icon-btn:hover{background:rgba(255,255,255,.08)}
-    .bag{position:relative}
+    .bag{position:relative;width:auto;padding:0 11px;font-size:9px;letter-spacing:.12em}
     .count{
       position:absolute;top:0;right:0;
       width:17px;height:17px;border-radius:50%;
@@ -315,20 +315,6 @@
       color:rgba(255,255,255,.78);
     }
     .film-note:before{content:"";width:58px;height:1px;background:rgba(255,255,255,.5)}
-    .hero-monogram{
-      position:absolute;
-      right:5vw;
-      top:18vh;
-      width:120px;height:120px;
-      border:1px solid rgba(197,166,106,.32);
-      border-radius:50%;
-      display:grid;place-items:center;
-      font-family:var(--serif);
-      font-size:30px;
-      letter-spacing:.08em;
-      color:rgba(240,228,203,.82);
-      backdrop-filter:blur(3px);
-    }
 
     /* TRUST */
     .trust{
@@ -503,7 +489,7 @@
       color:rgba(255,255,255,.08);
     }
     .heritage-photo:after{
-      content:"ARCHIVE · NIŠ";
+      content:"ARHIVA · NIŠ";
       position:absolute;
       left:28px;bottom:28px;
       font-size:9px;
@@ -979,7 +965,6 @@
       }
       .hero h1{font-size:54px}
       .hero p{font-size:19px;line-height:1.35}
-      .hero-monogram{width:84px;height:84px;right:20px;top:110px;font-size:22px}
       .film-note{display:none}
       .trust{grid-template-columns:1fr 1fr}
       .trust div{min-height:58px;font-size:9px}
@@ -1018,7 +1003,7 @@
 
 <div id="splash">
   <div class="splash-word">STEVANOVIĆ</div>
-  <div class="splash-sub">FINE JEWELLERY · SINCE 1994 · NIŠ</div>
+  <div class="splash-sub">PORODIČNA ZLATARA · OD 1994. · NIŠ</div>
 </div>
 
 <div class="cursor-glow" id="cursorGlow"></div>
@@ -1044,7 +1029,7 @@
 
   <div class="actions">
     <button class="icon-btn" onclick="document.querySelector('#shop').scrollIntoView({behavior:'smooth'})" aria-label="Pretraga">⌕</button>
-    <button class="icon-btn bag" onclick="openCart()" aria-label="Korpa">🛍<span class="count" id="count">0</span></button>
+    <button class="icon-btn bag" onclick="openCart()" aria-label="Korpa">KORPA<span class="count" id="count">0</span></button>
   </div>
 </header>
 
@@ -1054,7 +1039,7 @@
   <a href="#shop" onclick="setCat('Ogrlice');toggleMobile()">OGRLICE</a>
   <a href="#shop" onclick="setCat('Prstenje');toggleMobile()">PRSTENJE</a>
   <a href="#shop" onclick="setCat('Minđuše');toggleMobile()">MINĐUŠE</a>
-  <a href="#heritage" onclick="toggleMobile()">SINCE 1994</a>
+  <a href="#heritage" onclick="toggleMobile()">OD 1994.</a>
 </div>
 
 <section class="hero" id="top">
@@ -1082,64 +1067,63 @@
 
   <div class="hero-overlay"></div>
   <div class="hero-vignette"></div>
-  <div class="hero-monogram">S</div>
 
   <div class="hero-content reveal">
-    <div class="eyebrow light">FINE JEWELLERY · NIŠ</div>
+    <div class="eyebrow light">PORODIČNA ZLATARA · NIŠ · OD 1994.</div>
     <h1>STEVANOVIĆ</h1>
-    <p>Chosen today. Worn for generations.</p>
+    <p>Nakit za trenutke koji ostaju.</p>
     <div class="hero-actions">
-      <a class="btn btn-light magnetic" href="#shop">SHOP JEWELLERY</a>
-      <a class="btn btn-ghost magnetic" href="#heritage">DISCOVER THE HOUSE</a>
+      <a class="btn btn-light magnetic" href="#shop">POGLEDAJTE KOLEKCIJU</a>
+      <a class="btn btn-ghost magnetic" href="#heritage">NAŠA PRIČA</a>
     </div>
   </div>
 
-  <div class="film-note">EST. 1994 · NIŠ</div>
+  <div class="film-note">NIŠ · OD 1994.</div>
 </section>
 
 <section class="trust">
-  <div>✦ Fino zlato</div>
-  <div>✓ Sigurna kupovina</div>
-  <div>⌂ Zlatara u Nišu od 1994.</div>
-  <div>→ Dostava širom Srbije</div>
+  <div>Zlato proverene finoće</div>
+  <div>Sigurna kupovina</div>
+  <div>Zlatara u Nišu od 1994.</div>
+  <div>Dostava širom Srbije</div>
 </section>
 
 <section class="section reveal">
   <div class="section-head">
     <div>
-      <div class="eyebrow">NAJTRAŽENIJI KOMADI</div>
-      <div class="mask-line"><span><h2>Bestsellers</h2></span></div>
+      <div class="eyebrow">IZBOR NAŠIH KUPACA</div>
+      <div class="mask-line"><span><h2>Najtraženiji komadi</h2></span></div>
     </div>
-    <a class="text-link" href="#shop">POGLEDAJ SVE →</a>
+    <a class="text-link" href="#shop">POGLEDAJTE SVE →</a>
   </div>
   <div class="product-grid" id="bestGrid"></div>
 </section>
 
 <section class="section reveal">
   <div class="center" style="margin-bottom:45px">
-    <div class="eyebrow">SHOP BY CATEGORY</div>
+    <div class="eyebrow">IZABERITE KATEGORIJU</div>
     <div class="mask-line"><span><h2>Pronađite svoj komad</h2></span></div>
   </div>
 
   <div class="category-editorial">
     <a class="cat large" href="#shop" onclick="setCat('Ogrlice')">
       <div class="cat-media"></div><div class="cat-shade"></div>
-      <div class="cat-label">Ogrlice<span>SHOP NECKLACES</span></div>
+      <div class="cat-label">Ogrlice<span>POGLEDAJTE</span></div>
     </a>
 
     <a class="cat" href="#shop" onclick="setCat('Prstenje')">
       <div class="cat-media"></div><div class="cat-shade"></div>
-      <div class="cat-label">Prstenje<span>SHOP RINGS</span></div>
+      <div class="cat-label">Prstenje<span>POGLEDAJTE</span></div>
     </a>
 
     <a class="cat" href="#shop" onclick="setCat('Minđuše')">
       <div class="cat-media"></div><div class="cat-shade"></div>
-      <div class="cat-label">Minđuše<span>SHOP EARRINGS</span></div>
+      <div class="cat-label">Minđuše<span>POGLEDAJTE</span></div>
     </a>
 
     <a class="cat wide" href="#shop" onclick="setCat('Setovi')">
       <div class="cat-media"></div><div class="cat-shade"></div>
-      <div class="cat-label">Setovi<span>SHOP SETS</span></div>
+      <div class="cat-label">Setovi<span>POGLEDAJTE</span></div>
     </a>
   </div>
 </section>
@@ -1148,29 +1132,28 @@
   <div class="heritage-photo"></div>
 
   <div class="heritage-copy reveal">
-    <div class="eyebrow light">THREE GENERATIONS · ONE TRADITION</div>
+    <div class="eyebrow light">TRI GENERACIJE · JEDNA TRADICIJA</div>
     <div class="year">1994</div>
     <div class="mask-line"><span><h2>Tri generacije. Jedna tradicija.</h2></span></div>
     <p>
-      Od 1994. godine Zlatara Stevanović je deo Niša i deo vaših najlepših trenutaka.
-      Tri generacije naše porodice gradile su isti odnos prema zlatu — kvalitet, poverenje,
-      tradiciju i pažnju prema svakom detalju.
+      Zlatara Stevanović deo je Niša od 1994. godine. Kroz tri generacije naše porodice
+      negujemo isti odnos prema nakitu — kvalitet, poverenje, tradiciju i pažnju prema svakom detalju.
     </p>
     <p>
-      Godinama smo sa vama birali nakit za ljubavi, rođenja, krštenja, venčanja,
-      godišnjice i velike životne prekretnice. Ulepšavali smo vaše posebne dane komadima
-      koji nisu samo nakit, već uspomene koje ostaju i prenose se kroz generacije.
+      Više od tri decenije bili smo uz vas u trenucima koji se pamte: rođenjima, krštenjima,
+      veridbama, venčanjima, godišnjicama, rođendanima i porodičnim slavljima.
+      Za nas nakit nije samo predmet od zlata, već uspomena koja se čuva, nosi i prenosi kroz generacije.
     </p>
     <div style="font-size:9px;letter-spacing:.18em;color:var(--champ-soft);margin:2px 0 28px">
       NIŠ · OD 1994. · TRI GENERACIJE
     </div>
-    <a class="btn btn-ghost magnetic" href="#shop">ISTRAŽI KOLEKCIJU</a>
+    <a class="btn btn-ghost magnetic" href="#shop">POGLEDAJTE KOLEKCIJU</a>
   </div>
 </section>
 
 <section class="section reveal">
   <div class="center">
-    <div class="eyebrow">POKLON KOJI OSTAJE</div>
+    <div class="eyebrow">KADA TRAŽITE PRAVI POKLON</div>
     <div class="mask-line"><span><h2 style="margin-bottom:42px">Izaberite po prilici</h2></span></div>
   </div>
 
@@ -1178,7 +1161,7 @@
     <a class="pill" href="#shop">Za nju</a>
     <a class="pill" href="#shop">Rođendan</a>
     <a class="pill" href="#shop">Godišnjica</a>
-    <a class="pill" href="#shop">Venčanje</a>
+    <a class="pill" href="#shop">Veridba i venčanje</a>
     <a class="pill" href="#shop">Do 30.000 RSD</a>
     <a class="pill" href="#shop">Posebne prilike</a>
   </div>
@@ -1189,14 +1172,14 @@
     <div class="campaign-visual"></div>
 
     <div class="campaign-copy reveal">
-      <div class="eyebrow light">THE STEVANOVIĆ EDIT</div>
-      <div class="mask-line"><span><h2>Chosen today.<br>Worn for generations.</h2></span></div>
+      <div class="eyebrow light">NAKIT KOJI OSTAJE</div>
+      <div class="mask-line"><span><h2>Nakit koji postaje<br>deo vaše priče.</h2></span></div>
       <p>
-        Editorial trenutak između brenda i prodavnice. Ovde ubacite jednu brutalnu fotografiju
-        modela sa nakitom ili campaign kadar u bordo / crnoj rasveti.
+        Odabran sa pažnjom. Nošen godinama. Čuvan generacijama.
+        Komadi koji prate vaše najvažnije trenutke i ostaju deo porodične priče.
       </p>
-      <a class="btn btn-light magnetic" href="#shop">SHOP THE EDIT</a>
-      <div class="campaign-step">STEVANOVIĆ · SINCE 1994</div>
+      <a class="btn btn-light magnetic" href="#shop">POGLEDAJTE IZBOR</a>
+      <div class="campaign-step">ZLATARA STEVANOVIĆ · OD 1994.</div>
     </div>
   </div>
 </section>
@@ -1204,7 +1187,7 @@
 <section class="section" id="shop">
   <div class="shop-intro">
     <div>
-      <div class="eyebrow">ONLINE BOUTIQUE</div>
+      <div class="eyebrow">ONLINE PRODAVNICA</div>
       <h2>Nakit</h2>
     </div>
     <span id="productCount" style="font-size:10px;color:var(--muted)"></span>
@@ -1214,8 +1197,8 @@
     <div class="search">⌕ <input id="searchInput" placeholder="Pretražite nakit..." oninput="renderShop()"></div>
     <select id="sortSelect" onchange="renderShop()">
       <option value="featured">Preporučeno</option>
-      <option value="low">Cena: niža prvo</option>
-      <option value="high">Cena: viša prvo</option>
+      <option value="low">Cena: od niže ka višoj</option>
+      <option value="high">Cena: od više ka nižoj</option>
     </select>
   </div>
 
@@ -1226,8 +1209,8 @@
 <section class="section visit reveal" id="contact">
   <div class="visit-grid">
     <div>
-      <div class="eyebrow">VISIT & CONTACT</div>
-      <div class="mask-line"><span><h2>Stevanović, Niš</h2></span></div>
+      <div class="eyebrow">POSETA I KONTAKT</div>
+      <div class="mask-line"><span><h2>Posetite nas u Nišu</h2></span></div>
       <p>Lamela D, TPC Kalča, Obrenovićeva bb, Lokal 93/B, Niš</p>
 
       <div class="contact-list">
@@ -1248,7 +1231,7 @@
         <div class="contact-item">
           <span class="contact-kicker">INSTAGRAM</span>
           <a class="contact-value" href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">@zlatarastevanovic</a>
-          <small>Noviteti · kolekcije · inspiracija</small>
+          <small>Noviteti · kolekcije · nakit</small>
           <a class="text-link" href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">OTVORI INSTAGRAM →</a>
         </div>
       </div>
@@ -1269,12 +1252,12 @@
 <footer>
   <div class="footer-logo">
     STEVANOVIĆ
-    <small>FINE JEWELLERY SINCE 1994 · NIŠ</small>
+    <small>PORODIČNA ZLATARA · NIŠ · OD 1994.</small>
   </div>
 
   <div class="footer-cols">
     <div>
-      <h4>SHOP</h4>
+      <h4>NAKIT</h4>
       <a href="#shop">Sav nakit</a>
       <a href="#shop" onclick="setCat('Ogrlice')">Ogrlice</a>
       <a href="#shop" onclick="setCat('Prstenje')">Prstenje</a>
@@ -1282,7 +1265,7 @@
     </div>
 
     <div>
-      <h4>STEVANOVIĆ</h4>
+      <h4>ZLATARA STEVANOVIĆ</h4>
       <a href="#heritage">Naša priča</a>
       <a href="https://www.instagram.com/zlatarastevanovic/" target="_blank" rel="noreferrer">Instagram</a>
       <a href="tel:+381692131555">Online porudžbine · 069 213 1555</a>
@@ -1290,16 +1273,16 @@
     </div>
 
     <div>
-      <h4>POMOĆ</h4>
+      <h4>POMOĆ PRI KUPOVINI</h4>
       <span>Dostava i povraćaj</span>
       <span>Vodič za veličine</span>
       <span>Uslovi kupovine</span>
-      <span>Privatnost</span>
+      <span>Politika privatnosti</span>
     </div>
   </div>
 
   <div class="foot-bottom">
-    <span>© 2026 Zlatara Stevanović</span>
+    <span>© 2026 Zlatara Stevanović. Sva prava zadržana.</span>
     <span>Lamela D, TPC Kalča, Obrenovićeva bb, Lokal 93/B, Niš</span>
   </div>
 </footer>
@@ -1361,13 +1344,13 @@
   <div class="checkout-wrap">
     <div class="checkout-form">
       <div class="checkout-brand">STEVANOVIĆ</div>
-      <div class="eyebrow">SIGURAN CHECKOUT</div>
+      <div class="eyebrow">SIGURNA KUPOVINA</div>
       <h2>Podaci za porudžbinu</h2>
 
       <form class="form" onsubmit="submitOrder(event)">
         <label>Ime i prezime<input id="cName" required></label>
         <label>Telefon<input id="cPhone" required></label>
-        <label>Email<input id="cEmail" type="email"></label>
+        <label>E-mail<input id="cEmail" type="email"></label>
         <label>Adresa<input id="cAddress" required></label>
 
         <div class="two">
@@ -1377,8 +1360,8 @@
 
         <label>Način plaćanja
           <select id="cPayment">
-            <option>Pouzećem</option>
-            <option>Bankarska uplata</option>
+            <option>Plaćanje pouzećem</option>
+            <option>Uplata na račun</option>
           </select>
         </label>
 
@@ -1387,7 +1370,7 @@
         <button class="btn btn-gold full" type="submit">POTVRDI PORUDŽBINU</button>
 
         <p class="notice">
-          Ova verzija priprema porudžbinu i otvara WhatsApp. Za kartično plaćanje kasnije povezujemo payment gateway banke/provajdera.
+          Nakon potvrde porudžbine kontaktiraćemo vas radi konačne potvrde i dogovora o isporuci.
         </p>
       </form>
     </div>
@@ -1396,7 +1379,7 @@
       <div class="eyebrow">VAŠA PORUDŽBINA</div>
       <div id="checkoutLines"></div>
       <div class="summary-total"><span>Ukupno</span><strong id="checkoutTotal"></strong></div>
-      <p class="notice">Fine Jewellery Since 1994 · Niš</p>
+      <p class="notice">Zlatara Stevanović · Niš · Od 1994.</p>
     </div>
   </div>
 </div>
@@ -1421,13 +1404,13 @@
     Ako slike još ne postoje, ostavi image:"" i hover:"" — prikazaće se elegantni placeholder.
   */
   const products = [
-    {id:1,name:"Ogrlica Aurelia",cat:"Ogrlice",price:32900,badge:"Bestseller",material:"Žuto zlato",fine:"585 / 14K",weight:"3.8 g",size:"42–45 cm",desc:"Elegantna ogrlica čistih linija, zamišljena kao svakodnevni potpis.",image:"",hover:""},
+    {id:1,name:"Ogrlica Aurelia",cat:"Ogrlice",price:32900,badge:"Najtraženije",material:"Žuto zlato",fine:"585 / 14K",weight:"3.8 g",size:"42–45 cm",desc:"Elegantna ogrlica čistih linija, zamišljena kao svakodnevni potpis.",image:"",hover:""},
     {id:2,name:"Prsten Siena",cat:"Prstenje",price:28900,badge:"Novo",material:"Žuto zlato",fine:"585 / 14K",weight:"3.2 g",size:"Veličina po izboru",desc:"Sveden prsten sa svetlucavim detaljem za diskretnu luksuznu završnicu.",image:"",hover:""},
     {id:3,name:"Minđuše Luna",cat:"Minđuše",price:24900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"2.9 g",size:"18 mm",desc:"Lagane minđuše koje se lako kombinuju od dnevnog do večernjeg izgleda.",image:"",hover:""},
-    {id:4,name:"Narukvica Venezia",cat:"Narukvice",price:36900,badge:"Bestseller",material:"Žuto zlato",fine:"585 / 14K",weight:"4.4 g",size:"17–19 cm",desc:"Klasična zlatna narukvica sa modernim proporcijama i finim sjajem.",image:"",hover:""},
+    {id:4,name:"Narukvica Venezia",cat:"Narukvice",price:36900,badge:"Najtraženije",material:"Žuto zlato",fine:"585 / 14K",weight:"4.4 g",size:"17–19 cm",desc:"Klasična zlatna narukvica sa modernim proporcijama i finim sjajem.",image:"",hover:""},
     {id:5,name:"Set Celeste",cat:"Setovi",price:64900,badge:"Poklon izbor",material:"Belo zlato",fine:"585 / 14K",weight:"7.3 g",size:"Ogrlica + minđuše",desc:"Usklađen set ogrlice i minđuša za poklon koji ostavlja utisak.",image:"",hover:""},
     {id:6,name:"Ogrlica Noir",cat:"Ogrlice",price:41900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"4.9 g",size:"45 cm",desc:"Statement ogrlica sa elegantnim volumenom i večernjim karakterom.",image:"",hover:""},
-    {id:7,name:"Prsten Heritage",cat:"Prstenje",price:38900,badge:"Since 1994",material:"Žuto zlato",fine:"585 / 14K",weight:"4.1 g",size:"Veličina po izboru",desc:"Klasičan komad inspirisan porodičnom tradicijom kuće Stevanović.",image:"",hover:""},
+    {id:7,name:"Prsten Heritage",cat:"Prstenje",price:38900,badge:"Od 1994.",material:"Žuto zlato",fine:"585 / 14K",weight:"4.1 g",size:"Veličina po izboru",desc:"Klasičan komad inspirisan porodičnom tradicijom kuće Stevanović.",image:"",hover:""},
     {id:8,name:"Minđuše Riviera",cat:"Minđuše",price:31900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"3.7 g",size:"24 mm",desc:"Izdužena silueta i suptilno kretanje za sofisticiran večernji izgled.",image:"",hover:""}
   ];
 
@@ -1456,7 +1439,7 @@
         ${has ? safeImageHTML(p.image,"product-photo",p.name) : ""}
         ${has ? safeImageHTML(hover,"product-photo-hover",p.name+" na modelu") : ""}
         ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
-        <button class="heart" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'" aria-label="Wishlist">♡</button>
+        <button class="heart" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'" aria-label="Lista želja">♡</button>
         <button class="quick" onclick="event.stopPropagation();addToCart(${p.id})">＋ DODAJ U KORPU</button>
       </div>
     `;
