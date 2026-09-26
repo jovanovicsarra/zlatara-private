@@ -1,0 +1,41 @@
+name: Fix Triade image filename
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/fix-triade-case.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Match actual Triade filename
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = 'image:"triade.jpg"'
+          new = 'image:"Triade.jpg"'
+          if old not in s:
+              raise SystemExit('triade.jpg reference not found')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+
+      - name: Commit fix and remove one-time workflow
+        run: |
+          rm -f .github/workflows/fix-triade-case.yml
+          git config user.name "Zlatara site updater"
+          git config user.email "actions@github.com"
+          git add index.html .github/workflows/fix-triade-case.yml
+          git commit -m "Ispravi naziv slike za Ogrlicu Triade"
+          git push origin main
