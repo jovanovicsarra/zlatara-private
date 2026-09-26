@@ -1,0 +1,28 @@
+name: Fix Ondina full necklace fit
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/fix-ondina-fit.yml'
+      - '.github/scripts/fix_ondina_fit.py'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: python .github/scripts/fix_ondina_fit.py
+      - run: |
+          rm -f .github/workflows/fix-ondina-fit.yml .github/scripts/fix_ondina_fit.py
+          git config user.name "Zlatara site updater"
+          git config user.email "actions@github.com"
+          git add index.html .github/workflows/fix-ondina-fit.yml .github/scripts/fix_ondina_fit.py
+          git commit -m "Prikaži celu ogrlicu Ondina u katalogu i detaljima"
+          git push origin main
