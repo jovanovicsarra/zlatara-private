@@ -1,0 +1,55 @@
+name: Fix heritage image layout
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-heritage.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-heritage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Make full heritage album visible
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '    /* FINALNA HERITAGE FOTOGRAFIJA */'
+          css = '''
+    /* FINALNA HERITAGE FOTOGRAFIJA */
+    .heritage-photo{
+      min-height:680px;
+      background-color:#e8e2d8 !important;
+      background-image:url("heritage.jpg") !important;
+      background-position:center center !important;
+      background-size:contain !important;
+      background-repeat:no-repeat !important;
+      filter:grayscale(1) contrast(.96) !important;
+    }
+    .heritage-photo:before{
+      content:none !important;
+      display:none !important;
+    }
+'''
+          if marker not in s:
+              s = s.replace('</style>', css + '\n  </style>', 1)
+              p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit fix and remove one-time workflow
+        run: |
+          rm -f .github/workflows/fix-heritage.yml
+          git config user.name "Zlatara site updater"
+          git config user.email "actions@github.com"
+          git add index.html .github/workflows/fix-heritage.yml
+          git commit -m "Prikaži celu heritage fotografiju bez cropa"
+          git push origin main
