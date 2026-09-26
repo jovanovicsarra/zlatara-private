@@ -1861,6 +1861,30 @@
 
   
     .btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
+  
+    /* ONDINA FULL-NECKLACE FIT */
+    .pic:has(img[src="ondina.jpg"]){
+      background:#eadfce;
+    }
+    .pic img[src="ondina.jpg"]{
+      object-fit:contain !important;
+      object-position:center center !important;
+      transform:none !important;
+      background:#eadfce;
+    }
+    .card:hover .pic img[src="ondina.jpg"]{
+      transform:none !important;
+    }
+    .modal-image:has(img[src="ondina.jpg"]){
+      background:#eadfce;
+    }
+    .modal-image img[src="ondina.jpg"]{
+      object-fit:contain !important;
+      object-position:center center !important;
+      background:#eadfce;
+      padding:0;
+    }
+
   </style>
 </head>
 
