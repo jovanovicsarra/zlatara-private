@@ -1,0 +1,32 @@
+name: Add Amelie product
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/add-amelie.yml'
+      - '.github/scripts/add_amelie.py'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: python .github/scripts/add_amelie.py
+      - run: |
+          rm -f .github/workflows/add-amelie.yml .github/scripts/add_amelie.py
+          git config user.name "Zlatara site updater"
+          git config user.email "actions@github.com"
+          git add index.html .github/workflows/add-amelie.yml .github/scripts/add_amelie.py
+          if git diff --cached --quiet; then
+            echo "No changes"
+            exit 0
+          fi
+          git commit -m "Dodaj Ogrlicu Amélie u online katalog"
+          git push origin main
