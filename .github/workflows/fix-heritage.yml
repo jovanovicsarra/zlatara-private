@@ -23,23 +23,8 @@ jobs:
           from pathlib import Path
           p = Path('index.html')
           s = p.read_text(encoding='utf-8')
-          marker = '    /* FINALNA HERITAGE FOTOGRAFIJA */'
-          css = '''
-    /* FINALNA HERITAGE FOTOGRAFIJA */
-    .heritage-photo{
-      min-height:680px;
-      background-color:#e8e2d8 !important;
-      background-image:url("heritage.jpg") !important;
-      background-position:center center !important;
-      background-size:contain !important;
-      background-repeat:no-repeat !important;
-      filter:grayscale(1) contrast(.96) !important;
-    }
-    .heritage-photo:before{
-      content:none !important;
-      display:none !important;
-    }
-'''
+          marker = '/* FINALNA HERITAGE FOTOGRAFIJA */'
+          css = '\n    /* FINALNA HERITAGE FOTOGRAFIJA */\n    .heritage-photo{\n      min-height:680px;\n      background-color:#e8e2d8 !important;\n      background-image:url("heritage.jpg") !important;\n      background-position:center center !important;\n      background-size:contain !important;\n      background-repeat:no-repeat !important;\n      filter:grayscale(1) contrast(.96) !important;\n    }\n    .heritage-photo:before{\n      content:none !important;\n      display:none !important;\n    }\n'
           if marker not in s:
               s = s.replace('</style>', css + '\n  </style>', 1)
               p.write_text(s, encoding='utf-8')
