@@ -1886,21 +1886,24 @@
     }
 
   
-    /* ONDINA MODAL LEFT FIT V2 */
+    /* ONDINA MODAL CLEAN FIT */
+    .modal-box:has(.modal-image img[src="ondina.jpg"]){
+      grid-template-columns:50% 50%;
+    }
     .modal-image:has(img[src="ondina.jpg"]){
       background:#eadfce;
       overflow:hidden;
     }
     .modal-image img[src="ondina.jpg"]{
       object-fit:contain !important;
-      object-position:left center !important;
-      width:90% !important;
+      object-position:center center !important;
+      width:100% !important;
       height:100% !important;
       left:0 !important;
-      right:auto !important;
+      right:0 !important;
       top:0 !important;
       bottom:0 !important;
-      margin:0 !important;
+      margin:auto !important;
       transform:none !important;
       background:#eadfce;
     }
