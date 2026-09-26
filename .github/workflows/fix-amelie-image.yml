@@ -1,0 +1,28 @@
+name: Fix Amelie image
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/fix-amelie-image.yml'
+      - '.github/scripts/fix_amelie_image.py'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: python .github/scripts/fix_amelie_image.py
+      - run: |
+          rm -f .github/workflows/fix-amelie-image.yml .github/scripts/fix_amelie_image.py
+          git config user.name "Zlatara site updater"
+          git config user.email "actions@github.com"
+          git add index.html .github/workflows/fix-amelie-image.yml .github/scripts/fix_amelie_image.py
+          git commit -m "Ispravi putanju za sliku Ogrlice Amélie"
+          git push origin main
