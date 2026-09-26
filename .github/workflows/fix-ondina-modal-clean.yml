@@ -1,0 +1,28 @@
+name: Fix Ondina modal clean fit
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/fix-ondina-modal-clean.yml'
+      - '.github/scripts/fix_ondina_modal_clean.py'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - run: python .github/scripts/fix_ondina_modal_clean.py
+      - run: |
+          rm -f .github/workflows/fix-ondina-modal-clean.yml .github/scripts/fix_ondina_modal_clean.py
+          git config user.name "Zlatara site updater"
+          git config user.email "actions@github.com"
+          git add index.html .github/workflows/fix-ondina-modal-clean.yml .github/scripts/fix_ondina_modal_clean.py
+          git commit -m "Sredi prikaz cele ogrlice Ondina u popupu"
+          git push origin main
