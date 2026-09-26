@@ -1,0 +1,141 @@
+from pathlib import Path
+import re
+
+p = Path('index.html')
+s = p.read_text(encoding='utf-8')
+
+marker = '/* CARD-ONLY CHECKOUT V1 */'
+if marker in s:
+    print('Checkout already patched')
+    raise SystemExit(0)
+
+css = r'''
+    /* CARD-ONLY CHECKOUT V1 */
+    .payment-method-card{border:1px solid var(--line);background:#fff;padding:18px 18px 16px;display:grid;gap:10px}
+    .payment-method-head{display:flex;justify-content:space-between;gap:16px;align-items:center}
+    .payment-method-head strong{font-family:var(--serif);font-size:18px;font-weight:400}
+    .payment-method-badge{font-size:8px;letter-spacing:.16em;border:1px solid var(--line);padding:7px 9px;color:#655d55;white-space:nowrap}
+    .payment-method-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.6}
+    .secure-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:2px}
+    .secure-chip{min-height:42px;border:1px solid var(--line);display:grid;place-items:center;text-align:center;padding:7px;font-size:8px;letter-spacing:.10em;color:#5f574f;background:var(--ivory)}
+    .legal-consent{display:grid;gap:10px;padding:16px 0 2px}
+    .consent-row{display:grid!important;grid-template-columns:18px 1fr;gap:10px!important;align-items:start;font-size:11px!important;line-height:1.55;letter-spacing:0!important;color:#554e48;cursor:pointer}
+    .consent-row input{width:16px!important;height:16px!important;min-height:0!important;margin:1px 0 0!important;accent-color:var(--oxblood)}
+    .legal-inline{border:0;background:none;padding:0;color:var(--oxblood);text-decoration:underline;text-underline-offset:3px;font:inherit}
+    .payment-status{display:none;margin-top:10px;padding:13px 14px;border:1px solid var(--line);background:#fff;color:#5f574f;font-size:11px;line-height:1.55}
+    .payment-status.show{display:block}.payment-status.error{border-color:#9e6f75;background:#fff8f8;color:#6a242e}.payment-status.ok{border-color:#9aaa8d;background:#f8fbf6;color:#35502f}
+    .pay-btn[disabled]{opacity:.56;cursor:not-allowed;transform:none}
+    .checkout-assurance{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);display:grid;gap:12px}
+    .checkout-assurance h4{font-family:var(--serif);font-size:20px;font-weight:400;margin:0}
+    .checkout-assurance p{margin:0;font-size:11px;line-height:1.65;color:var(--muted)}
+    .legal-modal{position:fixed;z-index:150;inset:0;display:none;place-items:center;padding:22px;background:rgba(8,6,6,.66);backdrop-filter:blur(10px)}
+    .legal-modal.open{display:grid}
+    .legal-box{width:min(760px,100%);max-height:86vh;overflow:auto;background:var(--paper);padding:38px 42px 42px;box-shadow:0 40px 130px rgba(0,0,0,.30);position:relative}
+    .legal-box h3{font-family:var(--serif);font-size:36px;font-weight:400;margin:0 0 18px}
+    .legal-box p,.legal-box li{font-size:12px;line-height:1.75;color:#5f5851}.legal-box ul{padding-left:18px}
+    .legal-close{position:absolute;right:18px;top:18px;width:36px;height:36px;border:1px solid var(--line);background:transparent;border-radius:50%;font-size:20px}
+    .legal-note{margin-top:20px;padding:13px 14px;background:var(--ivory);border-left:2px solid var(--champ);font-size:10px!important}
+    @media(max-width:700px){.secure-row{grid-template-columns:1fr}.legal-box{padding:34px 20px 28px;height:100%;max-height:100vh}.legal-modal{padding:0}}
+'''
+s = s.replace('</style>', css + '\n  </style>', 1)
+
+if 'onsubmit="submitOrder(event)"' not in s:
+    raise SystemExit('Old submit handler not found')
+s = s.replace('onsubmit="submitOrder(event)"', 'onsubmit="startCardPayment(event)"', 1)
+
+payment_pattern = re.compile(r'\n\s*<label>Način plaćanja\s*<select id="cPayment">.*?</select>\s*</label>', re.S)
+payment_html = r'''
+
+        <div class="payment-method-card">
+          <div class="payment-method-head">
+            <strong>Plaćanje karticom</strong>
+            <span class="payment-method-badge">SIGURNO PLAĆANJE</span>
+          </div>
+          <p>Podatke kartice ne unosite na sajtu Zlatare Stevanović. Nakon potvrde porudžbine bićete preusmereni na zaštićenu stranicu platnog procesora.</p>
+          <div class="secure-row">
+            <div class="secure-chip">KARTIČNO PLAĆANJE</div>
+            <div class="secure-chip">3-D SECURE</div>
+            <div class="secure-chip">PODACI KARTICE SE NE ČUVAJU</div>
+          </div>
+        </div>'''
+s, n = payment_pattern.subn(payment_html, s, count=1)
+if n != 1:
+    raise SystemExit('Payment select block not found exactly once')
+
+submit_pattern = re.compile(r'\n\s*<button class="btn btn-gold full" type="submit">POTVRDI PORUDŽBINU</button>\s*<p class="notice">\s*Nakon potvrde porudžbine kontaktiraćemo vas radi konačne potvrde i dogovora o isporuci\.\s*</p>', re.S)
+submit_html = r'''
+
+        <div class="legal-consent">
+          <label class="consent-row">
+            <input id="cTerms" type="checkbox" required>
+            <span>Potvrđujem da sam pročitao/la <button class="legal-inline" type="button" onclick="openLegal('terms')">Uslove kupovine</button> i informacije o <button class="legal-inline" type="button" onclick="openLegal('returns')">dostavi, povraćaju i reklamacijama</button>.</span>
+          </label>
+          <label class="consent-row">
+            <input id="cPrivacy" type="checkbox" required>
+            <span>Upoznat/a sam sa <button class="legal-inline" type="button" onclick="openLegal('privacy')">Politikom privatnosti</button> i obradom podataka potrebnih za realizaciju porudžbine.</span>
+          </label>
+        </div>
+
+        <button class="btn btn-burgundy full pay-btn" id="payButton" type="submit">NASTAVI NA SIGURNO PLAĆANJE</button>
+        <div class="payment-status" id="paymentStatus"></div>
+
+        <p class="notice">Naplata se smatra izvršenom tek kada platni procesor potvrdi uspešnu transakciju. Nikada vam nećemo tražiti broj kartice, datum isteka ili CVC putem telefona, poruke ili e-maila.</p>'''
+s, n = submit_pattern.subn(submit_html, s, count=1)
+if n != 1:
+    raise SystemExit('Old submit block not found exactly once')
+
+summary_old = '<p class="notice">Zlatara Stevanović · Niš · Od 1994.</p>'
+summary_new = '''<div class="checkout-assurance">
+        <h4>Sigurna kupovina</h4>
+        <p>Pre plaćanja jasno vidite sadržaj porudžbine i ukupan iznos. Kartični podaci obrađuju se isključivo na strani ugovorenog platnog procesora.</p>
+        <p>Zlatara Stevanović · Niš · Od 1994.</p>
+      </div>'''
+if summary_old not in s:
+    raise SystemExit('Summary note not found')
+s = s.replace(summary_old, summary_new, 1)
+
+s = s.replace('<span>Dostava i povraćaj</span>', '<button class="footer-link" onclick="openLegal(\'returns\')">Dostava i povraćaj</button>')
+s = s.replace('<span>Uslovi kupovine</span>', '<button class="footer-link" onclick="openLegal(\'terms\')">Uslovi kupovine</button>')
+s = s.replace('<span>Politika privatnosti</span>', '<button class="footer-link" onclick="openLegal(\'privacy\')">Politika privatnosti</button>')
+
+legal_html = r'''
+<div class="legal-modal" id="legalModal" aria-hidden="true">
+  <div class="legal-box" role="dialog" aria-modal="true" aria-labelledby="legalTitle">
+    <button class="legal-close" type="button" onclick="closeLegal()" aria-label="Zatvori">×</button>
+    <div class="eyebrow">ZLATARA STEVANOVIĆ</div>
+    <h3 id="legalTitle"></h3>
+    <div id="legalBody"></div>
+  </div>
+</div>
+'''
+s = s.replace('</body>', legal_html + '\n</body>', 1)
+
+needle = 'document.getElementById("checkoutTotal").textContent=money(cartTotal());'
+if needle not in s:
+    raise SystemExit('checkoutTotal assignment not found')
+s = s.replace(needle, needle + '\n    const payButton=document.getElementById("payButton");\n    if(payButton) payButton.textContent="PLATI KARTICOM · "+money(cartTotal());', 1)
+
+js_pattern = re.compile(r'\n  function submitOrder\(e\)\{.*?\n  \}\n\n  function toggleMobile\(\)\{', re.S)
+js = r'''
+  const LEGAL_CONTENT={
+    terms:{title:"Uslovi kupovine",body:`<p>Porudžbina nastaje kada kupac unese tražene podatke, prihvati uslove i uspešno završi kartično plaćanje. Pre plaćanja kupcu su prikazani odabrani proizvodi i ukupan iznos.</p><ul><li>Cene su iskazane u RSD.</li><li>Naplata je isključivo kartična i završava se na zaštićenoj stranici ugovorenog platnog procesora.</li><li>Porudžbina se ne smatra plaćenom samo zato što je otvorena stranica za plaćanje; potreban je potvrđen status transakcije.</li><li>Ako proizvod nije raspoloživ nakon uspešne naplate, kupac se kontaktira radi dogovora i povraćaja sredstava u skladu sa važećim propisima.</li></ul><p class="legal-note">Pre konačnog puštanja kartičnog plaćanja u rad potrebno je ovde dopuniti registrovani naziv prodavca, PIB, matični broj i tačne uslove isporuke.</p>`},
+    returns:{title:"Dostava, povraćaj i reklamacije",body:`<p>Dostava se vrši na adresu koju kupac unese u porudžbini. Rok, cena i način dostave moraju biti jasno prikazani kupcu pre konačnog plaćanja.</p><p>Kod kupovine na daljinu kupac ima prava koja mu pripadaju po važećim propisima o zaštiti potrošača. Za robu izrađenu po posebnim zahtevima kupca ili jasno personalizovanu mogu važiti zakonski izuzeci od prava na odustanak.</p><p>Reklamacije se podnose uz broj porudžbine i opis problema. Način i rok rešavanja reklamacije primenjuju se u skladu sa važećim propisima.</p><p class="legal-note">Pre aktivacije naplate treba uneti tačnu cenu i rok dostave, adresu za povraćaj i formalnu proceduru reklamacije.</p>`},
+    privacy:{title:"Politika privatnosti",body:`<p>Podaci koje kupac unese u checkout koriste se radi obrade porudžbine, komunikacije, isporuke, povraćaja i ispunjavanja zakonskih obaveza prodavca.</p><p>Zlatara Stevanović ne treba da prima niti čuva puni broj platne kartice, datum isteka ili CVC. Ti podaci se unose i obrađuju isključivo na zaštićenoj strani ugovorenog platnog procesora.</p><p>Podaci se ne koriste za marketing bez posebnog osnova ili odgovarajućeg pristanka.</p><p class="legal-note">Pre konačnog puštanja u rad potrebno je dopuniti identitet rukovaoca podacima, kontakt za zahteve lica i rokove čuvanja podataka.</p>`}
+  };
+  function openLegal(type){const data=LEGAL_CONTENT[type];if(!data)return;document.getElementById("legalTitle").textContent=data.title;document.getElementById("legalBody").innerHTML=data.body;const m=document.getElementById("legalModal");m.classList.add("open");m.setAttribute("aria-hidden","false")}
+  function closeLegal(){const m=document.getElementById("legalModal");m.classList.remove("open");m.setAttribute("aria-hidden","true")}
+  function setPaymentStatus(message,type="error"){const box=document.getElementById("paymentStatus");if(!box)return;box.textContent=message;box.className="payment-status show "+type}
+  async function startCardPayment(e){
+    e.preventDefault();const form=e.currentTarget;if(!form.reportValidity()||!cart.length)return;
+    const btn=document.getElementById("payButton"),original=btn.textContent;btn.disabled=true;btn.textContent="POVEZUJEMO SA SIGURNIM PLAĆANJEM...";setPaymentStatus("Pripremamo sigurnu transakciju. Ne zatvarajte ovu stranicu.","ok");
+    const payload={cart:cart.map(x=>({id:x.id,qty:x.qty})),customer:{name:document.getElementById("cName").value.trim(),phone:document.getElementById("cPhone").value.trim(),email:document.getElementById("cEmail").value.trim(),address:document.getElementById("cAddress").value.trim(),city:document.getElementById("cCity").value.trim(),zip:document.getElementById("cZip").value.trim(),note:document.getElementById("cNote").value.trim()},termsAccepted:document.getElementById("cTerms").checked&&document.getElementById("cPrivacy").checked,termsVersion:"2026-09-26"};
+    try{sessionStorage.setItem("zs-pending-order",JSON.stringify(payload));const response=await fetch("/api/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});const data=await response.json().catch(()=>({}));if(response.ok&&data.redirectUrl){window.location.assign(data.redirectUrl);return}if(data.code==="PAYMENT_SETUP_REQUIRED"||data.code==="GATEWAY_ADAPTER_REQUIRED"){setPaymentStatus("Kartično plaćanje je tehnički pripremljeno, ali još nije povezano sa bankom/procesorom. Ništa vam nije naplaćeno.","error")}else{setPaymentStatus(data.error||data.message||"Plaćanje trenutno nije moguće. Ništa vam nije naplaćeno.","error")}}catch(err){setPaymentStatus("Nismo uspeli da uspostavimo vezu sa platnim sistemom. Ništa vam nije naplaćeno.","error")}finally{btn.disabled=false;btn.textContent=original}
+  }
+
+  function toggleMobile(){'''
+s, n = js_pattern.subn('\n' + js, s, count=1)
+if n != 1:
+    raise SystemExit('submitOrder function block not found exactly once')
+
+p.write_text(s, encoding='utf-8')
+print('Checkout patched successfully')
