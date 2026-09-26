@@ -1859,6 +1859,8 @@
     .legal-note{margin-top:20px;padding:13px 14px;background:var(--ivory);border-left:2px solid var(--champ);font-size:10px!important}
     @media(max-width:700px){.secure-row{grid-template-columns:1fr}.legal-box{padding:34px 20px 28px;height:100%;max-height:100vh}.legal-modal{padding:0}}
 
+  
+    .btn:disabled{opacity:.55;cursor:not-allowed;transform:none!important}
   </style>
 </head>
 
@@ -2526,6 +2528,7 @@
     Ako slike još ne postoje, ostavi image:"" i hover:"" — prikazaće se elegantni placeholder.
   */
   const products = [
+    {id:9,name:"Ogrlica Ondina",cat:"Ogrlice",price:null,available:false,badge:"Novo",material:"Zlato",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Elegantna ogrlica talasaste linije sa dvobojnim detaljima. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.",image:"ondina.jpg",hover:""},
     {id:1,name:"Ogrlica Aurelia",cat:"Ogrlice",price:32900,badge:"Najtraženije",material:"Žuto zlato",fine:"585 / 14K",weight:"3.8 g",size:"42–45 cm",desc:"Elegantna ogrlica čistih linija, zamišljena kao svakodnevni potpis.",image:"",hover:""},
     {id:2,name:"Prsten Siena",cat:"Prstenje",price:28900,badge:"Novo",material:"Žuto zlato",fine:"585 / 14K",weight:"3.2 g",size:"Veličina po izboru",desc:"Sveden prsten sa svetlucavim detaljem za diskretnu luksuznu završnicu.",image:"",hover:""},
     {id:3,name:"Minđuše Luna",cat:"Minđuše",price:24900,badge:"",material:"Žuto zlato",fine:"585 / 14K",weight:"2.9 g",size:"18 mm",desc:"Lagane minđuše koje se lako kombinuju od dnevnog do večernjeg izgleda.",image:"",hover:""},
@@ -2541,6 +2544,7 @@
   let activeProductId = null;
 
   function money(v){
+    if(!Number.isFinite(v)) return "Cena uskoro";
     return new Intl.NumberFormat("sr-RS",{
       style:"currency",
       currency:"RSD",
@@ -2562,7 +2566,9 @@
         ${has ? safeImageHTML(hover,"product-photo-hover",p.name+" na modelu") : ""}
         ${p.badge ? `<span class="badge">${p.badge}</span>` : ""}
         <button class="heart" onclick="event.stopPropagation();this.textContent=this.textContent==='♡'?'♥':'♡'" aria-label="Lista želja">♡</button>
-        <button class="quick" onclick="event.stopPropagation();addToCart(${p.id})">＋ DODAJ U KORPU</button>
+        ${p.available===false
+          ? `<button class="quick" onclick="event.stopPropagation();openProduct(${p.id})">POGLEDAJ DETALJE</button>`
+          : `<button class="quick" onclick="event.stopPropagation();addToCart(${p.id})">＋ DODAJ U KORPU</button>`}
       </div>
     `;
   }
@@ -2599,8 +2605,8 @@
 
     if(currentCat!=="Sve") list=list.filter(p=>p.cat===currentCat);
     if(q) list=list.filter(p=>(p.name+" "+p.cat+" "+p.material).toLowerCase().includes(q));
-    if(sort==="low") list.sort((a,b)=>a.price-b.price);
-    if(sort==="high") list.sort((a,b)=>b.price-a.price);
+    if(sort==="low") list.sort((a,b)=>(a.price??Infinity)-(b.price??Infinity));
+    if(sort==="high") list.sort((a,b)=>(b.price??-Infinity)-(a.price??-Infinity));
 
     document.getElementById("shopGrid").innerHTML=list.map(card).join("");
     document.getElementById("productCount").textContent=list.length+" proizvoda";
@@ -2619,6 +2625,8 @@
   }
 
   function addToCart(id){
+    const product=products.find(p=>p.id===id);
+    if(!product || product.available===false || !Number.isFinite(product.price)) return;
     const found=cart.find(x=>x.id===id);
     found ? found.qty++ : cart.push({id,qty:1});
     saveCart();
@@ -2720,19 +2728,31 @@
     modalImage.classList.toggle("has-image",!!p.image);
     modalImage.innerHTML = p.image ? safeImageHTML(p.image,"",p.name) : "";
 
-    document.getElementById("mAdd").onclick=()=>{
-      addToCart(p.id);
-      closeProduct();
-    };
+    const addBtn=document.getElementById("mAdd");
+    const buyBtn=document.getElementById("mBuy");
+    const mobileBtn=document.getElementById("mobileBuyButton");
 
-    document.getElementById("mBuy").onclick=()=>{
-      addToCart(p.id);
-      closeProduct();
-      openCheckout();
-    };
+    if(p.available===false || !Number.isFinite(p.price)){
+      addBtn.textContent="USKORO U ONLINE PONUDI";
+      buyBtn.textContent="POZOVITE ZA INFORMACIJE";
+      addBtn.disabled=true;
+      buyBtn.disabled=false;
+      buyBtn.onclick=()=>window.location.href="tel:+381692131555";
+      mobileBtn.textContent="USKORO";
+      mobileBtn.disabled=true;
+    }else{
+      addBtn.textContent="DODAJ U KORPU";
+      buyBtn.textContent="KUPI ODMAH";
+      addBtn.disabled=false;
+      buyBtn.disabled=false;
+      mobileBtn.textContent="DODAJ U KORPU";
+      mobileBtn.disabled=false;
+      addBtn.onclick=()=>{addToCart(p.id);closeProduct();};
+      buyBtn.onclick=()=>{addToCart(p.id);closeProduct();openCheckout();};
+      mobileBtn.onclick=()=>addToCart(p.id);
+    }
 
     document.getElementById("mobileBuyPrice").textContent=money(p.price);
-    document.getElementById("mobileBuyButton").onclick=()=>addToCart(p.id);
 
     document.getElementById("productModal").classList.add("open");
     document.getElementById("mobileBuy").classList.add("show");
