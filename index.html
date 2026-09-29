@@ -1584,6 +1584,26 @@
       background:#f0eee9;
       aspect-ratio:4/5;
     }
+
+    /* Narukvice su namerno horizontalne: proizvod ostaje ceo i fotografija
+       izgleda kao editorial kadar, dok prstenje i ogrlice ostaju uspravni. */
+    .card.bracelet-card .pic{
+      aspect-ratio:16/9;
+      background:#f3ede2;
+    }
+    .card.bracelet-card .pic .product-photo,
+    .card.bracelet-card .pic .product-photo-hover{
+      object-fit:cover;
+      object-position:center center;
+    }
+    .modal-image.bracelet-modal{
+      background:#f3ede2;
+    }
+    .modal-image.bracelet-modal img{
+      object-fit:contain;
+      object-position:center center;
+      padding:4%;
+    }
     .pic:not(.has-image):before{
       left:28%;right:28%;top:32%;height:32%;
       border-color:rgba(98,83,65,.20);
@@ -2575,6 +2595,7 @@
     Ako slike još ne postoje, ostavi image:"" i hover:"" — prikazaće se elegantni placeholder.
   */
   const products = [
+    {id:14,name:"Narukvica Balustrade",cat:"Narukvice",price:null,available:false,badge:"Novo",material:"Podaci uskoro",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Narukvica prepoznatljivog geometrijskog ritma sa ponavljajućim lučnim segmentima i dvobojnim izgledom. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.",image:"Balustrade.jpg",hover:""},
     {id:13,name:"Prsten Cruor",cat:"Prstenje",price:null,available:false,badge:"Novo",material:"Zlato",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Prsten izražajnog karaktera sa duboko crvenim centralnim kamenom i toplinom žutog zlata. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.",image:"Cruor.jpg",hover:""},
     {id:12,name:"Prsten Éclipse",cat:"Prstenje",price:null,available:false,badge:"Novo",material:"Podaci uskoro",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Prsten sa dominantnim okruglim centralnim kamenom i elegantnim zakrivljenim detaljem koji ga uokviruje. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.",image:"E%CC%81clipse.jpg",hover:""},
     {id:11,name:"Ogrlica Triade",cat:"Ogrlice",price:null,available:false,badge:"Novo",material:"Zlato u tri tona",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Prefinjena trostruka ogrlica u tri tona zlata — žutom, roze i belom. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.",image:"Triade.jpg",hover:""},
@@ -2626,7 +2647,7 @@
 
   function card(p){
     return `
-      <article class="card">
+      <article class="card ${p.cat==="Narukvice" ? "bracelet-card" : ""}">
         ${productMedia(p)}
         <div class="meta">
           <div>
@@ -2777,6 +2798,7 @@
 
     const modalImage=document.getElementById("modalImage");
     modalImage.classList.toggle("has-image",!!p.image);
+    modalImage.classList.toggle("bracelet-modal",p.cat==="Narukvice");
     modalImage.innerHTML = p.image ? safeImageHTML(p.image,"",p.name) : "";
 
     const addBtn=document.getElementById("mAdd");
