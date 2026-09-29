@@ -8,11 +8,16 @@
 :root{--ox:#180609;--wine:#2c0b12;--paper:#f7f3ed;--ivory:#efe8dc;--gold:#c5a66a;--ink:#12100e;--muted:#777067;--line:rgba(20,15,12,.13);--serif:Georgia,"Times New Roman",serif;--sans:Arial,Helvetica,sans-serif}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
 .top{height:68px;background:var(--ox);color:white;display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:20}.brand{font-family:var(--serif);letter-spacing:.22em;font-size:18px}.top small{letter-spacing:.14em;color:#d7c7a7}.top-actions{display:flex;gap:10px}.ghost{border:1px solid rgba(255,255,255,.28);background:transparent;color:white;padding:10px 14px;font-size:11px}
-.shell{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 68px)}aside{border-right:1px solid var(--line);padding:24px 18px;background:#f2ece4;position:sticky;top:68px;height:calc(100vh - 68px)}aside button{width:100%;border:0;background:transparent;text-align:left;padding:12px 14px;margin:2px 0;font-size:12px;color:#4e4943}aside button.active{background:var(--ox);color:white}main{padding:34px;max-width:1400px;width:100%}.eyebrow{font-size:10px;letter-spacing:.2em;color:#8b7b65;font-weight:700}.page-title{font-family:var(--serif);font-weight:400;font-size:44px;margin:7px 0 28px}.panel{background:white;border:1px solid var(--line);padding:22px;margin-bottom:22px}.panel h2{font-family:var(--serif);font-weight:400;margin:0 0 16px;font-size:26px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.stat{background:#fff;border:1px solid var(--line);padding:20px}.stat strong{display:block;font-family:var(--serif);font-size:34px;font-weight:400}.stat span{font-size:11px;color:var(--muted)}
-.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 8px;border-bottom:1px solid var(--line);font-size:12px;text-align:left;vertical-align:middle}.table th{font-size:9px;letter-spacing:.13em;color:#766b60}.thumb{width:58px;height:58px;object-fit:cover;background:#eee8df}.pill{display:inline-block;padding:5px 8px;background:#eee6d9;font-size:9px;letter-spacing:.08em}.btn{border:0;background:var(--ox);color:white;padding:11px 15px;font-size:10px;letter-spacing:.1em;font-weight:700}.btn.light{background:#e8decd;color:#1d1813}.btn.out{background:white;color:#1d1813;border:1px solid var(--line)}.danger{color:#8e1c2b}.toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:16px}.toolbar .right{display:flex;gap:8px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field label{font-size:9px;letter-spacing:.13em;color:#756a5f;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #d8d0c7;background:#fff;padding:11px 12px;outline:none}.field textarea{min-height:110px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form-grid .full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;max-height:210px;overflow:auto;border:1px solid var(--line);padding:10px}.checks label{font-size:11px;padding:7px;background:#faf8f4}.notice{padding:14px 16px;background:#fff6df;border-left:3px solid var(--gold);font-size:12px;line-height:1.55;margin-bottom:20px}.review{border:1px solid var(--line);padding:15px;margin-bottom:10px;background:white}.review-head{display:flex;justify-content:space-between;gap:12px}.stars{color:#9a7539;letter-spacing:.08em}.muted{color:var(--muted);font-size:11px}.review-images{display:flex;gap:7px;margin-top:10px}.review-images img{width:72px;height:72px;object-fit:cover}.blog-card{border:1px solid var(--line);padding:16px;margin-bottom:10px;background:white}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.shell{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 68px)}aside{border-right:1px solid var(--line);padding:24px 18px;background:#f2ece4;position:sticky;top:68px;height:calc(100vh - 68px);overflow:auto}aside button{width:100%;border:0;background:transparent;text-align:left;padding:12px 14px;margin:2px 0;font-size:12px;color:#4e4943}aside button.active{background:var(--ox);color:white}main{padding:34px;max-width:1480px;width:100%}.eyebrow{font-size:10px;letter-spacing:.2em;color:#8b7b65;font-weight:700}.page-title{font-family:var(--serif);font-weight:400;font-size:44px;margin:7px 0 28px}.panel{background:white;border:1px solid var(--line);padding:22px;margin-bottom:22px}.panel h2{font-family:var(--serif);font-weight:400;margin:0 0 16px;font-size:26px}.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}.stat{background:#fff;border:1px solid var(--line);padding:20px}.stat strong{display:block;font-family:var(--serif);font-size:34px;font-weight:400}.stat span{font-size:11px;color:var(--muted)}
+.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 8px;border-bottom:1px solid var(--line);font-size:12px;text-align:left;vertical-align:middle}.table th{font-size:9px;letter-spacing:.13em;color:#766b60}.thumb{width:62px;height:62px;object-fit:cover;background:#eee8df}.pill{display:inline-block;padding:5px 8px;background:#eee6d9;font-size:9px;letter-spacing:.08em}.btn{border:0;background:var(--ox);color:white;padding:11px 15px;font-size:10px;letter-spacing:.1em;font-weight:700}.btn.light{background:#e8decd;color:#1d1813}.btn.out{background:white;color:#1d1813;border:1px solid var(--line)}.danger{color:#8e1c2b}.toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:16px}.toolbar .right{display:flex;gap:8px;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}.field label{font-size:9px;letter-spacing:.13em;color:#756a5f;font-weight:700}.field input,.field select,.field textarea{width:100%;border:1px solid #d8d0c7;background:#fff;padding:11px 12px;outline:none}.field textarea{min-height:110px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.form-grid .full{grid-column:1/-1}.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-height:300px;overflow:auto;border:1px solid var(--line);padding:10px}.checks label{font-size:11px;padding:8px;background:#faf8f4;display:flex;gap:8px;align-items:center}.checks img{width:44px;height:44px;object-fit:cover;background:#eee}.notice{padding:14px 16px;background:#fff6df;border-left:3px solid var(--gold);font-size:12px;line-height:1.55;margin-bottom:20px}.review{border:1px solid var(--line);padding:15px;margin-bottom:10px;background:white}.review-head{display:flex;justify-content:space-between;gap:12px}.stars{color:#9a7539;letter-spacing:.08em}.muted{color:var(--muted);font-size:11px}.review-images{display:flex;gap:7px;margin-top:10px}.review-images img{width:72px;height:72px;object-fit:cover}.blog-card,.bundle-card{border:1px solid var(--line);padding:16px;margin-bottom:10px;background:white}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .auth-wrap{min-height:100vh;background:linear-gradient(135deg,#100607,#2b0910);display:grid;place-items:center;padding:24px}.auth-card{width:min(460px,100%);background:#faf7f2;padding:34px;border:1px solid rgba(197,166,106,.4);box-shadow:0 30px 90px rgba(0,0,0,.35)}.auth-card h1{font-family:var(--serif);font-weight:400;font-size:38px;margin:5px 0 8px}.auth-card p{color:var(--muted);font-size:12px;line-height:1.5}.auth-card .btn{width:100%;margin-top:6px}.error{color:#9a2534;font-size:12px;min-height:18px}.success{color:#476b46;font-size:12px}.jsonbox{width:100%;min-height:260px;font-family:monospace;font-size:11px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:grid;place-items:center;padding:20px;z-index:60}.modal-card{background:var(--paper);width:min(880px,100%);max-height:92vh;overflow:auto;padding:26px;position:relative}.close{position:absolute;right:17px;top:14px;border:0;background:transparent;font-size:24px}.modal-card h2{font-family:var(--serif);font-size:34px;font-weight:400;margin:0 0 20px}
-@media(max-width:900px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;display:flex;overflow:auto;gap:4px;padding:10px}aside button{width:auto;white-space:nowrap}.grid{grid-template-columns:repeat(2,1fr)}main{padding:20px}.form-grid{grid-template-columns:1fr}.checks{grid-template-columns:1fr 1fr}}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:grid;place-items:center;padding:20px;z-index:60}.modal-card{background:var(--paper);width:min(980px,100%);max-height:94vh;overflow:auto;padding:26px;position:relative}.close{position:absolute;right:17px;top:14px;border:0;background:transparent;font-size:24px}.modal-card h2{font-family:var(--serif);font-size:34px;font-weight:400;margin:0 0 20px}
+.image-manager{display:grid;grid-template-columns:220px 1fr;gap:18px;align-items:start;padding:14px;border:1px solid var(--line);background:#fff;margin-bottom:18px}.image-preview{aspect-ratio:4/5;background:#eee8df;display:grid;place-items:center;overflow:hidden}.image-preview.horizontal{aspect-ratio:16/9}.image-preview img{width:100%;height:100%;object-fit:cover}.upload-box{border:1px dashed #bcae9a;padding:16px;background:#faf7f1}.upload-box input[type=file]{padding:8px;background:white}
+.product-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.product-mini{border:1px solid var(--line);background:white;padding:10px}.product-mini img,.product-mini .ph{width:100%;aspect-ratio:4/3;object-fit:cover;background:#ece6de}.product-mini strong{display:block;font-family:var(--serif);font-weight:400;font-size:16px;margin-top:8px}
+.layout-wrap{display:grid;grid-template-columns:1fr 3fr;gap:18px}.stack-zone{display:grid;grid-template-rows:1fr 1fr;gap:12px}.drop-slot{min-height:210px;border:1px dashed #bfae97;background:#f7f2ea;padding:10px;display:flex;align-items:stretch}.drop-slot.over{outline:2px solid var(--gold);background:#fff7e7}.vertical-zones{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.vertical-zones .drop-slot{min-height:432px}.slot-card{width:100%;background:white;border:1px solid var(--line);padding:8px;cursor:grab;position:relative}.slot-card img,.slot-card .ph{width:100%;height:calc(100% - 45px);min-height:120px;object-fit:cover;background:#ece6dd}.slot-card strong{display:block;font-family:var(--serif);font-weight:400;padding-top:8px}.slot-label{font-size:9px;letter-spacing:.12em;color:#7a6b5a;margin-bottom:7px}.drag-pool,.catalog-board{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.drag-item{background:#fff;border:1px solid var(--line);padding:8px;cursor:grab}.drag-item.dragging{opacity:.35}.drag-item img,.drag-item .ph{width:100%;aspect-ratio:4/3;object-fit:cover;background:#ece6dd}.drag-item strong{display:block;font-family:var(--serif);font-weight:400;font-size:14px;margin-top:7px}.catalog-board{padding:12px;border:1px solid var(--line);background:#f4efe8}.catalog-board .drag-item{transition:transform .15s}.bundle-products{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.bundle-chip{display:flex;align-items:center;gap:6px;background:#f1eadf;padding:6px 8px;font-size:10px}.bundle-chip img{width:30px;height:30px;object-fit:cover}
+.order-status{padding:7px;border:1px solid #d8d0c7;background:white}.order-items{font-size:10px;line-height:1.5;color:#6f6963}.kpi-good{color:#476b46}.kpi-warn{color:#95622b}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(3,1fr)}.product-cards,.drag-pool,.catalog-board{grid-template-columns:repeat(3,1fr)}.layout-wrap{grid-template-columns:1fr}.vertical-zones .drop-slot{min-height:320px}}
+@media(max-width:900px){.shell{grid-template-columns:1fr}aside{position:static;height:auto;display:flex;overflow:auto;gap:4px;padding:10px}aside button{width:auto;white-space:nowrap}.grid{grid-template-columns:repeat(2,1fr)}main{padding:20px}.form-grid{grid-template-columns:1fr}.checks{grid-template-columns:1fr 1fr}.image-manager{grid-template-columns:1fr}.product-cards,.drag-pool,.catalog-board{grid-template-columns:repeat(2,1fr)}.vertical-zones{grid-template-columns:1fr}.vertical-zones .drop-slot{min-height:260px}}
 </style>
 </head>
 <body>
@@ -20,7 +25,7 @@
   <div class="auth-card">
     <div class="eyebrow">PRIVATNI ADMIN PANEL</div>
     <h1>Zlatara Stevanović</h1>
-    <p id="authIntro">Prijavite se da uređujete proizvode, preporuke, recenzije i blog.</p>
+    <p id="authIntro">Prijavite se da uređujete prodavnicu.</p>
     <div class="field"><label>IME I PREZIME</label><input id="authName" autocomplete="name"></div>
     <div class="field"><label>EMAIL</label><input id="authEmail" type="email" autocomplete="email"></div>
     <div class="field"><label>LOZINKA</label><input id="authPass" type="password" autocomplete="current-password"></div>
@@ -31,13 +36,17 @@
 </div>
 
 <div id="app" class="hidden">
-  <div class="top"><div><div class="brand">STEVANOVIĆ</div><small>ADMINISTRACIJA</small></div><div class="top-actions"><a class="ghost" href="index.html#shop" target="_blank">OTVORI PRODAVNICU</a><button class="ghost" onclick="logoutAdmin()">ODJAVI SE</button></div></div>
+  <div class="top">
+    <div><div class="brand">STEVANOVIĆ</div><small>ADMINISTRACIJA</small></div>
+    <div class="top-actions"><a class="ghost" href="index.html#shop" target="_blank">OTVORI PRODAVNICU</a><button class="ghost" onclick="logoutAdmin()">ODJAVI SE</button></div>
+  </div>
   <div class="shell">
     <aside>
       <button data-tab="dashboard" class="active">Pregled</button>
       <button data-tab="products">Proizvodi</button>
-      <button data-tab="recommendations">Preporuke</button>
-      <button data-tab="homepage">Početna / raspored</button>
+      <button data-tab="bundles">Paketi / bundle</button>
+      <button data-tab="homepage">Raspored mišem</button>
+      <button data-tab="orders">Porudžbine</button>
       <button data-tab="reviews">Recenzije</button>
       <button data-tab="blogs">Blog</button>
       <button data-tab="data">Backup podataka</button>
@@ -45,8 +54,9 @@
     <main>
       <section id="tab-dashboard" class="tab-page"></section>
       <section id="tab-products" class="tab-page hidden"></section>
-      <section id="tab-recommendations" class="tab-page hidden"></section>
+      <section id="tab-bundles" class="tab-page hidden"></section>
       <section id="tab-homepage" class="tab-page hidden"></section>
+      <section id="tab-orders" class="tab-page hidden"></section>
       <section id="tab-reviews" class="tab-page hidden"></section>
       <section id="tab-blogs" class="tab-page hidden"></section>
       <section id="tab-data" class="tab-page hidden"></section>
@@ -54,44 +64,219 @@
   </div>
 </div>
 <div id="modal" class="modal hidden"></div>
+
 <script src="cms-store.js"></script>
 <script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function money(v){return Number.isFinite(Number(v))&&v!==''?new Intl.NumberFormat('sr-RS').format(Number(v))+' RSD':'Cena uskoro'}
+function imgTag(p,cls=''){return p?.image?`<img class="${cls}" src="${esc(p.image)}" onerror="this.style.opacity=.15">`:`<div class="ph"></div>`}
 function currentAdmin(){const u=ZSCMS.currentUser();return u&&u.role==='admin'?u:null}
-function showApp(){ $('#auth').classList.add('hidden');$('#app').classList.remove('hidden');renderAll(); }
-function showAuth(){ $('#auth').classList.remove('hidden');$('#app').classList.add('hidden'); const setup=!ZSCMS.hasAdmin(); $('#authName').closest('.field').classList.toggle('hidden',!setup); $('#authBtn').textContent=setup?'KREIRAJ VLASNIČKI NALOG':'PRIJAVI SE'; $('#authIntro').textContent=setup?'Prvo postavljanje: napravite vlasnički nalog za ovaj admin panel.':'Prijavite se da uređujete prodavnicu.'; $('#setupNote').textContent=setup?'Ovaj trenutni prototip čuva nalog i izmene u pregledaču. Za pravi rad sa više uređaja i kupaca potrebno je povezati bazu/autentifikaciju.':''; }
-async function handleAuth(){const e=$('#authEmail').value,p=$('#authPass').value,n=$('#authName').value;$('#authError').textContent='';try{if(!ZSCMS.hasAdmin()) await ZSCMS.createFirstAdmin({name:n,email:e,password:p}); else {const u=await ZSCMS.login(e,p);if(u.role!=='admin'){ZSCMS.logout();throw new Error('Ovaj nalog nema admin pristup.')}}showApp()}catch(err){$('#authError').textContent=err.message}}
-$('#authBtn').onclick=handleAuth; $('#authPass').addEventListener('keydown',e=>{if(e.key==='Enter')handleAuth()});
+function showApp(){$('#auth').classList.add('hidden');$('#app').classList.remove('hidden');renderAll()}
+function showAuth(){
+  $('#auth').classList.remove('hidden');$('#app').classList.add('hidden');
+  const setup=!ZSCMS.hasAdmin();
+  $('#authName').closest('.field').classList.toggle('hidden',!setup);
+  $('#authBtn').textContent=setup?'KREIRAJ VLASNIČKI NALOG':'PRIJAVI SE';
+  $('#authIntro').textContent=setup?'Prvo postavljanje: napravite vlasnički nalog za ovaj admin panel.':'Prijavite se da uređujete prodavnicu.';
+  $('#setupNote').textContent=setup?'Trenutna verzija čuva CMS podatke lokalno u ovom pregledaču; funkcije su spremne za kasnije povezivanje sa centralnom bazom.':'';
+}
+async function handleAuth(){
+  const e=$('#authEmail').value,p=$('#authPass').value,n=$('#authName').value;$('#authError').textContent='';
+  try{
+    if(!ZSCMS.hasAdmin())await ZSCMS.createFirstAdmin({name:n,email:e,password:p});
+    else{const u=await ZSCMS.login(e,p);if(u.role!=='admin'){ZSCMS.logout();throw new Error('Ovaj nalog nema admin pristup.')}}
+    showApp()
+  }catch(err){$('#authError').textContent=err.message}
+}
+$('#authBtn').onclick=handleAuth;$('#authPass').addEventListener('keydown',e=>{if(e.key==='Enter')handleAuth()});
 function logoutAdmin(){ZSCMS.logout();showAuth()}
 
-$$('aside button').forEach(b=>b.onclick=()=>{ $$('aside button').forEach(x=>x.classList.remove('active'));b.classList.add('active');$$('.tab-page').forEach(x=>x.classList.add('hidden'));$('#tab-'+b.dataset.tab).classList.remove('hidden');renderTab(b.dataset.tab)});
-function renderAll(){['dashboard','products','recommendations','homepage','reviews','blogs','data'].forEach(renderTab)}
-function renderTab(name){({dashboard:renderDashboard,products:renderProducts,recommendations:renderRecommendations,homepage:renderHomepage,reviews:renderReviews,blogs:renderBlogs,data:renderData}[name]||(()=>{}))()}
+$$('aside button').forEach(b=>b.onclick=()=>{
+  $$('aside button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  $$('.tab-page').forEach(x=>x.classList.add('hidden'));$('#tab-'+b.dataset.tab).classList.remove('hidden');renderTab(b.dataset.tab)
+});
+function renderAll(){['dashboard','products','bundles','homepage','orders','reviews','blogs','data'].forEach(renderTab)}
+function renderTab(name){({dashboard:renderDashboard,products:renderProducts,bundles:renderBundles,homepage:renderHomepage,orders:renderOrders,reviews:renderReviews,blogs:renderBlogs,data:renderData}[name]||(()=>{}))()}
 
-function renderDashboard(){const p=ZSCMS.products(),r=ZSCMS.allReviews(),b=ZSCMS.blogs();$('#tab-dashboard').innerHTML=`<div class="eyebrow">KONTROLNI CENTAR</div><h1 class="page-title">Pregled prodavnice</h1><div class="grid"><div class="stat"><strong>${p.length}</strong><span>proizvoda</span></div><div class="stat"><strong>${p.filter(x=>x.available).length}</strong><span>aktivno za kupovinu</span></div><div class="stat"><strong>${r.filter(x=>!x.hidden).length}</strong><span>vidljivih recenzija</span></div><div class="stat"><strong>${b.filter(x=>x.published).length}</strong><span>objavljenih blogova</span></div></div><div class="panel" style="margin-top:22px"><h2>Šta ovde kontrolišete</h2><p class="muted" style="font-size:13px;line-height:1.7">Nazive, cene, opise, tehničke podatke, fotografije i dostupnost proizvoda; ručne preporuke uz svaki komad; editorial raspored na kategoriji „Sve”; recenzije i fotografije kupaca; kao i blog sadržaj.</p></div>`}
+function renderDashboard(){
+  const p=ZSCMS.products(),r=ZSCMS.allReviews(),b=ZSCMS.blogs(),bu=ZSCMS.bundles(),o=ZSCMS.orders();
+  const pending=o.filter(x=>!['Plaćena','Poslata','Završena','Otkazana'].includes(x.status)).length;
+  $('#tab-dashboard').innerHTML=`<div class="eyebrow">KONTROLNI CENTAR</div><h1 class="page-title">Pregled prodavnice</h1>
+  <div class="grid">
+    <div class="stat"><strong>${p.length}</strong><span>proizvoda</span></div>
+    <div class="stat"><strong>${bu.filter(x=>x.active!==false).length}</strong><span>aktivnih paketa</span></div>
+    <div class="stat"><strong>${o.length}</strong><span>porudžbina / checkout pokušaja</span></div>
+    <div class="stat"><strong class="${pending?'kpi-warn':'kpi-good'}">${pending}</strong><span>za obradu</span></div>
+    <div class="stat"><strong>${r.filter(x=>!x.hidden).length}</strong><span>vidljivih recenzija</span></div>
+  </div>
+  <div class="panel" style="margin-top:22px"><h2>Sada iz ovog panela možete</h2><p class="muted" style="font-size:13px;line-height:1.8">Da menjate slike proizvoda, cene i opise; da uz svaki proizvod ručno odredite šta se preporučuje; da pravite bundle pakete i popuste; da mišem nameštate editorial raspored i redosled kataloga; da pregledate porudžbine i menjate njihov status; kao i da uređujete recenzije i blog.</p></div>`;
+}
 
-function renderProducts(){const p=ZSCMS.products();$('#tab-products').innerHTML=`<div class="eyebrow">KATALOG</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Proizvodi</h1><div class="right"><button class="btn" onclick="editProduct()">＋ NOVI PROIZVOD</button></div></div><div class="panel"><table class="table"><thead><tr><th>SLIKA</th><th>PROIZVOD</th><th>KATEGORIJA</th><th>CENA</th><th>STATUS</th><th></th></tr></thead><tbody>${p.map(x=>`<tr><td>${x.image?`<img class="thumb" src="${x.image}" onerror="this.style.opacity=.15">`:'—'}</td><td><strong>${esc(x.name)}</strong><div class="muted">${esc(x.material)}</div></td><td>${esc(x.cat)}</td><td>${money(x.price)}</td><td><span class="pill">${x.available?'Aktivno':'Uskoro'}</span></td><td><button class="btn out" onclick="editProduct(${x.id})">UREDI</button></td></tr>`).join('')}</tbody></table></div>`}
-function editProduct(id){const p=id?ZSCMS.getProduct(id):{id:Date.now(),name:'',cat:'Prstenje',price:null,available:false,badge:'Novo',material:'',fine:'',weight:'',size:'',desc:'',image:'',hover:'',orientation:'vertical',recommendations:[]};$('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>${id?'Uredi proizvod':'Novi proizvod'}</h2><form id="productForm"><div class="form-grid"><div class="field"><label>NAZIV</label><input name="name" value="${esc(p.name)}" required></div><div class="field"><label>KATEGORIJA</label><select name="cat">${['Ogrlice','Prstenje','Minđuše','Narukvice','Setovi'].map(c=>`<option ${p.cat===c?'selected':''}>${c}</option>`).join('')}</select></div><div class="field"><label>CENA RSD</label><input name="price" type="number" value="${p.price??''}" placeholder="ostavite prazno za Cena uskoro"></div><div class="field"><label>BADGE</label><input name="badge" value="${esc(p.badge||'')}"></div><div class="field"><label>MATERIJAL</label><input name="material" value="${esc(p.material||'')}"></div><div class="field"><label>FINOĆA</label><input name="fine" value="${esc(p.fine||'')}"></div><div class="field"><label>TEŽINA</label><input name="weight" value="${esc(p.weight||'')}"></div><div class="field"><label>DIMENZIJE / VELIČINA</label><input name="size" value="${esc(p.size||'')}"></div><div class="field"><label>GLAVNA SLIKA — naziv fajla</label><input name="image" value="${esc(p.image||'')}" placeholder="npr. Cruor.jpg"></div><div class="field"><label>HOVER SLIKA</label><input name="hover" value="${esc(p.hover||'')}"></div><div class="field"><label>FORMAT</label><select name="orientation"><option value="vertical" ${p.orientation!=='horizontal'?'selected':''}>Uspravno 4:5</option><option value="horizontal" ${p.orientation==='horizontal'?'selected':''}>Horizontalno 16:9</option></select></div><div class="field"><label>DOSTUPNOST</label><select name="available"><option value="false" ${!p.available?'selected':''}>Cena / kupovina uskoro</option><option value="true" ${p.available?'selected':''}>Može da se kupi</option></select></div><div class="field full"><label>OPIS</label><textarea name="desc">${esc(p.desc||'')}</textarea></div></div><div class="row"><button class="btn" type="submit">SAČUVAJ</button>${id?`<button type="button" class="btn out danger" onclick="removeProduct(${p.id})">SAKRIJ PROIZVOD</button>`:''}</div></form></div>`;$('#modal').classList.remove('hidden');$('#productForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.currentTarget);const obj={...p,name:f.get('name').trim(),cat:f.get('cat'),price:f.get('price')===''?null:Number(f.get('price')),badge:f.get('badge').trim(),material:f.get('material').trim(),fine:f.get('fine').trim(),weight:f.get('weight').trim(),size:f.get('size').trim(),image:f.get('image').trim(),hover:f.get('hover').trim(),orientation:f.get('orientation'),available:f.get('available')==='true',desc:f.get('desc').trim()};ZSCMS.upsertProduct(obj);closeModal();renderProducts();renderDashboard()}}
+function renderProducts(){
+  const p=ZSCMS.products();
+  $('#tab-products').innerHTML=`<div class="eyebrow">KATALOG</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Proizvodi</h1><div class="right"><button class="btn" onclick="editProduct()">＋ NOVI PROIZVOD</button></div></div>
+  <div class="product-cards">${p.map(x=>`<div class="product-mini">${imgTag(x)}<strong>${esc(x.name)}</strong><div class="muted">${esc(x.cat)} · ${money(x.price)}</div><div class="row" style="margin-top:9px"><button class="btn out" onclick="editProduct(${x.id})">UREDI</button></div></div>`).join('')}</div>`;
+}
+
+async function compressImage(file,maxDim=1400,quality=.82){
+  return new Promise((resolve,reject)=>{
+    const fr=new FileReader();
+    fr.onerror=()=>reject(new Error('Slika nije mogla da se učita.'));
+    fr.onload=()=>{
+      const im=new Image();
+      im.onerror=()=>reject(new Error('Format slike nije podržan.'));
+      im.onload=()=>{
+        const scale=Math.min(1,maxDim/Math.max(im.width,im.height));
+        const w=Math.max(1,Math.round(im.width*scale)),h=Math.max(1,Math.round(im.height*scale));
+        const c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(im,0,0,w,h);
+        resolve(c.toDataURL('image/jpeg',quality));
+      };
+      im.src=fr.result;
+    };
+    fr.readAsDataURL(file);
+  });
+}
+
+function productRecommendationChecks(p){
+  const all=ZSCMS.products().filter(x=>x.id!==p.id);
+  return `<div class="checks">${all.map(x=>`<label>${x.image?`<img src="${esc(x.image)}">`:'<span style="width:44px;height:44px;background:#eee;display:inline-block"></span>'}<input type="checkbox" name="recs" value="${x.id}" ${(p.recommendations||[]).includes(x.id)?'checked':''}> <span>${esc(x.name)}</span></label>`).join('')}</div>`;
+}
+
+function editProduct(id){
+  const p=id?ZSCMS.getProduct(id):{id:Date.now(),name:'',cat:'Prstenje',price:null,available:false,badge:'Novo',material:'',fine:'',weight:'',size:'',desc:'',image:'',hover:'',orientation:'vertical',recommendations:[]};
+  $('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>${id?'Uredi proizvod':'Novi proizvod'}</h2>
+  <form id="productForm">
+    <div class="image-manager">
+      <div id="mainPreview" class="image-preview ${p.orientation==='horizontal'?'horizontal':''}">${p.image?`<img src="${esc(p.image)}">`:'<span class="muted">Nema slike</span>'}</div>
+      <div>
+        <div class="upload-box"><strong>GLAVNA SLIKA</strong><p class="muted">Možete izabrati sliku sa računara. Za ovaj prototip slika se automatski kompresuje i čuva u pregledaču.</p><input id="mainFile" type="file" accept="image/*"><div class="field" style="margin-top:10px"><label>ILI NAZIV FAJLA / URL</label><input name="image" value="${esc(p.image||'')}" placeholder="npr. Cruor.jpg"></div></div>
+        <div class="upload-box" style="margin-top:10px"><strong>HOVER SLIKA</strong><p class="muted">Opciono — druga fotografija kada kupac pređe mišem.</p><input id="hoverFile" type="file" accept="image/*"><div class="field" style="margin-top:10px"><label>ILI NAZIV FAJLA / URL</label><input name="hover" value="${esc(p.hover||'')}"></div></div>
+      </div>
+    </div>
+    <div class="form-grid">
+      <div class="field"><label>NAZIV</label><input name="name" value="${esc(p.name)}" required></div>
+      <div class="field"><label>KATEGORIJA</label><select name="cat">${['Ogrlice','Prstenje','Minđuše','Narukvice','Setovi'].map(c=>`<option ${p.cat===c?'selected':''}>${c}</option>`).join('')}</select></div>
+      <div class="field"><label>CENA RSD</label><input name="price" type="number" value="${p.price??''}" placeholder="ostavite prazno za Cena uskoro"></div>
+      <div class="field"><label>BADGE</label><input name="badge" value="${esc(p.badge||'')}"></div>
+      <div class="field"><label>MATERIJAL</label><input name="material" value="${esc(p.material||'')}"></div>
+      <div class="field"><label>FINOĆA</label><input name="fine" value="${esc(p.fine||'')}"></div>
+      <div class="field"><label>TEŽINA</label><input name="weight" value="${esc(p.weight||'')}"></div>
+      <div class="field"><label>DIMENZIJE / VELIČINA</label><input name="size" value="${esc(p.size||'')}"></div>
+      <div class="field"><label>FORMAT</label><select name="orientation"><option value="vertical" ${p.orientation!=='horizontal'?'selected':''}>Uspravno 4:5</option><option value="horizontal" ${p.orientation==='horizontal'?'selected':''}>Horizontalno 16:9</option></select></div>
+      <div class="field"><label>DOSTUPNOST</label><select name="available"><option value="false" ${!p.available?'selected':''}>Cena / kupovina uskoro</option><option value="true" ${p.available?'selected':''}>Može da se kupi</option></select></div>
+      <div class="field full"><label>OPIS</label><textarea name="desc">${esc(p.desc||'')}</textarea></div>
+      <div class="field full"><label>PREPORUČENI PROIZVODI ISPOD OVOG KOMADA</label><div class="muted" style="margin-bottom:7px">Označite šta želite da izlazi pod „Upotpunite izbor”. Ručni izbor ima prioritet.</div>${productRecommendationChecks(p)}</div>
+    </div>
+    <div class="row"><button class="btn" type="submit">SAČUVAJ SVE</button>${id?`<button type="button" class="btn out danger" onclick="removeProduct(${p.id})">SAKRIJ PROIZVOD</button>`:''}</div>
+  </form></div>`;
+  $('#modal').classList.remove('hidden');
+  let uploadedMain='',uploadedHover='';
+  $('#mainFile').onchange=async e=>{
+    const file=e.target.files[0];if(!file)return;
+    try{uploadedMain=await compressImage(file);$('#mainPreview').innerHTML=`<img src="${uploadedMain}">`;}catch(err){alert(err.message)}
+  };
+  $('#hoverFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{uploadedHover=await compressImage(file)}catch(err){alert(err.message)}};
+  $('#productForm').elements.orientation.onchange=e=>$('#mainPreview').classList.toggle('horizontal',e.target.value==='horizontal');
+  $('#productForm').onsubmit=e=>{
+    e.preventDefault();const f=new FormData(e.currentTarget);
+    const recs=[...e.currentTarget.querySelectorAll('input[name=recs]:checked')].map(x=>Number(x.value)).slice(0,8);
+    const obj={...p,name:f.get('name').trim(),cat:f.get('cat'),price:f.get('price')===''?null:Number(f.get('price')),badge:f.get('badge').trim(),material:f.get('material').trim(),fine:f.get('fine').trim(),weight:f.get('weight').trim(),size:f.get('size').trim(),image:uploadedMain||f.get('image').trim(),hover:uploadedHover||f.get('hover').trim(),orientation:f.get('orientation'),available:f.get('available')==='true',desc:f.get('desc').trim(),recommendations:recs};
+    try{ZSCMS.upsertProduct(obj);closeModal();renderProducts();renderDashboard();}catch(err){alert('Nije moguće sačuvati. Ako je slika velika, pokušajte sa manjom fotografijom.')}
+  };
+}
 function removeProduct(id){if(confirm('Sakriti ovaj proizvod iz kataloga?')){ZSCMS.deleteProduct(id);closeModal();renderProducts()}}
 function closeModal(){$('#modal').classList.add('hidden');$('#modal').innerHTML=''}
 
-function renderRecommendations(){const p=ZSCMS.products();$('#tab-recommendations').innerHTML=`<div class="eyebrow">CROSS-SELL / PAIRING</div><h1 class="page-title">Preporuke uz proizvod</h1><div class="notice">Ručni izbor ima prioritet. Ako stavite manje od četiri proizvoda, prodavnica automatski dopunjava predloge prema materijalu, kategoriji i cenovnom rangu.</div><div class="panel"><div class="field"><label>IZABERITE PROIZVOD</label><select id="recProduct">${p.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div id="recChecks"></div></div>`;$('#recProduct').onchange=renderRecChecks;renderRecChecks()}
-function renderRecChecks(){const id=Number($('#recProduct').value),active=ZSCMS.getProduct(id),p=ZSCMS.products().filter(x=>x.id!==id);$('#recChecks').innerHTML=`<div class="field"><label>ŠTA DA SE PRIKAŽE KAO „UPOTPUNITE IZBOR”</label><div class="checks">${p.map(x=>`<label><input type="checkbox" value="${x.id}" ${(active.recommendations||[]).includes(x.id)?'checked':''}> ${esc(x.name)}</label>`).join('')}</div></div><button class="btn" onclick="saveRecommendations(${id})">SAČUVAJ PREPORUKE</button>`}
-function saveRecommendations(id){const ids=[...$('#recChecks').querySelectorAll('input:checked')].map(x=>Number(x.value)).slice(0,8),p=ZSCMS.getProduct(id);ZSCMS.upsertProduct({...p,recommendations:ids});alert('Preporuke su sačuvane.')}
+function renderBundles(){
+  const bs=ZSCMS.bundles(),p=ZSCMS.products();
+  $('#tab-bundles').innerHTML=`<div class="eyebrow">PAKETI / CROSS-SELL</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Bundle ponude</h1><button class="btn" onclick="editBundle()">＋ NOVI PAKET</button></div>
+  <div class="notice">Paket može sadržati 2 ili više proizvoda. Popust može biti procenat ili fiksni iznos. Paket se prikazuje na stranici svakog proizvoda koji je u njemu.</div>
+  ${bs.length?bs.map(b=>{const t=ZSCMS.bundleTotals(b);return `<div class="bundle-card"><div class="review-head"><div><strong style="font-family:var(--serif);font-size:20px;font-weight:400">${esc(b.name)}</strong><div class="muted">${b.active!==false?'Aktivan':'Sakriven'} · ${b.discountType==='percent'?b.discountValue+'%':money(b.discountValue)} popusta</div></div><button class="btn out" onclick="editBundle('${b.id}')">UREDI</button></div><p class="muted">${esc(b.headline||'')}</p><div class="bundle-products">${(b.productIds||[]).map(id=>{const x=p.find(y=>String(y.id)===String(id));return x?`<span class="bundle-chip">${x.image?`<img src="${esc(x.image)}">`:''}${esc(x.name)}</span>`:''}).join('')}</div>${t.complete?`<p><strong>${money(t.final)}</strong> <span class="muted">umesto ${money(t.regular)} · ušteda ${money(t.saving)}</span></p>`:''}</div>`}).join(''):'<div class="panel"><p class="muted">Još nema bundle ponuda.</p></div>'}`;
+}
+function editBundle(id){
+  const b=id?ZSCMS.getBundle(id):{id:'bundle_'+Date.now().toString(36),name:'',headline:'',productIds:[],discountType:'percent',discountValue:10,active:true};
+  const p=ZSCMS.products();
+  $('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>${id?'Uredi paket':'Novi paket'}</h2><form id="bundleForm">
+    <div class="form-grid"><div class="field"><label>NAZIV PAKETA</label><input name="name" value="${esc(b.name)}" placeholder="npr. Večernji izbor" required></div><div class="field"><label>STATUS</label><select name="active"><option value="true" ${b.active!==false?'selected':''}>Aktivan</option><option value="false" ${b.active===false?'selected':''}>Sakriven</option></select></div>
+    <div class="field"><label>TIP POPUSTA</label><select name="discountType"><option value="percent" ${b.discountType==='percent'?'selected':''}>Procenat %</option><option value="fixed" ${b.discountType==='fixed'?'selected':''}>Fiksno RSD</option></select></div><div class="field"><label>VREDNOST POPUSTA</label><input name="discountValue" type="number" min="0" value="${Number(b.discountValue)||0}"></div>
+    <div class="field full"><label>KRATAK TEKST</label><input name="headline" value="${esc(b.headline||'')}" placeholder="Odabrani komadi koji se prirodno dopunjuju."></div>
+    <div class="field full"><label>PROIZVODI U PAKETU</label><div class="checks">${p.map(x=>`<label>${x.image?`<img src="${esc(x.image)}">`:''}<input type="checkbox" name="bundleProducts" value="${x.id}" ${(b.productIds||[]).some(v=>String(v)===String(x.id))?'checked':''}> ${esc(x.name)}</label>`).join('')}</div></div></div>
+    <div class="row"><button class="btn">SAČUVAJ PAKET</button>${id?`<button type="button" class="btn out danger" onclick="removeBundle('${b.id}')">OBRIŠI</button>`:''}</div>
+  </form></div>`;
+  $('#modal').classList.remove('hidden');
+  $('#bundleForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.currentTarget),ids=[...e.currentTarget.querySelectorAll('input[name=bundleProducts]:checked')].map(x=>Number(x.value));if(ids.length<2){alert('Paket mora imati najmanje dva proizvoda.');return}ZSCMS.upsertBundle({...b,name:f.get('name').trim(),headline:f.get('headline').trim(),productIds:ids,discountType:f.get('discountType'),discountValue:Number(f.get('discountValue'))||0,active:f.get('active')==='true'});closeModal();renderBundles();renderDashboard();}
+}
+function removeBundle(id){if(confirm('Obrisati paket?')){ZSCMS.deleteBundle(id);closeModal();renderBundles()}}
 
-function renderHomepage(){const s=ZSCMS.settings(),p=ZSCMS.products();const opts=ids=>ids.map(id=>p.find(x=>x.id===id)).filter(Boolean).map(x=>esc(x.name)).join(', ');$('#tab-homepage').innerHTML=`<div class="eyebrow">EDITORIAL GRID</div><h1 class="page-title">Raspored kategorije „Sve”</h1><div class="notice">Na desktopu prva kolona sadrži dve horizontalne narukvice jednu ispod druge. Pored njih stoje tri vertikalna proizvoda. Kada kupac filtrira kategoriju, vraća se pravilan katalog-grid.</div><div class="panel"><h2>Prva kolona — dve narukvice</h2><div class="form-grid"><div class="field"><label>GORNJA</label><select id="brace1">${p.filter(x=>x.cat==='Narukvice').map(x=>`<option value="${x.id}" ${s.editorialBracelets?.[0]===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>DONJA</label><select id="brace2">${p.filter(x=>x.cat==='Narukvice').map(x=>`<option value="${x.id}" ${s.editorialBracelets?.[1]===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div><h2 style="margin-top:24px">Tri velika proizvoda pored</h2><div class="form-grid">${[0,1,2].map(i=>`<div class="field"><label>POZICIJA ${i+1}</label><select id="vert${i}">${p.filter(x=>x.cat!=='Narukvice').map(x=>`<option value="${x.id}" ${s.editorialVertical?.[i]===x.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div>`).join('')}</div><button class="btn" onclick="saveHomepage()">SAČUVAJ RASPORED</button><p class="muted">Trenutno: ${opts(s.editorialBracelets||[])} | ${opts(s.editorialVertical||[])}</p></div>`}
-function saveHomepage(){ZSCMS.updateSettings({editorialBracelets:[Number($('#brace1').value),Number($('#brace2').value)],editorialVertical:[0,1,2].map(i=>Number($('#vert'+i).value))});alert('Raspored je sačuvan.')}
+let layoutDraft=null,draggedProductId=null;
+function renderHomepage(){
+  const s=ZSCMS.settings(),p=ZSCMS.products();
+  layoutDraft={bracelets:[...(s.editorialBracelets||[])],vertical:[...(s.editorialVertical||[])],order:[...(s.catalogOrder||p.map(x=>x.id))]};
+  while(layoutDraft.bracelets.length<2)layoutDraft.bracelets.push(null);
+  while(layoutDraft.vertical.length<3)layoutDraft.vertical.push(null);
+  $('#tab-homepage').innerHTML=`<div class="eyebrow">DRAG & DROP</div><h1 class="page-title">Raspored prodavnice</h1>
+  <div class="notice"><strong>Prevucite fotografiju mišem.</strong> Prva kolona ima dve horizontalne pozicije; pored nje su tri velike pozicije. Ispod možete promeniti i redosled svih ostalih proizvoda.</div>
+  <div class="panel"><h2>Prvi editorial red</h2><div id="visualLayout" class="layout-wrap"></div><h3 style="font-family:var(--serif);font-weight:400;margin-top:26px">Proizvodi za prevlačenje</h3><div id="dragPool" class="drag-pool"></div><div class="row" style="margin-top:16px"><button class="btn" onclick="saveVisualLayout()">SAČUVAJ PRVI RED</button></div></div>
+  <div class="panel"><h2>Redosled ostatka kataloga</h2><p class="muted">Uhvatite karticu i prevucite je na željeno mesto. Ovaj redosled se koristi i kada sistem popunjava ostatak kategorije „Sve”.</p><div id="catalogBoard" class="catalog-board"></div><div class="row" style="margin-top:16px"><button class="btn" onclick="saveCatalogOrder()">SAČUVAJ REDOSLED</button></div></div>`;
+  renderVisualLayout();renderDragPool();renderCatalogBoard();
+}
+function slotProduct(id){return ZSCMS.products().find(x=>String(x.id)===String(id))}
+function slotHTML(kind,index,id,label){
+  const p=slotProduct(id);
+  return `<div class="drop-slot" data-kind="${kind}" data-index="${index}" ondragover="slotOver(event)" ondragleave="this.classList.remove('over')" ondrop="slotDrop(event)"><div style="width:100%"><div class="slot-label">${label}</div>${p?`<div class="slot-card" draggable="true" ondragstart="productDrag(event,${p.id})">${imgTag(p)}<strong>${esc(p.name)}</strong></div>`:`<div style="min-height:150px;display:grid;place-items:center;color:#8d8278;font-size:11px">PREVUCI PROIZVOD OVDE</div>`}</div></div>`;
+}
+function renderVisualLayout(){
+  $('#visualLayout').innerHTML=`<div class="stack-zone">${slotHTML('bracelets',0,layoutDraft.bracelets[0],'GORNJA HORIZONTALNA')}${slotHTML('bracelets',1,layoutDraft.bracelets[1],'DONJA HORIZONTALNA')}</div><div class="vertical-zones">${[0,1,2].map(i=>slotHTML('vertical',i,layoutDraft.vertical[i],'VELIKA POZICIJA '+(i+1))).join('')}</div>`;
+}
+function renderDragPool(){const used=new Set([...layoutDraft.bracelets,...layoutDraft.vertical].map(String));$('#dragPool').innerHTML=ZSCMS.products().map(p=>`<div class="drag-item ${used.has(String(p.id))?'':' '}" draggable="true" ondragstart="productDrag(event,${p.id})">${imgTag(p)}<strong>${esc(p.name)}</strong><div class="muted">${esc(p.cat)} · ${p.orientation==='horizontal'?'horizontalno':'uspravno'}</div></div>`).join('')}
+function productDrag(e,id){draggedProductId=Number(id);e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',String(id));e.currentTarget.classList.add('dragging');setTimeout(()=>e.currentTarget.classList.remove('dragging'),100)}
+function slotOver(e){e.preventDefault();e.currentTarget.classList.add('over')}
+function slotDrop(e){e.preventDefault();const slot=e.currentTarget;slot.classList.remove('over');const id=Number(e.dataTransfer.getData('text/plain')||draggedProductId);if(!id)return;layoutDraft[slot.dataset.kind][Number(slot.dataset.index)]=id;renderVisualLayout();renderDragPool()}
+function saveVisualLayout(){ZSCMS.updateSettings({editorialBracelets:layoutDraft.bracelets.map(Number),editorialVertical:layoutDraft.vertical.map(Number)});alert('Editorial raspored je sačuvan.')}
+function renderCatalogBoard(){
+  const p=ZSCMS.products(),map=new Map(p.map(x=>[String(x.id),x]));const ordered=layoutDraft.order.map(id=>map.get(String(id))).filter(Boolean);p.forEach(x=>{if(!ordered.some(y=>String(y.id)===String(x.id)))ordered.push(x)});
+  $('#catalogBoard').innerHTML=ordered.map(x=>`<div class="drag-item" draggable="true" data-id="${x.id}" ondragstart="catalogDrag(event)" ondragover="catalogOver(event)" ondrop="catalogDrop(event)">${imgTag(x)}<strong>${esc(x.name)}</strong></div>`).join('');
+}
+let catalogDragged=null;
+function catalogDrag(e){catalogDragged=e.currentTarget;e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',e.currentTarget.dataset.id);e.currentTarget.classList.add('dragging')}
+function catalogOver(e){e.preventDefault();const target=e.currentTarget;if(!catalogDragged||target===catalogDragged)return;const r=target.getBoundingClientRect(),before=(e.clientY<r.top+r.height/2)||(Math.abs(e.clientY-(r.top+r.height/2))<r.height*.2&&e.clientX<r.left+r.width/2);target.parentNode.insertBefore(catalogDragged,before?target:target.nextSibling)}
+function catalogDrop(e){e.preventDefault();if(catalogDragged)catalogDragged.classList.remove('dragging');layoutDraft.order=[...$('#catalogBoard').querySelectorAll('.drag-item')].map(x=>Number(x.dataset.id));catalogDragged=null}
+function saveCatalogOrder(){layoutDraft.order=[...$('#catalogBoard').querySelectorAll('.drag-item')].map(x=>Number(x.dataset.id));ZSCMS.setCatalogOrder(layoutDraft.order);alert('Redosled kataloga je sačuvan.')}
 
-function renderReviews(){const r=ZSCMS.allReviews(),p=ZSCMS.products();$('#tab-reviews').innerHTML=`<div class="eyebrow">UTISCI KUPACA</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Recenzije</h1><button class="btn" onclick="storeReview()">＋ UNESI UTISAK KUPCA IZ RADNJE</button></div><div class="notice">Možete sakriti recenziju sa sajta. Ako unosite komentar u ime kupca iz fizičke radnje, unos treba da bude stvarni utisak kupca uz njegovu saglasnost; na sajtu se prikazuje kao „Kupovina u radnji”.</div>${r.length?r.map(x=>`<div class="review" style="opacity:${x.hidden?.55:1}"><div class="review-head"><div><strong>${esc(x.userName)}</strong> <span class="stars">${'★'.repeat(x.rating)}${'☆'.repeat(5-x.rating)}</span><div class="muted">${esc(p.find(y=>y.id===x.productId)?.name||'Proizvod')} · ${x.source==='store-customer'?'Kupovina u radnji':'Online utisak'} · ${new Date(x.createdAt).toLocaleDateString('sr-RS')}</div></div><div class="row"><button class="btn out" onclick="toggleReview('${x.id}',${!x.hidden})">${x.hidden?'PRIKAŽI':'SAKRIJ'}</button><button class="btn out danger" onclick="removeReview('${x.id}')">OBRIŠI</button></div></div><p>${esc(x.text)}</p>${x.images?.length?`<div class="review-images">${x.images.map(i=>`<img src="${i}">`).join('')}</div>`:''}</div>`).join(''):'<div class="panel"><p class="muted">Još nema recenzija.</p></div>'}`}
+function renderOrders(){
+  const o=ZSCMS.orders();
+  $('#tab-orders').innerHTML=`<div class="eyebrow">PRODAJA</div><h1 class="page-title">Porudžbine</h1><div class="notice">Dok nema centralne baze, ovde se beleže checkout pokušaji napravljeni u ovom pregledaču. Kada povežemo produkcioni backend, isti ekran može da prikazuje sve porudžbine sa svih uređaja.</div>
+  <div class="panel">${o.length?`<table class="table"><thead><tr><th>BROJ</th><th>KUPAC</th><th>ARTIKLI</th><th>IZNOS</th><th>DATUM</th><th>STATUS</th><th></th></tr></thead><tbody>${o.map(x=>`<tr><td><strong>${esc(x.id)}</strong></td><td>${esc(x.customer?.name||'—')}<div class="muted">${esc(x.customer?.phone||'')} ${esc(x.customer?.email||'')}</div></td><td><div class="order-items">${(x.items||[]).map(i=>`${i.qty||1}× ${esc(i.name||ZSCMS.getProduct(i.id)?.name||'Proizvod')}`).join('<br>')}</div></td><td>${money(x.total)}</td><td>${new Date(x.createdAt).toLocaleString('sr-RS')}</td><td><select class="order-status" onchange="orderStatus('${x.id}',this.value)">${['Pokrenuta','Čeka plaćanje','Plaćena','U pripremi','Poslata','Završena','Otkazana'].map(s=>`<option ${x.status===s?'selected':''}>${s}</option>`).join('')}</select></td><td><button class="btn out danger" onclick="removeOrder('${x.id}')">OBRIŠI</button></td></tr>`).join('')}</tbody></table>`:'<p class="muted">Još nema porudžbina.</p>'}</div>`;
+}
+function orderStatus(id,status){ZSCMS.updateOrder(id,{status});renderDashboard()}
+function removeOrder(id){if(confirm('Obrisati zapis porudžbine?')){ZSCMS.deleteOrder(id);renderOrders();renderDashboard()}}
+
+function renderReviews(){
+  const r=ZSCMS.allReviews(),p=ZSCMS.products();
+  $('#tab-reviews').innerHTML=`<div class="eyebrow">UTISCI KUPACA</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Recenzije</h1><button class="btn" onclick="storeReview()">＋ UNESI UTISAK KUPCA IZ RADNJE</button></div>
+  <div class="notice">Možete sakriti recenziju sa sajta. Ako unosite komentar u ime kupca iz fizičke radnje, unos treba da bude stvarni utisak kupca uz njegovu saglasnost; na sajtu se prikazuje kao „Kupovina u radnji”.</div>
+  ${r.length?r.map(x=>`<div class="review" style="opacity:${x.hidden?.55:1}"><div class="review-head"><div><strong>${esc(x.userName)}</strong> <span class="stars">${'★'.repeat(x.rating)}${'☆'.repeat(5-x.rating)}</span><div class="muted">${esc(p.find(y=>y.id===x.productId)?.name||'Proizvod')} · ${x.source==='store-customer'?'Kupovina u radnji':'Online utisak'} · ${new Date(x.createdAt).toLocaleDateString('sr-RS')}</div></div><div class="row"><button class="btn out" onclick="toggleReview('${x.id}',${!x.hidden})">${x.hidden?'PRIKAŽI':'SAKRIJ'}</button><button class="btn out danger" onclick="removeReview('${x.id}')">OBRIŠI</button></div></div><p>${esc(x.text)}</p>${x.images?.length?`<div class="review-images">${x.images.map(i=>`<img src="${i}">`).join('')}</div>`:''}</div>`).join(''):'<div class="panel"><p class="muted">Još nema recenzija.</p></div>'}`;
+}
 function toggleReview(id,h){ZSCMS.setReviewHidden(id,h);renderReviews()}function removeReview(id){if(confirm('Obrisati recenziju?')){ZSCMS.deleteReview(id);renderReviews()}}
-function storeReview(){const p=ZSCMS.products();$('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>Utisak kupca iz radnje</h2><form id="storeReviewForm"><div class="field"><label>PROIZVOD</label><select name="product">${p.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>IME KUPCA / INICIJALI</label><input name="name" required placeholder="npr. Jelena M."></div><div class="field"><label>OCENA</label><select name="rating">${[5,4,3,2,1].map(n=>`<option>${n}</option>`).join('')}</select></div><div class="field"><label>STVARNI UTISAK KUPCA</label><textarea name="text" required></textarea></div><label style="display:flex;gap:8px;font-size:12px;line-height:1.5"><input type="checkbox" name="consent" required> Potvrđujem da je ovo stvarni utisak kupca i da imam njegovu saglasnost za objavljivanje.</label><br><button class="btn">OBJAVI UTISAK</button></form></div>`;$('#modal').classList.remove('hidden');$('#storeReviewForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.currentTarget);ZSCMS.addReview({productId:Number(f.get('product')),rating:Number(f.get('rating')),text:f.get('text'),customerName:f.get('name'),source:'store-customer'});closeModal();renderReviews()}}
+function storeReview(){
+  const p=ZSCMS.products();$('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>Utisak kupca iz radnje</h2><form id="storeReviewForm"><div class="field"><label>PROIZVOD</label><select name="product">${p.map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}</select></div><div class="field"><label>IME KUPCA / INICIJALI</label><input name="name" required placeholder="npr. Jelena M."></div><div class="field"><label>OCENA</label><select name="rating">${[5,4,3,2,1].map(n=>`<option>${n}</option>`).join('')}</select></div><div class="field"><label>STVARNI UTISAK KUPCA</label><textarea name="text" required></textarea></div><label style="display:flex;gap:8px;font-size:12px;line-height:1.5"><input type="checkbox" name="consent" required> Potvrđujem da je ovo stvarni utisak kupca i da imam njegovu saglasnost za objavljivanje.</label><br><button class="btn">OBJAVI UTISAK</button></form></div>`;
+  $('#modal').classList.remove('hidden');$('#storeReviewForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.currentTarget);ZSCMS.addReview({productId:Number(f.get('product')),rating:Number(f.get('rating')),text:f.get('text'),customerName:f.get('name'),source:'store-customer'});closeModal();renderReviews()}
+}
 
-function renderBlogs(){const b=ZSCMS.blogs();$('#tab-blogs').innerHTML=`<div class="eyebrow">SADRŽAJ</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Blog</h1><button class="btn" onclick="editBlog()">＋ NOVI TEKST</button></div>${b.map(x=>`<div class="blog-card"><div class="review-head"><div><strong>${esc(x.title)}</strong><div class="muted">${x.published?'Objavljeno':'Nacrt'} · /${esc(x.slug)}</div></div><button class="btn out" onclick="editBlog('${x.id}')">UREDI</button></div><p class="muted">${esc(x.excerpt||'')}</p></div>`).join('')}`}
-function editBlog(id){const b=id?ZSCMS.blogs().find(x=>x.id===id):{id:'b_'+Date.now().toString(36),title:'',slug:'',excerpt:'',body:'',image:'',published:false,createdAt:new Date().toISOString()};$('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>${id?'Uredi tekst':'Novi blog'}</h2><form id="blogForm"><div class="field"><label>NASLOV</label><input name="title" value="${esc(b.title)}" required></div><div class="field"><label>SLUG</label><input name="slug" value="${esc(b.slug)}" placeholder="npr. vodic-za-prstenje"></div><div class="field"><label>KRATAK UVOD</label><textarea name="excerpt">${esc(b.excerpt||'')}</textarea></div><div class="field"><label>TEKST</label><textarea name="body" style="min-height:260px">${esc(b.body||'')}</textarea></div><div class="field"><label>NASLOVNA SLIKA — naziv fajla</label><input name="image" value="${esc(b.image||'')}"></div><label style="font-size:12px"><input type="checkbox" name="published" ${b.published?'checked':''}> Objavljeno</label><br><br><button class="btn">SAČUVAJ</button></form></div>`;$('#modal').classList.remove('hidden');$('#blogForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.currentTarget);ZSCMS.upsertBlog({...b,title:f.get('title').trim(),slug:(f.get('slug').trim()||f.get('title').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')),excerpt:f.get('excerpt').trim(),body:f.get('body').trim(),image:f.get('image').trim(),published:f.get('published')==='on'});closeModal();renderBlogs();renderDashboard()}}
+function renderBlogs(){
+  const b=ZSCMS.blogs();$('#tab-blogs').innerHTML=`<div class="eyebrow">SADRŽAJ</div><div class="toolbar"><h1 class="page-title" style="margin:5px 0">Blog</h1><button class="btn" onclick="editBlog()">＋ NOVI TEKST</button></div>${b.map(x=>`<div class="blog-card"><div class="review-head"><div><strong>${esc(x.title)}</strong><div class="muted">${x.published?'Objavljeno':'Nacrt'} · /${esc(x.slug)}</div></div><button class="btn out" onclick="editBlog('${x.id}')">UREDI</button></div><p class="muted">${esc(x.excerpt||'')}</p></div>`).join('')}`;
+}
+function editBlog(id){
+  const b=id?ZSCMS.blogs().find(x=>x.id===id):{id:'b_'+Date.now().toString(36),title:'',slug:'',excerpt:'',body:'',image:'',published:false,createdAt:new Date().toISOString()};
+  $('#modal').innerHTML=`<div class="modal-card"><button class="close" onclick="closeModal()">×</button><h2>${id?'Uredi tekst':'Novi blog'}</h2><form id="blogForm"><div class="field"><label>NASLOV</label><input name="title" value="${esc(b.title)}" required></div><div class="field"><label>SLUG</label><input name="slug" value="${esc(b.slug)}" placeholder="npr. vodic-za-prstenje"></div><div class="field"><label>KRATAK UVOD</label><textarea name="excerpt">${esc(b.excerpt||'')}</textarea></div><div class="field"><label>TEKST</label><textarea name="body" style="min-height:260px">${esc(b.body||'')}</textarea></div><div class="field"><label>NASLOVNA SLIKA — naziv fajla ili URL</label><input name="image" value="${esc(b.image||'')}"></div><label style="font-size:12px"><input type="checkbox" name="published" ${b.published?'checked':''}> Objavljeno</label><br><br><button class="btn">SAČUVAJ</button></form></div>`;
+  $('#modal').classList.remove('hidden');$('#blogForm').onsubmit=e=>{e.preventDefault();const f=new FormData(e.currentTarget);ZSCMS.upsertBlog({...b,title:f.get('title').trim(),slug:(f.get('slug').trim()||f.get('title').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')),excerpt:f.get('excerpt').trim(),body:f.get('body').trim(),image:f.get('image').trim(),published:f.get('published')==='on'});closeModal();renderBlogs();renderDashboard()}
+}
 
-function renderData(){$('#tab-data').innerHTML=`<div class="eyebrow">BACKUP / PRENOS</div><h1 class="page-title">Podaci prodavnice</h1><div class="notice">Dok se ne poveže centralna baza, ovaj admin prototip čuva izmene u ovom pregledaču. Export čuva proizvode, preporuke, blogove, korisnike i recenzije kao JSON backup.</div><div class="panel"><h2>Export</h2><button class="btn" onclick="downloadBackup()">PREUZMI BACKUP</button></div><div class="panel"><h2>Import</h2><textarea class="jsonbox" id="importBox" placeholder="Nalepite sadržaj backup JSON fajla"></textarea><br><br><button class="btn" onclick="importBackup()">UVEZI PODATKE</button></div>`}
+function renderData(){
+  $('#tab-data').innerHTML=`<div class="eyebrow">BACKUP / PRENOS</div><h1 class="page-title">Podaci prodavnice</h1><div class="notice">Dok se ne poveže centralna baza, ovaj admin čuva izmene u ovom pregledaču. Export sada uključuje proizvode, preporuke, bundle pakete, raspored, porudžbine, blogove, korisnike i recenzije.</div><div class="panel"><h2>Export</h2><button class="btn" onclick="downloadBackup()">PREUZMI BACKUP</button></div><div class="panel"><h2>Import</h2><textarea class="jsonbox" id="importBox" placeholder="Nalepite sadržaj backup JSON fajla"></textarea><br><br><button class="btn" onclick="importBackup()">UVEZI PODATKE</button></div>`;
+}
 function downloadBackup(){const blob=new Blob([ZSCMS.exportState()],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='stevanovic-cms-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href)}
 function importBackup(){try{ZSCMS.importState($('#importBox').value);alert('Podaci su uvezeni.');renderAll()}catch(e){alert(e.message)}}
 
