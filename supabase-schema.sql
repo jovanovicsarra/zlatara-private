@@ -25,9 +25,19 @@ create table if not exists public.products (
   image text not null default '',
   hover_image text not null default '',
   orientation text not null default 'vertical' check (orientation in ('vertical','horizontal')),
+  sort_order integer not null default 0,
   hidden boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
+);
+
+create table if not exists public.product_images (
+  id uuid primary key default gen_random_uuid(),
+  product_id bigint not null references public.products(id) on delete cascade,
+  image_url text not null,
+  image_role text not null default 'gallery' check (image_role in ('main','hover','gallery')),
+  sort_order integer not null default 0,
+  created_at timestamptz not null default now()
 );
 
 create table if not exists public.product_relations (
@@ -36,6 +46,24 @@ create table if not exists public.product_relations (
   relation_type text not null default 'pairs_with' check (relation_type in ('pairs_with','alternative','collection')),
   priority integer not null default 0,
   primary key(product_id, related_product_id, relation_type)
+);
+
+create table if not exists public.bundles (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  headline text not null default '',
+  discount_type text not null default 'percent' check (discount_type in ('percent','fixed')),
+  discount_value integer not null default 0 check (discount_value >= 0),
+  active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.bundle_items (
+  bundle_id uuid not null references public.bundles(id) on delete cascade,
+  product_id bigint not null references public.products(id) on delete cascade,
+  sort_order integer not null default 0,
+  primary key(bundle_id, product_id)
 );
 
 create table if not exists public.reviews (
@@ -55,6 +83,36 @@ create table if not exists public.review_images (
   id uuid primary key default gen_random_uuid(),
   review_id uuid not null references public.reviews(id) on delete cascade,
   image_url text not null,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.orders (
+  id uuid primary key default gen_random_uuid(),
+  public_number text unique not null,
+  user_id uuid references auth.users(id) on delete set null,
+  customer_name text not null,
+  customer_email text not null,
+  customer_phone text not null,
+  shipping_address text not null,
+  shipping_city text not null,
+  status text not null default 'pending_payment' check (status in ('pending_payment','paid','preparing','shipped','completed','cancelled')),
+  subtotal_rsd integer not null default 0 check (subtotal_rsd >= 0),
+  discount_rsd integer not null default 0 check (discount_rsd >= 0),
+  total_rsd integer not null default 0 check (total_rsd >= 0),
+  bundle_id uuid references public.bundles(id) on delete set null,
+  payment_reference text,
+  note text not null default '',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create table if not exists public.order_items (
+  id uuid primary key default gen_random_uuid(),
+  order_id uuid not null references public.orders(id) on delete cascade,
+  product_id bigint references public.products(id) on delete set null,
+  product_name text not null,
+  quantity integer not null default 1 check (quantity > 0),
+  unit_price_rsd integer not null check (unit_price_rsd >= 0),
   created_at timestamptz not null default now()
 );
 
@@ -96,9 +154,14 @@ create trigger on_auth_user_created after insert on auth.users for each row exec
 
 alter table public.profiles enable row level security;
 alter table public.products enable row level security;
+alter table public.product_images enable row level security;
 alter table public.product_relations enable row level security;
+alter table public.bundles enable row level security;
+alter table public.bundle_items enable row level security;
 alter table public.reviews enable row level security;
 alter table public.review_images enable row level security;
+alter table public.orders enable row level security;
+alter table public.order_items enable row level security;
 alter table public.blog_posts enable row level security;
 alter table public.site_settings enable row level security;
 
@@ -114,10 +177,25 @@ create policy "products public read" on public.products for select using (hidden
 drop policy if exists "products admin write" on public.products;
 create policy "products admin write" on public.products for all using (public.is_admin()) with check (public.is_admin());
 
+drop policy if exists "product images public read" on public.product_images;
+create policy "product images public read" on public.product_images for select using (true);
+drop policy if exists "product images admin write" on public.product_images;
+create policy "product images admin write" on public.product_images for all using (public.is_admin()) with check (public.is_admin());
+
 drop policy if exists "relations public read" on public.product_relations;
 create policy "relations public read" on public.product_relations for select using (true);
 drop policy if exists "relations admin write" on public.product_relations;
 create policy "relations admin write" on public.product_relations for all using (public.is_admin()) with check (public.is_admin());
+
+-- Bundles are public-readable when active; admins manage them.
+drop policy if exists "bundles public read" on public.bundles;
+create policy "bundles public read" on public.bundles for select using (active=true or public.is_admin());
+drop policy if exists "bundles admin write" on public.bundles;
+create policy "bundles admin write" on public.bundles for all using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "bundle items public read" on public.bundle_items;
+create policy "bundle items public read" on public.bundle_items for select using (true);
+drop policy if exists "bundle items admin write" on public.bundle_items;
+create policy "bundle items admin write" on public.bundle_items for all using (public.is_admin()) with check (public.is_admin());
 
 -- Reviews: public can read visible reviews. Logged-in users can insert only as themselves.
 drop policy if exists "reviews public read" on public.reviews;
@@ -136,22 +214,35 @@ create policy "review images own insert" on public.review_images for insert to a
 drop policy if exists "review images admin manage" on public.review_images;
 create policy "review images admin manage" on public.review_images for all using (public.is_admin()) with check (public.is_admin());
 
+-- Orders: production checkout should insert/update orders through a trusted server/service role.
+-- Customers may read only their own authenticated orders; admins manage everything.
+drop policy if exists "orders own read" on public.orders;
+create policy "orders own read" on public.orders for select to authenticated using (user_id=auth.uid() or public.is_admin());
+drop policy if exists "orders admin manage" on public.orders;
+create policy "orders admin manage" on public.orders for all using (public.is_admin()) with check (public.is_admin());
+drop policy if exists "order items own read" on public.order_items;
+create policy "order items own read" on public.order_items for select to authenticated using (
+  exists(select 1 from public.orders o where o.id=order_id and (o.user_id=auth.uid() or public.is_admin()))
+);
+drop policy if exists "order items admin manage" on public.order_items;
+create policy "order items admin manage" on public.order_items for all using (public.is_admin()) with check (public.is_admin());
+
 -- Blog: published posts are public; admins can see/edit everything.
 drop policy if exists "blog public read" on public.blog_posts;
 create policy "blog public read" on public.blog_posts for select using (published=true or public.is_admin());
 drop policy if exists "blog admin write" on public.blog_posts;
 create policy "blog admin write" on public.blog_posts for all using (public.is_admin()) with check (public.is_admin());
 
--- Site settings are public-readable but admin-write only.
+-- Site settings hold the editorial slot layout and other public configuration.
 drop policy if exists "settings public read" on public.site_settings;
 create policy "settings public read" on public.site_settings for select using (true);
 drop policy if exists "settings admin write" on public.site_settings;
 create policy "settings admin write" on public.site_settings for all using (public.is_admin()) with check (public.is_admin());
 
 -- Recommended storage buckets to create in Supabase Storage:
--- product-images (public)
+-- product-images (public; admin upload only)
 -- review-images (public; authenticated upload with file size/type restrictions)
--- blog-images (public)
+-- blog-images (public; admin upload only)
 
--- IMPORTANT: promote the owner's profile to admin only from the SQL editor/service role:
+-- IMPORTANT: promote the owner's profile to admin only from SQL editor/service role:
 -- update public.profiles set role='admin' where id='<OWNER_AUTH_USER_UUID>';
