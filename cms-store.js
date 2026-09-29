@@ -271,8 +271,29 @@
     if(recommend) recommend.insertAdjacentElement('afterend',section); else modal.appendChild(section);
   }
 
+  function injectStorefrontVisualFixes(){
+    if(document.getElementById('zs-storefront-fixes'))return;
+    const style=document.createElement('style');
+    style.id='zs-storefront-fixes';
+    style.textContent=`
+      .product-modal{height:min(780px,88vh)!important;max-height:88vh!important;align-items:stretch!important}
+      .modal-photo{position:relative!important;min-height:0!important;height:100%!important;display:block!important;overflow:hidden!important;background:#efe6d9!important}
+      .modal-photo img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:contain!important;object-position:center center!important;padding:26px!important}
+      .modal-photo.horizontal img{padding:32px!important;object-fit:contain!important;object-position:center center!important}
+      .modal-body{height:100%!important;overflow-y:auto!important;overscroll-behavior:contain}
+      @media(max-width:720px){
+        .product-modal{height:auto!important;max-height:94vh!important}
+        .modal-photo{height:42vh!important;min-height:320px!important}
+        .modal-photo img,.modal-photo.horizontal img{padding:16px!important;object-fit:contain!important;object-position:center center!important}
+        .modal-body{height:auto!important;overflow:visible!important}
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
   function observeStorefront(){
     if(!document.body)return;
+    injectStorefrontVisualFixes();
     const mo=new MutationObserver(()=>{ injectBundleOffers(); applyBundleCartVisual(); });
     mo.observe(document.body,{subtree:true,childList:true});
     document.addEventListener('submit',e=>{
