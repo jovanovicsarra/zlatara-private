@@ -5,6 +5,7 @@
   const ACTIVE_BUNDLE_KEY = 'stevanovic-active-bundle-v1';
 
   const DEFAULT_PRODUCTS = [
+    {id:15,name:'Minđuše Celeste',cat:'Minđuše',price:null,available:false,badge:'Novo',material:'Podaci uskoro',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Elegantne viseće minđuše izdužene linije sa svetlim kapljastim detaljem. Fotografija prikazuje stvarni model; tehnički podaci, sastav i cena biće uneti pre aktivacije online kupovine.',image:'Celeste.jpg',hover:'',orientation:'vertical',recommendations:[10,9]},
     {id:14,name:'Narukvica Balustrade',cat:'Narukvice',price:null,available:false,badge:'Novo',material:'Podaci uskoro',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Narukvica prepoznatljivog geometrijskog ritma sa ponavljajućim lučnim segmentima i dvobojnim izgledom. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.',image:'Balustrade.jpg',hover:'',orientation:'horizontal',recommendations:[13,12]},
     {id:13,name:'Prsten Cruor',cat:'Prstenje',price:null,available:false,badge:'Novo',material:'Zlato',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Prsten izražajnog karaktera sa duboko crvenim centralnim kamenom i toplinom žutog zlata. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.',image:'Cruor.jpg',hover:'',orientation:'vertical',recommendations:[14,12]},
     {id:12,name:'Prsten Éclipse',cat:'Prstenje',price:null,available:false,badge:'Novo',material:'Podaci uskoro',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Prsten sa dominantnim okruglim centralnim kamenom i elegantnim zakrivljenim detaljem koji ga uokviruje. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.',image:'E%CC%81clipse.jpg',hover:'',orientation:'vertical',recommendations:[13,10]},
@@ -22,7 +23,7 @@
   ];
 
   const DEFAULT_STATE = {
-    version: 2,
+    version: 3,
     products: DEFAULT_PRODUCTS,
     reviews: [],
     blogs: [
@@ -50,16 +51,27 @@
       if(!saved) return clone(DEFAULT_STATE);
       const merged = {...clone(DEFAULT_STATE), ...saved};
       merged.settings = {...DEFAULT_STATE.settings, ...(saved.settings||{})};
-      merged.products = Array.isArray(saved.products) && saved.products.length ? saved.products : clone(DEFAULT_PRODUCTS);
+
+      const savedProducts = Array.isArray(saved.products) ? saved.products : [];
+      const savedById = new Map(savedProducts.map(p=>[String(p.id),p]));
+      merged.products = DEFAULT_PRODUCTS.map(def=>savedById.has(String(def.id)) ? {...clone(def),...savedById.get(String(def.id))} : clone(def));
+      savedProducts.forEach(p=>{ if(!DEFAULT_PRODUCTS.some(def=>String(def.id)===String(p.id))) merged.products.push(p); });
+
       merged.reviews = Array.isArray(saved.reviews) ? saved.reviews : [];
       merged.blogs = Array.isArray(saved.blogs) ? saved.blogs : clone(DEFAULT_STATE.blogs);
       merged.users = Array.isArray(saved.users) ? saved.users : [];
       merged.bundles = Array.isArray(saved.bundles) ? saved.bundles : [];
       merged.orders = Array.isArray(saved.orders) ? saved.orders : [];
-      if(!Array.isArray(merged.settings.catalogOrder) || !merged.settings.catalogOrder.length){
-        merged.settings.catalogOrder = merged.products.filter(p=>!p.deleted).map(p=>p.id);
-      }
-      merged.version = 2;
+
+      const liveIds = merged.products.filter(p=>!p.deleted).map(p=>Number(p.id));
+      const savedOrder = Array.isArray(merged.settings.catalogOrder) ? merged.settings.catalogOrder.map(Number) : [];
+      const valid = new Set(liveIds.map(String));
+      const cleanOrder = savedOrder.filter((id,i,a)=>valid.has(String(id)) && a.indexOf(id)===i);
+      const missingDefaults = DEFAULT_PRODUCTS.map(p=>Number(p.id)).filter(id=>valid.has(String(id)) && !cleanOrder.includes(id));
+      const remaining = liveIds.filter(id=>!cleanOrder.includes(id) && !missingDefaults.includes(id));
+      merged.settings.catalogOrder = [...missingDefaults,...cleanOrder,...remaining];
+
+      merged.version = 3;
       return merged;
     }catch(e){ return clone(DEFAULT_STATE); }
   }
