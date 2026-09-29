@@ -1,0 +1,43 @@
+name: Add Eclipse product
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  add-product:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add Prsten Éclipse to catalog
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          if 'name:"Prsten Éclipse"' in s:
+              print('Product already exists; nothing to do.')
+              raise SystemExit(0)
+          marker = '  const products = [\n'
+          item = '    {id:12,name:"Prsten Éclipse",cat:"Prstenje",price:null,available:false,badge:"Novo",material:"Podaci uskoro",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Prsten sa dominantnim okruglim centralnim kamenom i elegantnim zakrivljenim detaljem koji ga uokviruje. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.",image:"%C3%89clipse.jpg",hover:""},\n'
+          if marker not in s:
+              raise SystemExit('Products marker not found')
+          s = s.replace(marker, marker + item, 1)
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit catalog update
+        run: |
+          if git diff --quiet -- index.html; then
+            echo "No changes"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Dodaj Prsten Éclipse u katalog"
+          git push
