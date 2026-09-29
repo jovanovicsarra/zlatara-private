@@ -1,0 +1,44 @@
+name: Prepare Prsten Noir
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Noir1.jpg'
+      - '.github/workflows/add-noir1-product.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add-product:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Add Prsten Noir to CMS defaults
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('cms-store.js')
+          text = p.read_text(encoding='utf-8')
+          if "name:'Prsten Noir'" not in text:
+              marker = "  const DEFAULT_PRODUCTS = [\n"
+              product = "    {id:18,name:'Prsten Noir',cat:'Prstenje',price:null,available:false,badge:'Novo',material:'Podaci uskoro',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Statement prsten geometrijske forme sa tamnim centralnim bisernim detaljem i svetlucavim pravougaonim okvirima. Fotografija prikazuje stvarni model; tehnički podaci, sastav i cena biće uneti pre aktivacije online kupovine.',image:'Noir1.jpg',hover:'',orientation:'vertical',recommendations:[16,13]},\n"
+              if marker not in text:
+                  raise SystemExit('DEFAULT_PRODUCTS marker not found')
+              text = text.replace(marker, marker + product, 1)
+              p.write_text(text, encoding='utf-8')
+      - name: Commit CMS change
+        run: |
+          if git diff --quiet; then
+            echo 'Prsten Noir already present.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add cms-store.js
+          git commit -m 'Add Prsten Noir product for Noir1.jpg'
+          git push
