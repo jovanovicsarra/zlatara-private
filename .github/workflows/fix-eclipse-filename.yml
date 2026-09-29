@@ -1,0 +1,34 @@
+name: Fix Eclipse filename
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-eclipse-filename.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fix decomposed accent filename in product image path
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          old = 'image:"%C3%89clipse.jpg"'
+          new = 'image:"E%CC%81clipse.jpg"'
+          if old not in s:
+              raise SystemExit('Expected Eclipse image path not found')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "Fix Eclipse image filename" || exit 0
+          git push
