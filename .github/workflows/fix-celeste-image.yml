@@ -1,0 +1,60 @@
+name: Fix Celeste image and force fresh deploy
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-celeste-image.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix-celeste:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Make Celeste image deployment independent
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          raw_url = 'https://raw.githubusercontent.com/jovanovicsarra/zlatara-private/main/Celeste.jpg'
+          p = Path('cms-store.js')
+          text = p.read_text(encoding='utf-8')
+
+          text = text.replace("image:'Celeste.jpg',hover:'',orientation:'vertical'", f"image:'{raw_url}',hover:'',orientation:'vertical'", 1)
+
+          anchor = "savedProducts.forEach(p=>{ if(!DEFAULT_PRODUCTS.some(def=>String(def.id)===String(p.id))) merged.products.push(p); });"
+          migration = "\n      const celeste = merged.products.find(p=>Number(p.id)===15);\n      if(celeste && (!celeste.image || celeste.image==='Celeste.jpg')) celeste.image='" + raw_url + "';"
+          if migration.strip() not in text:
+              if anchor not in text:
+                  raise SystemExit('Celeste migration anchor not found')
+              text = text.replace(anchor, anchor + migration, 1)
+
+          p.write_text(text, encoding='utf-8')
+
+          # Touch index.html as well so Vercel sees a storefront change in the same commit.
+          i = Path('index.html')
+          html = i.read_text(encoding='utf-8')
+          marker = '<!-- celeste-image-fix-v1 -->'
+          if marker not in html:
+              html = html.replace('</body>', marker + '\n</body>', 1)
+              i.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Commit storefront fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cms-store.js index.html
+          if git diff --cached --quiet; then
+            echo "No changes needed"
+          else
+            git commit -m "Fix Celeste image source and force storefront redeploy"
+            git push
+          fi
+
+# trigger: 2026-09-29T20:46+02:00
