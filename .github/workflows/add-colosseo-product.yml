@@ -1,0 +1,56 @@
+name: Add Colosseo product
+
+on:
+  push:
+    paths:
+      - '.github/workflows/add-colosseo-product.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  add-colosseo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add Colosseo product to CMS and catalog
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          product_cms = "    {id:16,name:'Prsten Colosseo',cat:'Prstenje',price:null,available:false,badge:'Novo',material:'Podaci uskoro',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Skulpturalni prsten snažnih arhitektonskih linija sa ukrštenim svetlucavim detaljima. Fotografija prikazuje stvarni model; tehnički podaci, sastav i cena biće uneti pre aktivacije online kupovine.',image:'Colosseo.jpg',hover:'',orientation:'vertical',recommendations:[13,12]},\n"
+
+          cms = Path('cms-store.js')
+          if cms.exists():
+              s = cms.read_text(encoding='utf-8')
+              if "name:'Prsten Colosseo'" not in s:
+                  marker = "  const DEFAULT_PRODUCTS = [\n"
+                  if marker not in s:
+                      raise SystemExit('DEFAULT_PRODUCTS marker not found in cms-store.js')
+                  s = s.replace(marker, marker + product_cms, 1)
+                  cms.write_text(s, encoding='utf-8')
+
+          index = Path('index.html')
+          if index.exists():
+              s = index.read_text(encoding='utf-8')
+              if 'name:"Prsten Colosseo"' not in s and '  const products = [\n' in s:
+                  product_index = '    {id:16,name:"Prsten Colosseo",cat:"Prstenje",price:null,available:false,badge:"Novo",material:"Podaci uskoro",fine:"Podaci uskoro",weight:"Podaci uskoro",size:"Podaci uskoro",desc:"Skulpturalni prsten snažnih arhitektonskih linija sa ukrštenim svetlucavim detaljima. Fotografija prikazuje stvarni model; tehnički podaci, sastav i cena biće uneti pre aktivacije online kupovine.",image:"Colosseo.jpg",hover:""},\n'
+                  s = s.replace('  const products = [\n', '  const products = [\n' + product_index, 1)
+                  index.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Commit catalog update
+        run: |
+          if git diff --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cms-store.js index.html
+          git commit -m "Add Prsten Colosseo to catalog"
+          git push
