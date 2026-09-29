@@ -1,6 +1,8 @@
 (() => {
   const KEY = 'stevanovic-cms-v1';
   const SESSION_KEY = 'stevanovic-session-v1';
+  const CART_KEY = 'stevanovic-cart-v2';
+  const ACTIVE_BUNDLE_KEY = 'stevanovic-active-bundle-v1';
 
   const DEFAULT_PRODUCTS = [
     {id:14,name:'Narukvica Balustrade',cat:'Narukvice',price:null,available:false,badge:'Novo',material:'Podaci uskoro',fine:'Podaci uskoro',weight:'Podaci uskoro',size:'Podaci uskoro',desc:'Narukvica prepoznatljivog geometrijskog ritma sa ponavljajućim lučnim segmentima i dvobojnim izgledom. Fotografija prikazuje stvarni model; tehnički podaci i cena biće uneti pre aktivacije online kupovine.',image:'Balustrade.jpg',hover:'',orientation:'horizontal',recommendations:[13,12]},
@@ -20,16 +22,19 @@
   ];
 
   const DEFAULT_STATE = {
-    version: 1,
+    version: 2,
     products: DEFAULT_PRODUCTS,
     reviews: [],
     blogs: [
       {id:'b1',title:'Kako odabrati nakit koji ostaje',slug:'kako-odabrati-nakit',excerpt:'Vodič kroz izbor komada koji odgovara stilu, prilici i načinu na koji želite da ga nosite.',body:'Dobar komad nakita nije prolazna odluka. Obratite pažnju na proporcije, boju zlata, način nošenja i priliku kojoj je namenjen. U Zlataru Stevanović možete doći i po savet pri izboru.',image:'',published:true,createdAt:new Date().toISOString()}
     ],
     users: [],
+    bundles: [],
+    orders: [],
     settings: {
       editorialBracelets:[14,4],
       editorialVertical:[13,12,11],
+      catalogOrder: DEFAULT_PRODUCTS.map(x=>x.id),
       reviewModeration:true,
       storeName:'Zlatara Stevanović',
       onlinePhone:'069 213 1555',
@@ -37,7 +42,8 @@
     }
   };
 
-  function clone(v){ return JSON.parse(JSON.stringify(v)); }
+  const clone = v => JSON.parse(JSON.stringify(v));
+
   function load(){
     try{
       const saved = JSON.parse(localStorage.getItem(KEY) || 'null');
@@ -48,10 +54,21 @@
       merged.reviews = Array.isArray(saved.reviews) ? saved.reviews : [];
       merged.blogs = Array.isArray(saved.blogs) ? saved.blogs : clone(DEFAULT_STATE.blogs);
       merged.users = Array.isArray(saved.users) ? saved.users : [];
+      merged.bundles = Array.isArray(saved.bundles) ? saved.bundles : [];
+      merged.orders = Array.isArray(saved.orders) ? saved.orders : [];
+      if(!Array.isArray(merged.settings.catalogOrder) || !merged.settings.catalogOrder.length){
+        merged.settings.catalogOrder = merged.products.filter(p=>!p.deleted).map(p=>p.id);
+      }
+      merged.version = 2;
       return merged;
     }catch(e){ return clone(DEFAULT_STATE); }
   }
-  function save(state){ localStorage.setItem(KEY, JSON.stringify(state)); window.dispatchEvent(new CustomEvent('zs:cms-updated')); return state; }
+
+  function save(state){
+    localStorage.setItem(KEY, JSON.stringify(state));
+    window.dispatchEvent(new CustomEvent('zs:cms-updated'));
+    return state;
+  }
   function state(){ return load(); }
 
   async function hash(text){
@@ -91,14 +108,30 @@
   function hasAdmin(){ return load().users.some(u=>u.role==='admin'); }
   async function createFirstAdmin(data){ if(hasAdmin()) throw new Error('Admin nalog već postoji.'); return register({...data,role:'admin'}); }
 
-  function products(){ return load().products.filter(p=>p.deleted!==true); }
+  function products(){
+    const s=load();
+    const live=s.products.filter(p=>p.deleted!==true);
+    const order=s.settings.catalogOrder||[];
+    const rank=new Map(order.map((id,i)=>[String(id),i]));
+    return live.sort((a,b)=>(rank.get(String(a.id))??9999)-(rank.get(String(b.id))??9999));
+  }
   function getProduct(id){ return products().find(p=>String(p.id)===String(id)) || null; }
   function upsertProduct(product){
     const s=load(); const i=s.products.findIndex(p=>String(p.id)===String(product.id));
     if(i>=0) s.products[i]={...s.products[i],...product}; else s.products.unshift(product);
+    const order=s.settings.catalogOrder||[];
+    if(!order.some(x=>String(x)===String(product.id))) s.settings.catalogOrder=[product.id,...order];
     save(s); return product;
   }
   function deleteProduct(id){ const s=load(); const p=s.products.find(x=>String(x.id)===String(id)); if(p){p.deleted=true;save(s);} }
+
+  function setCatalogOrder(ids){
+    const s=load();
+    const valid=new Set(s.products.filter(p=>!p.deleted).map(p=>String(p.id)));
+    const clean=[...new Set((ids||[]).map(Number).filter(id=>valid.has(String(id))))];
+    s.products.filter(p=>!p.deleted).forEach(p=>{if(!clean.includes(Number(p.id)))clean.push(Number(p.id))});
+    s.settings.catalogOrder=clean; save(s); return clean;
+  }
 
   function blogs(){ return load().blogs.filter(b=>b.deleted!==true); }
   function upsertBlog(blog){ const s=load(); const i=s.blogs.findIndex(b=>String(b.id)===String(blog.id)); if(i>=0)s.blogs[i]={...s.blogs[i],...blog}; else s.blogs.unshift(blog); save(s); }
@@ -118,6 +151,37 @@
   }
   function setReviewHidden(id,hidden){ const s=load(); const r=s.reviews.find(x=>x.id===id); if(r){r.hidden=!!hidden;save(s);} }
   function deleteReview(id){ const s=load(); s.reviews=s.reviews.filter(r=>r.id!==id); save(s); }
+
+  function bundles(){ return load().bundles.filter(b=>b.deleted!==true); }
+  function getBundle(id){ return bundles().find(b=>String(b.id)===String(id))||null; }
+  function upsertBundle(bundle){
+    const s=load(); const i=s.bundles.findIndex(b=>String(b.id)===String(bundle.id));
+    if(i>=0)s.bundles[i]={...s.bundles[i],...bundle}; else s.bundles.unshift(bundle);
+    save(s); return bundle;
+  }
+  function deleteBundle(id){ const s=load(); const b=s.bundles.find(x=>String(x.id)===String(id)); if(b){b.deleted=true;save(s);} }
+  function bundlesForProduct(productId){
+    return bundles().filter(b=>b.active!==false && Array.isArray(b.productIds) && b.productIds.some(id=>String(id)===String(productId)));
+  }
+  function bundleTotals(bundle){
+    const items=(bundle.productIds||[]).map(getProduct).filter(Boolean);
+    const regular=items.reduce((sum,p)=>sum+(Number.isFinite(Number(p.price))?Number(p.price):0),0);
+    let final=regular;
+    if(bundle.discountType==='percent') final=Math.max(0,regular*(1-(Number(bundle.discountValue)||0)/100));
+    if(bundle.discountType==='fixed') final=Math.max(0,regular-(Number(bundle.discountValue)||0));
+    return {regular,final:Math.round(final),saving:Math.max(0,Math.round(regular-final)),complete:items.length===(bundle.productIds||[]).length && items.every(p=>Number.isFinite(Number(p.price)))};
+  }
+
+  function orders(){ return load().orders.slice().sort((a,b)=>new Date(b.createdAt)-new Date(a.createdAt)); }
+  function createOrder(order){
+    const s=load();
+    const o={id:order.id||('ZS-'+Date.now().toString(36).toUpperCase()),status:order.status||'Pokrenuta',items:Array.isArray(order.items)?order.items:[],customer:order.customer||{},total:Number(order.total)||0,bundleId:order.bundleId||null,note:order.note||'',createdAt:order.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
+    const i=s.orders.findIndex(x=>x.id===o.id);
+    if(i>=0)s.orders[i]={...s.orders[i],...o}; else s.orders.unshift(o);
+    save(s); return o;
+  }
+  function updateOrder(id,patch){ const s=load(); const o=s.orders.find(x=>x.id===id); if(o){Object.assign(o,patch,{updatedAt:new Date().toISOString()});save(s);} return o; }
+  function deleteOrder(id){ const s=load(); s.orders=s.orders.filter(o=>o.id!==id); save(s); }
 
   function updateSettings(patch){ const s=load(); s.settings={...s.settings,...patch}; save(s); return s.settings; }
   function settings(){ return load().settings; }
@@ -139,12 +203,103 @@
   }
 
   function exportState(){ return JSON.stringify(load(),null,2); }
-  function importState(text){ const parsed=JSON.parse(text); if(!parsed||!Array.isArray(parsed.products)) throw new Error('Fajl nije validan CMS export.'); save(parsed); }
-  function reset(){ localStorage.removeItem(KEY); localStorage.removeItem(SESSION_KEY); }
+  function importState(text){ const parsed=JSON.parse(text); if(!parsed||!Array.isArray(parsed.products)) throw new Error('Fajl nije validan CMS export.'); save({...clone(DEFAULT_STATE),...parsed,settings:{...DEFAULT_STATE.settings,...(parsed.settings||{})},bundles:Array.isArray(parsed.bundles)?parsed.bundles:[],orders:Array.isArray(parsed.orders)?parsed.orders:[]}); }
+  function reset(){ localStorage.removeItem(KEY); localStorage.removeItem(SESSION_KEY); localStorage.removeItem(ACTIVE_BUNDLE_KEY); }
+
+  function formatMoney(v){
+    return Number.isFinite(Number(v)) ? new Intl.NumberFormat('sr-RS').format(Math.round(Number(v)))+' RSD' : 'Cena uskoro';
+  }
+
+  function addBundleToCart(bundleId){
+    const b=getBundle(bundleId); if(!b)return;
+    const cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
+    (b.productIds||[]).forEach(id=>{
+      const p=getProduct(id);
+      if(!p?.available || !Number.isFinite(Number(p.price))) return;
+      const found=cart.find(x=>String(x.id)===String(id));
+      if(found) found.qty+=1; else cart.push({id:Number(id),qty:1});
+    });
+    localStorage.setItem(CART_KEY,JSON.stringify(cart));
+    localStorage.setItem(ACTIVE_BUNDLE_KEY,String(bundleId));
+    if(typeof window.updateCartCount==='function')window.updateCartCount();
+    if(typeof window.closeOverlay==='function')window.closeOverlay();
+    if(typeof window.openCart==='function')window.openCart();
+    setTimeout(applyBundleCartVisual,30);
+  }
+
+  function applyBundleCartVisual(){
+    const bundleId=localStorage.getItem(ACTIVE_BUNDLE_KEY);
+    if(!bundleId)return;
+    const b=getBundle(bundleId); if(!b)return;
+    const totals=bundleTotals(b);
+    const cart=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
+    const hasAll=(b.productIds||[]).every(id=>cart.some(x=>String(x.id)===String(id)&&Number(x.qty)>0));
+    if(!hasAll){localStorage.removeItem(ACTIVE_BUNDLE_KEY);return}
+    const box=document.querySelector('.cart-total');
+    if(!box || box.dataset.bundleApplied==='1')return;
+    box.dataset.bundleApplied='1';
+    const note=document.createElement('div');
+    note.style.cssText='grid-column:1/-1;margin-top:8px;padding:10px;background:#f4ede2;font-size:11px;line-height:1.5';
+    note.innerHTML=`<strong>${b.name}</strong><br>Bundle popust: ${b.discountType==='percent'?Number(b.discountValue)+'%':formatMoney(b.discountValue)}${totals.complete?` · Ušteda ${formatMoney(totals.saving)}`:''}<br><span style="color:#746b62">Popust je trenutno prikaz u CMS prototipu; konačan iznos mora biti potvrđen server-side pre aktivacije kartičnog plaćanja.</span>`;
+    box.appendChild(note);
+  }
+
+  function injectBundleOffers(){
+    const modal=document.querySelector('.product-modal .modal-body');
+    if(!modal || modal.querySelector('[data-zs-bundles]'))return;
+    const title=modal.querySelector('h2')?.textContent?.trim();
+    const p=products().find(x=>x.name===title);
+    if(!p)return;
+    const bs=bundlesForProduct(p.id);
+    if(!bs.length)return;
+    const section=document.createElement('div');
+    section.dataset.zsBundles='1';
+    section.style.cssText='margin-top:28px;border-top:1px solid rgba(24,15,12,.14);padding-top:24px';
+    section.innerHTML=`<h3 style="font-family:Georgia,'Times New Roman',serif;font-weight:400;font-size:27px;margin:0 0 16px">Paket ponude</h3>`+
+      bs.map(b=>{
+        const t=bundleTotals(b);
+        return `<div style="border:1px solid rgba(24,15,12,.14);padding:14px;margin:10px 0;background:#fbf8f2">
+          <div style="font-family:Georgia,'Times New Roman',serif;font-size:19px;margin-bottom:5px">${b.name}</div>
+          <div style="font-size:11px;color:#766f68;line-height:1.5">${b.headline||'Odabrani komadi koji se prirodno dopunjuju.'}</div>
+          <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px">
+            <div style="font-size:11px">${t.complete?`<s>${formatMoney(t.regular)}</s> &nbsp; <strong>${formatMoney(t.final)}</strong>`:'Cena paketa nakon unosa svih cena'}</div>
+            <button type="button" onclick="ZSCMS.addBundleToCart('${b.id}')" style="border:0;background:#180609;color:white;padding:10px 13px;font-size:9px;letter-spacing:.1em;font-weight:700">DODAJ PAKET</button>
+          </div>
+        </div>`;
+      }).join('');
+    const recommend=modal.querySelector('.recommend');
+    if(recommend) recommend.insertAdjacentElement('afterend',section); else modal.appendChild(section);
+  }
+
+  function observeStorefront(){
+    if(!document.body)return;
+    const mo=new MutationObserver(()=>{ injectBundleOffers(); applyBundleCartVisual(); });
+    mo.observe(document.body,{subtree:true,childList:true});
+    document.addEventListener('submit',e=>{
+      if(e.target?.id!=='checkoutForm')return;
+      try{
+        const f=new FormData(e.target);
+        const items=JSON.parse(localStorage.getItem(CART_KEY)||'[]');
+        const ps=items.map(x=>({id:Number(x.id),qty:Number(x.qty)||1,p:getProduct(x.id)})).filter(x=>x.p);
+        const total=ps.reduce((s,x)=>s+(Number(x.p.price)||0)*x.qty,0);
+        createOrder({
+          id:'ZS-'+Date.now().toString(36).toUpperCase(),
+          status:'Čeka plaćanje',
+          items:ps.map(x=>({id:x.id,name:x.p.name,qty:x.qty,unitPrice:Number(x.p.price)||0})),
+          customer:{name:f.get('name'),phone:f.get('phone'),email:f.get('email'),address:f.get('address'),city:f.get('city')},
+          total,
+          bundleId:localStorage.getItem(ACTIVE_BUNDLE_KEY)||null
+        });
+      }catch(_){}
+    },true);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',observeStorefront); else observeStorefront();
 
   window.ZSCMS={
-    KEY,DEFAULT_STATE,state,save,products,getProduct,upsertProduct,deleteProduct,
+    KEY,DEFAULT_STATE,state,save,products,getProduct,upsertProduct,deleteProduct,setCatalogOrder,
     blogs,upsertBlog,deleteBlog,reviews,allReviews,addReview,setReviewHidden,deleteReview,
+    bundles,getBundle,upsertBundle,deleteBundle,bundlesForProduct,bundleTotals,addBundleToCart,
+    orders,createOrder,updateOrder,deleteOrder,
     settings,updateSettings,recommendationsFor,currentUser,register,login,logout,hasAdmin,createFirstAdmin,
     exportState,importState,reset
   };
